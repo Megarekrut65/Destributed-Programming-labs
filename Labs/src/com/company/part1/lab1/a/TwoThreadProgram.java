@@ -1,8 +1,6 @@
 package com.company.part1.lab1.a;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 class SliderEditor {
     JSlider slider;
@@ -43,28 +41,50 @@ class MyRunnable implements Runnable {
 }
 
 public class TwoThreadProgram {
-    static Thread threadRight;
-    static Thread threadLeft;
-
-    static Thread createThread(int value, JSlider slider) {
-        return new Thread(new MyRunnable(new SliderEditor(slider), value));
-    }
-
     public static void main(String[] args) {
         JFrame win = getFrame();
-        JPanel panel = new JPanel();
         JSlider slider = getSlider();
-        threadRight = createThread(1, slider);
-        threadLeft = createThread(-1, slider);
-        threadRight.setPriority(Thread.MAX_PRIORITY);
-        threadLeft.setPriority(Thread.MIN_PRIORITY);
-        panel.add(slider);
+        Thread threadRight = createThread(1, slider);
+        Thread threadLeft = createThread(-1, slider);
+        JPanel panel = getPanel(slider, threadRight, threadLeft);
         win.setContentPane(panel);
         win.setVisible(true);
         threadRight.start();
         threadLeft.start();
     }
 
+    private static JPanel getPanel(JSlider slider, Thread threadRight, Thread threadLeft) {
+        JPanel panel = new JPanel();
+        JTextArea textPriorityLeft = new JTextArea(String.valueOf(threadLeft.getPriority()));
+        JTextArea textPriorityRight= new JTextArea(String.valueOf(threadRight.getPriority()));
+        panel.add(createButton(threadLeft,textPriorityLeft,1,"+"));
+        panel.add(textPriorityLeft);
+        panel.add(createButton(threadLeft,textPriorityLeft,-1,"-"));
+        panel.add(slider);
+        panel.add(createButton(threadRight, textPriorityRight, 1,"+"));
+        panel.add(textPriorityRight);
+        panel.add(createButton(threadRight, textPriorityRight, -1,"-"));
+        return panel;
+    }
+
+    static Thread createThread(int value, JSlider slider) {
+        Thread thread = new Thread(new MyRunnable(new SliderEditor(slider), value));
+        thread.setPriority(Thread.NORM_PRIORITY);
+        return thread;
+    }
+    static JButton createButton(Thread thread, JTextArea textPriorityLeft, int value, String title)
+    {
+        JButton button = new JButton(title);
+        button.addActionListener(e->{
+            int priority = thread.getPriority() + value;
+            if(priority>= Thread.MIN_PRIORITY && priority <= Thread.MAX_PRIORITY)
+            {
+                thread.setPriority(priority);
+                textPriorityLeft.setText(String.valueOf(priority));
+            }
+        });
+        return button;
+    }
     private static JSlider getSlider() {
         JSlider slider = new JSlider(10,90,50);
         return slider;
