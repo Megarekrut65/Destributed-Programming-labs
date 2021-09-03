@@ -15,28 +15,28 @@ class SliderEditor {
 }
 public class TwoThreadProgram {
     public static void main(String[] args) {
-        JFrame win = getFrame();
-        JSlider slider = getSlider();
+        JFrame win = createFrame();
+        JSlider slider = createSlider();
         Thread threadRight = createThread(1, slider);
         Thread threadLeft = createThread(-1, slider);
-        JPanel panel = getPanel(slider, threadRight, threadLeft);
+        JPanel panel = createPanel(slider, threadRight, threadLeft);
         win.setContentPane(panel);
         win.setVisible(true);
         threadRight.start();
         threadLeft.start();
     }
 
-    private static JPanel getPanel(JSlider slider, Thread threadRight, Thread threadLeft) {
+    private static JPanel createPanel(JSlider slider, Thread threadRight, Thread threadLeft) {
         JPanel panel = new JPanel();
         JTextArea textPriorityLeft = new JTextArea(String.valueOf(threadLeft.getPriority()));
         JTextArea textPriorityRight= new JTextArea(String.valueOf(threadRight.getPriority()));
-        panel.add(createButton(threadLeft,textPriorityLeft,1,"+"));
+        panel.add(createChangeButton(threadLeft,textPriorityLeft,1,"+"));
         panel.add(textPriorityLeft);
-        panel.add(createButton(threadLeft,textPriorityLeft,-1,"-"));
+        panel.add(createChangeButton(threadLeft,textPriorityLeft,-1,"-"));
         panel.add(slider);
-        panel.add(createButton(threadRight, textPriorityRight, 1,"+"));
+        panel.add(createChangeButton(threadRight, textPriorityRight, 1,"+"));
         panel.add(textPriorityRight);
-        panel.add(createButton(threadRight, textPriorityRight, -1,"-"));
+        panel.add(createChangeButton(threadRight, textPriorityRight, -1,"-"));
         return panel;
     }
 
@@ -45,7 +45,7 @@ public class TwoThreadProgram {
         thread.setPriority(Thread.NORM_PRIORITY);
         return thread;
     }
-    static JButton createButton(Thread thread, JTextArea textPriorityLeft, int value, String title)
+    static JButton createChangeButton(Thread thread, JTextArea textPriorityLeft, int value, String title)
     {
         JButton button = new JButton(title);
         button.addActionListener(e->{
@@ -58,12 +58,12 @@ public class TwoThreadProgram {
         });
         return button;
     }
-    private static JSlider getSlider() {
+    private static JSlider createSlider() {
         JSlider slider = new JSlider(10,90,50);
         return slider;
     }
 
-    private static JFrame getFrame() {
+    private static JFrame createFrame() {
         JFrame win = new JFrame("TwoThreadProgram");
         win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         win.setSize(450, 300);
