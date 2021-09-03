@@ -11,35 +11,8 @@ class SliderEditor {
 
     public synchronized void changeValue(int value) {
         slider.setValue(slider.getValue() + value);
-        /*int newValue = slider.getValue() + value;
-        if (newValue >= 10 && newValue <= 90) {
-            slider.setValue(newValue);
-        }*/
     }
 }
-
-class MyRunnable implements Runnable {
-    SliderEditor editor;
-    int value;
-
-    public MyRunnable(SliderEditor editor, int value) {
-        this.editor = editor;
-        this.value = value;
-    }
-
-    @Override
-    public void run() {
-        while (!Thread.interrupted()) {
-            editor.changeValue(value);
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-}
-
 public class TwoThreadProgram {
     public static void main(String[] args) {
         JFrame win = getFrame();
@@ -93,7 +66,7 @@ public class TwoThreadProgram {
     private static JFrame getFrame() {
         JFrame win = new JFrame("TwoThreadProgram");
         win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        win.setSize(400, 300);
+        win.setSize(450, 300);
         win.setResizable(false);
         win.setLocationRelativeTo(null);
         return win;
