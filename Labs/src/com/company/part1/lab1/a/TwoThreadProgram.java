@@ -14,12 +14,14 @@ class SliderEditor {
     }
 }
 public class TwoThreadProgram {
+    private static Thread threadRight;
+    private static Thread threadLeft;
     public static void main(String[] args) {
         JFrame win = getFrame();
         JSlider slider = getSlider();
-        Thread threadRight = getThread(1, slider);
-        Thread threadLeft = getThread(-1, slider);
-        JPanel panel = getPanel(slider, threadRight, threadLeft);
+        threadRight = getThread(1, slider);
+        threadLeft = getThread(-1, slider);
+        JPanel panel = getPanel(slider);
         win.setContentPane(panel);
         win.setVisible(true);
     }
@@ -36,18 +38,18 @@ public class TwoThreadProgram {
         panel.add(textPriority);
         panel.add(getChangeButton(thread,textPriority,-1,"-"));
     }
-    private static JPanel getPanel(JSlider slider, Thread threadRight, Thread threadLeft) {
+    private static JPanel getPanel(JSlider slider) {
         JPanel panel = new JPanel();
-        createFramePart(threadLeft,panel);//Creates btns and label for left Thread
+        createFramePart(threadLeft,panel);//Create buttons and label for left Thread
         panel.add(slider);
-        createFramePart(threadRight,panel);//Creates btns and label for right Thread
-        panel.add(getStartButton(threadRight,threadLeft));
+        createFramePart(threadRight,panel);//Create buttons and label for right Thread
+        panel.add(getStartButton());
         return panel;
     }
     /**
      *  Creates btn for starting program
      */
-    private static JButton getStartButton(Thread threadRight, Thread threadLeft)
+    private static JButton getStartButton()
     {
         JButton startBtn = new JButton("Start");
         var ref = new Object() {
