@@ -15,37 +15,64 @@ class SliderEditor {
 }
 public class TwoThreadProgram {
     public static void main(String[] args) {
-        JFrame win = createFrame();
-        JSlider slider = createSlider();
-        Thread threadRight = createThread(1, slider);
-        Thread threadLeft = createThread(-1, slider);
-        JPanel panel = createPanel(slider, threadRight, threadLeft);
+        JFrame win = getFrame();
+        JSlider slider = getSlider();
+        Thread threadRight = getThread(1, slider);
+        Thread threadLeft = getThread(-1, slider);
+        JPanel panel = getPanel(slider, threadRight, threadLeft);
         win.setContentPane(panel);
         win.setVisible(true);
-        threadRight.start();
-        threadLeft.start();
     }
-
-    private static JPanel createPanel(JSlider slider, Thread threadRight, Thread threadLeft) {
+    private static JLabel getPriorityLabel(String text)
+    {
+        JLabel textPriority = new JLabel(text);
+        textPriority.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        return textPriority;
+    }
+    private static void createFramePart(Thread thread, JPanel panel)
+    {
+        JLabel textPriority = getPriorityLabel(String.valueOf(thread.getPriority()));
+        panel.add(getChangeButton(thread,textPriority,1,"+"));
+        panel.add(textPriority);
+        panel.add(getChangeButton(thread,textPriority,-1,"-"));
+    }
+    private static JPanel getPanel(JSlider slider, Thread threadRight, Thread threadLeft) {
         JPanel panel = new JPanel();
-        JTextArea textPriorityLeft = new JTextArea(String.valueOf(threadLeft.getPriority()));
-        JTextArea textPriorityRight= new JTextArea(String.valueOf(threadRight.getPriority()));
-        panel.add(createChangeButton(threadLeft,textPriorityLeft,1,"+"));
-        panel.add(textPriorityLeft);
-        panel.add(createChangeButton(threadLeft,textPriorityLeft,-1,"-"));
+        createFramePart(threadLeft,panel);//Creates btns and label for left Thread
         panel.add(slider);
-        panel.add(createChangeButton(threadRight, textPriorityRight, 1,"+"));
-        panel.add(textPriorityRight);
-        panel.add(createChangeButton(threadRight, textPriorityRight, -1,"-"));
+        createFramePart(threadRight,panel);//Creates btns and label for right Thread
+        panel.add(getStartButton(threadRight,threadLeft));
         return panel;
     }
-
-    static Thread createThread(int value, JSlider slider) {
+    /**
+     *  Creates btn for starting program
+     */
+    private static JButton getStartButton(Thread threadRight, Thread threadLeft)
+    {
+        JButton startBtn = new JButton("Start");
+        var ref = new Object() {
+            boolean isStart = false;
+        };
+        startBtn.addActionListener(e->{
+            if(!ref.isStart)
+            {
+                threadRight.start();
+                threadLeft.start();
+                ref.isStart = true;
+            }
+        });
+        return startBtn;
+    }
+    private static Thread getThread(int value, JSlider slider) {
         Thread thread = new Thread(new MyRunnable(new SliderEditor(slider), value));
         thread.setPriority(Thread.NORM_PRIORITY);
         return thread;
     }
-    static JButton createChangeButton(Thread thread, JTextArea textPriorityLeft, int value, String title)
+
+    /**
+     *  Creates btn for editing thread priority
+     */
+    private static JButton getChangeButton(Thread thread, JLabel textPriorityLeft, int value, String title)
     {
         JButton button = new JButton(title);
         button.addActionListener(e->{
@@ -58,15 +85,16 @@ public class TwoThreadProgram {
         });
         return button;
     }
-    private static JSlider createSlider() {
+    private static JSlider getSlider() {
         JSlider slider = new JSlider(10,90,50);
+        slider.setEnabled(false);
         return slider;
     }
 
-    private static JFrame createFrame() {
+    private static JFrame getFrame() {
         JFrame win = new JFrame("TwoThreadProgram");
         win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        win.setSize(450, 300);
+        win.setSize(450, 120);
         win.setResizable(false);
         win.setLocationRelativeTo(null);
         return win;
