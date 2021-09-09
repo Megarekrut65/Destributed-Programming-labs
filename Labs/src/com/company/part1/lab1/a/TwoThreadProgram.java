@@ -68,6 +68,7 @@ public class TwoThreadProgram {
     private static Thread getThread(int value, JSlider slider) {
         Thread thread = new Thread(new MyRunnable(new SliderEditor(slider), value));
         thread.setPriority(Thread.NORM_PRIORITY);
+        thread.setDaemon(true);
         return thread;
     }
 

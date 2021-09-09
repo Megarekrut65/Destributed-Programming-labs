@@ -3,7 +3,6 @@ package com.company.part1.lab1.b;
 import com.company.part1.lab1.Side;
 
 import javax.swing.*;
-import java.util.Objects;
 import java.util.concurrent.Semaphore;
 
 class SliderEditor {
@@ -141,6 +140,7 @@ public class TwoThreadProgram {
     private static MyThread getThread(int value) {
         MyThread thread = new MyThread(new SliderEditor(slider), value, semaphore);
         thread.setPriority(Thread.NORM_PRIORITY);
+        thread.setDaemon(true);
         return thread;
     }
 
