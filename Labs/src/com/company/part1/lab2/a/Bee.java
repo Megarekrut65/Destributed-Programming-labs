@@ -13,14 +13,25 @@ public class Bee implements Runnable{
     @Override
     public void run() {
         ForestLine line = forest.getNextLine();
-        for(int i = 0; i < line.getSize(); i++)
+        while (!Thread.interrupted()&&line.getSize() > 0)
         {
-            line.check(i);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            for(int i = 0; i < line.getSize(); i++)
+            {
+                if(line.check(i)) {
+                    try {
+                        forest.punishWinnie();
+                        return;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+            line = forest.getNextLine();
         }
     }
 }

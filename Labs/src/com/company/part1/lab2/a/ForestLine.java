@@ -20,9 +20,10 @@ public class ForestLine {
         if(index >= line.size())
             throw new ArrayIndexOutOfBoundsException("The index "+index + " is biggest than size " + line.size());
         var label = line.get(index);
+        boolean isFound = Objects.equals(label.getText(), Forest.getWinnieSign());
         label.setText(Forest.getBeeSign());
-        label.setForeground(new Color(26, 148, 0));
-        return Objects.equals(line.get(index).getText(), Forest.getWinnieSign());
+        label.setForeground(new Color(255, 213, 3));
+        return isFound;
     }
     private JLabel getLabel()
     {
@@ -37,7 +38,7 @@ public class ForestLine {
             throw new ArrayIndexOutOfBoundsException("The index "+index + " is biggest than size " + line.size());
         JLabel label = line.get(index);
         label.setText(Forest.getWinnieSign());
-        label.setForeground(new Color(255, 0, 0));
+        label.setForeground(new Color(107, 42, 0));
     }
     public int getSize()
     {

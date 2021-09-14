@@ -28,6 +28,8 @@ public class Forest {
     private static final String winnie = "☺";
     private static final String empty = "○";
     private static final String bee = "♦";
+    private int winnieI;
+    private int winnieJ;
     public static String getWinnieSign()
     {
         return winnie;
@@ -41,7 +43,7 @@ public class Forest {
         return bee;
     }
     private final SharedValue nextIndex = new SharedValue(0);
-
+    private final ArrayList<Integer> indexes;
     public Forest(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
@@ -51,12 +53,33 @@ public class Forest {
             container.add(new ForestLine(columns));
         }
         putWinnie();
+        indexes = new ArrayList<>();
+        createIndexes();
+        nextIndex.setValue(getRandomIndex());
     }
-
+    private void createIndexes()
+    {
+        for(int i = 0; i < rows; i++)
+        {
+            indexes.add(i);
+        }
+    }
     private void putWinnie()
     {
-        int i = (int) (Math.random()*(rows)), j = (int) (Math.random()*(columns));
-        container.get(i).putWinnie(j);
+        winnieI = (int) (Math.random()*(rows));
+        winnieJ = (int) (Math.random()*(columns));
+        container.get(winnieI).putWinnie(winnieJ);
+    }
+    private int getRandomIndex()
+    {
+        int newIndex = rows;
+        if(indexes.size() > 0)
+        {
+            int rand = (int) (Math.random()*indexes.size());
+            newIndex = indexes.get(rand);
+            indexes.remove(rand);
+        }
+        return newIndex;
     }
     public ForestLine getNextLine()
     {
@@ -65,7 +88,7 @@ public class Forest {
             int index = nextIndex.getValue();
             if(index < rows)
             {
-                nextIndex.setValue(index + 1);
+                nextIndex.setValue(getRandomIndex());
                 return container.get(index);
             }
             return new ForestLine(0);
@@ -73,5 +96,22 @@ public class Forest {
     }
     public ArrayList<ForestLine> getContainer() {
         return container;
+    }
+    public void punishWinnie() throws InterruptedException {
+        synchronized(nextIndex)
+        {
+            nextIndex.setValue(rows);
+        }
+        var label = container.get(winnieI).getLine().get(winnieJ);
+        label.setText(winnie);
+        label.setForeground(new Color(255, 0, 0));
+        Thread.sleep(50);
+        label.setText("x");
+        Thread.sleep(100);
+        label.setText("X");
+        Thread.sleep(100);
+        label.setText("x");
+        Thread.sleep(50);
+        label.setText(empty);
     }
 }
