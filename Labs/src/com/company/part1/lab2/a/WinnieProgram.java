@@ -22,6 +22,8 @@ public class WinnieProgram {
         win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         win.setLocationRelativeTo(null);
         win.setContentPane(panel);
+        Hive hive = new Hive(2,forest);
         win.setVisible(true);
+        hive.start();
     }
 }

@@ -39,7 +39,10 @@ public class ForestLine {
         label.setText(Forest.getWinnieSign());
         label.setForeground(new Color(255, 0, 0));
     }
-
+    public int getSize()
+    {
+        return line.size();
+    }
     public ArrayList<JLabel> getLine() {
         return line;
     }

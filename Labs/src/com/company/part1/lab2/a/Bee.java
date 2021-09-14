@@ -4,19 +4,22 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class Bee implements Runnable{
-    private ArrayList<JLabel> currentLine;
+    private Forest forest;
 
-    public void setCurrentLine(ArrayList<JLabel> currentLine) {
-        this.currentLine = currentLine;
+    public Bee(Forest forest) {
+        this.forest = forest;
     }
 
     @Override
     public void run() {
-        while (!Thread.interrupted())
+        ForestLine line = forest.getNextLine();
+        for(int i = 0; i < line.getSize(); i++)
         {
-            for(var hole:currentLine)
-            {
-
+            line.check(i);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
