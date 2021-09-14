@@ -4,22 +4,31 @@ import java.util.ArrayList;
 
 public class Hive {
     private final int beeNumber;
-    private final ArrayList<Bee> bee;
-    public Hive(int beeNumber,Forest forest) {
+    private final ArrayList<Bee> bees;
+    private final ArrayList<Thread> threads = new ArrayList<>();
+    public Hive(int beeNumber,Forest forest, long duration) {
         this.beeNumber = beeNumber;
-        bee = new ArrayList<>();
+        bees = new ArrayList<>();
         for(int i = 0; i < beeNumber; i++)
         {
-            bee.add(new Bee(forest));
+            bees.add(new Bee(forest, duration));
         }
     }
     public void start()
     {
         for(int i = 0; i < beeNumber; i++)
         {
-            Thread thread = new Thread(bee.get(i));
+            Thread thread = new Thread(bees.get(i));
+            threads.add(thread);
             thread.setDaemon(true);
             thread.start();
+        }
+    }
+    public void stop()
+    {
+        for(var th:threads)
+        {
+            if(th.isAlive()) th.interrupt();
         }
     }
 }

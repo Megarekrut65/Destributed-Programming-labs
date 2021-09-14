@@ -15,21 +15,23 @@ public class ForestLine {
             line.add(getLabel());
         }
     }
-    boolean check(int index)
-    {
+    boolean check(int index) throws InterruptedException {
         if(index >= line.size())
             throw new ArrayIndexOutOfBoundsException("The index "+index + " is biggest than size " + line.size());
         var label = line.get(index);
         boolean isFound = Objects.equals(label.getText(), Forest.getWinnieSign());
         label.setText(Forest.getBeeSign());
-        label.setForeground(new Color(255, 213, 3));
+        label.setForeground(new Color(255, 152, 0));
+        Thread.sleep(150);
+        label.setText(Forest.getBeeTrackSign());
+        label.setForeground(new Color(218, 186, 11));
         return isFound;
     }
     private JLabel getLabel()
     {
         JLabel label = new JLabel(Forest.getEmptySign());
         label.setHorizontalAlignment(JLabel.CENTER);
-        label.setFont (label.getFont ().deriveFont (24.0f));
+        label.setFont (label.getFont ().deriveFont (16.0f));
         return label;
     }
     public void putWinnie(int index)

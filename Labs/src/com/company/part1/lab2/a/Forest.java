@@ -22,12 +22,14 @@ class SharedValue
     }
 }
 public class Forest {
+    private final JLabel infoLabel;
     private final ArrayList<ForestLine> container;
     private final int rows;
     private final int columns;
     private static final String winnie = "☺";
     private static final String empty = "○";
-    private static final String bee = "♦";
+    private static final String bee = "♥";
+    private static final String beeTrack = "♦";
     private int winnieI;
     private int winnieJ;
     public static String getWinnieSign()
@@ -42,9 +44,14 @@ public class Forest {
     {
         return bee;
     }
+    public static String getBeeTrackSign()
+    {
+        return beeTrack;
+    }
     private final SharedValue nextIndex = new SharedValue(0);
     private final ArrayList<Integer> indexes;
-    public Forest(int rows, int columns) {
+    public Forest(int rows, int columns,JLabel infoLabel) {
+        this.infoLabel = infoLabel;
         this.rows = rows;
         this.columns = columns;
         container = new ArrayList<>();
@@ -52,13 +59,27 @@ public class Forest {
         {
             container.add(new ForestLine(columns));
         }
-        putWinnie();
         indexes = new ArrayList<>();
+        refresh();
+    }
+    public void refresh()
+    {
+        for(var row:container)
+        {
+            var line = row.getLine();
+            for(var label:line)
+            {
+                label.setText(empty);
+                label.setForeground(Color.BLACK);
+            }
+        }
+        putWinnie();
         createIndexes();
         nextIndex.setValue(getRandomIndex());
     }
     private void createIndexes()
     {
+        indexes.clear();
         for(int i = 0; i < rows; i++)
         {
             indexes.add(i);
@@ -91,7 +112,7 @@ public class Forest {
                 nextIndex.setValue(getRandomIndex());
                 return container.get(index);
             }
-            return new ForestLine(0);
+            return null;
         }
     }
     public ArrayList<ForestLine> getContainer() {
@@ -105,6 +126,7 @@ public class Forest {
         var label = container.get(winnieI).getLine().get(winnieJ);
         label.setText(winnie);
         label.setForeground(new Color(255, 0, 0));
+        infoLabel.setText("Winnie is found!");
         Thread.sleep(50);
         label.setText("x");
         Thread.sleep(100);
