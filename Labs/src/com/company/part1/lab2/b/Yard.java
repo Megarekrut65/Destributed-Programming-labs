@@ -8,15 +8,17 @@ public class Yard {
     public Yard() {
         this.boxes = new ArrayList<>();
     }
-    public synchronized Box removeBox()
+    public Box removeBox()
     {
-        System.out.println("Box "+boxes.get(0)+" take from yard");
         if(boxes.size()>0) return boxes.remove(0);
         return null;
     }
-    public synchronized void addBox(Box box)
+    public void addBox(Box box)
     {
         boxes.add(box);
-        System.out.println("Box "+box+" put to yard");
+    }
+    public boolean empty()
+    {
+        return boxes.size() == 0;
     }
 }

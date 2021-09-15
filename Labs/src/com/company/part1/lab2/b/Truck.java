@@ -13,7 +13,7 @@ public class Truck {
         if(boxes.size()>index) return boxes.get(index);
         return null;
     }
-    public synchronized void addBox(Box box)
+    public void addBox(Box box)
     {
         boxes.add(box);
     }
