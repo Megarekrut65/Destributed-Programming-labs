@@ -8,6 +8,10 @@ public class Truck {
     public Truck() {
         this.boxes = new ArrayList<>();
     }
+    public synchronized boolean isNotCount(int index)
+    {
+        return boxes.size() > index;
+    }
     public Box getBox(int index)
     {
         if(boxes.size()>index) return boxes.get(index);

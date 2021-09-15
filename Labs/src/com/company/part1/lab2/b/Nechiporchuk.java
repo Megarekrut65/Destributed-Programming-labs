@@ -24,6 +24,7 @@ public class Nechiporchuk implements Runnable{
         while (!Thread.interrupted())
         {
             try {
+                while (!truck.isNotCount(index)&&!yard.isFinished()&&!storage.isFinished()){}
                 semaphoreTruck.acquire();
                 Box box = truck.getBox(index);
                 semaphoreTruck.release();
@@ -33,13 +34,12 @@ public class Nechiporchuk implements Runnable{
                     System.out.println("Nechiporchuk counted next box price. Sum is "+
                             price+"+"+box.getPrice()+"="+(price+box.getPrice()));
                     price+= box.getPrice();
-                }
-                if(storage.empty()&& yard.empty()) break;
+                }else if(storage.isFinished()&& yard.isFinished()) break;
                 Thread.sleep(duration);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        System.out.println("Nechiporchuk has done his job. Sum price is "+price+".");
+        System.out.println("#Nechiporchuk has done his job. Sum price is "+price+".");
     }
 }

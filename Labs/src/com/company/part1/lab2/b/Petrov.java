@@ -24,7 +24,7 @@ public class Petrov implements Runnable{
         while (!Thread.interrupted())
         {
             try {
-                while (yard.empty()&&!storage.empty()){}
+                while (yard.empty()&&!storage.isFinished()){}
                 semaphoreYard.acquire();
                 Box box = yard.removeBox();
                 semaphoreYard.release();
@@ -33,14 +33,14 @@ public class Petrov implements Runnable{
                     semaphoreTruck.acquire();
                     truck.addBox(box);//Petrov gets box from yard and puts it to truck
                     semaphoreTruck.release();
-                    System.out.println("Petrov moved the box to truck from yard");
-                }else if(storage.empty()) break;
+                    System.out.println("Petrov moved the box from yard to truck.");
+                }else if(storage.isFinished()) break;
                 Thread.sleep(duration);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        yard.makeEmpty();
-        System.out.println("Petrov has done his job. All boxes are in truck.");
+        yard.finish();
+        System.out.println("#Petrov has done his job. All boxes are in truck.");
     }
 }

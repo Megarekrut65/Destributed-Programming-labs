@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Storage {
     private final ArrayList<Box> boxes;
-    private boolean _empty = false;
+    private boolean finished = false;
     public Storage(int size) {
         boxes = new ArrayList<>();
         int price = 0;
@@ -21,13 +21,13 @@ public class Storage {
         if(boxes.isEmpty()) return null;
         return boxes.remove(0);
     }
-    public synchronized void makeEmpty()
+    public synchronized void finish()
     {
-        _empty = true;
+        finished = true;
     }
-    public synchronized boolean empty()
+    public synchronized boolean isFinished()
     {
-        return _empty;
+        return finished;
     }
     private Box createNewBox()
     {

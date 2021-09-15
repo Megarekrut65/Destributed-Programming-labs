@@ -24,14 +24,14 @@ public class Ivanov implements Runnable{
                 semaphoreYard.acquire();
                 yard.addBox(box);//Ivanov gets box from storage and puts it to yard
                 semaphoreYard.release();
-                System.out.println("Ivanov moved the box to yard from storage");
+                System.out.println("Ivanov moved the box from storage to yard.");
                 Thread.sleep(duration);
             }
             catch(InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        storage.makeEmpty();
-        System.out.println("Ivanov has done his job. Storage is empty.");
+        storage.finish();
+        System.out.println("#Ivanov has done his job. Storage is empty.");
     }
 }

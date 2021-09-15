@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Yard {
     private final ArrayList<Box> boxes;
-    private boolean _empty = false;
+    private boolean finished = false;
     public Yard() {
         this.boxes = new ArrayList<>();
     }
@@ -17,12 +17,16 @@ public class Yard {
     {
         boxes.add(box);
     }
-    public synchronized void makeEmpty()
+    public synchronized void finish()
     {
-        _empty = true;
+        finished = true;
+    }
+    public synchronized boolean isFinished()
+    {
+        return finished;
     }
     public synchronized boolean empty()
     {
-        return _empty;
+        return boxes.isEmpty();
     }
 }
