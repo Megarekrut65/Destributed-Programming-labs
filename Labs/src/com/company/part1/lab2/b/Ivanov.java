@@ -4,11 +4,13 @@ import java.util.concurrent.Semaphore;
 
 public class Ivanov implements Runnable{
     private final Yard yard;
-    private final Semaphore semaphore;
+    private final Semaphore semaphoreYard;
+    private final Storage storage;
     private final long duration;
-    public Ivanov(Yard yard, Semaphore semaphore,long duration) {
+    public Ivanov(Storage storage, Yard yard, Semaphore semaphoreYard,long duration) {
         this.yard = yard;
-        this.semaphore = semaphore;
+        this.storage = storage;
+        this.semaphoreYard = semaphoreYard;
         this.duration = duration;
     }
 
@@ -17,9 +19,11 @@ public class Ivanov implements Runnable{
         while (!Thread.interrupted())
         {
             try {
-                semaphore.acquire();
-                yard.addBox(Storage.getBox());//Ivanov gets box from storage and puts it to yard
-                semaphore.release();
+                Box box = storage.getNextBox();
+                if(box == null) break;
+                semaphoreYard.acquire();
+                yard.addBox(box);//Ivanov gets box from storage and puts it to yard
+                semaphoreYard.release();
                 System.out.println("Ivanov moved the box to yard from storage");
                 Thread.sleep(duration);
             }
@@ -27,5 +31,7 @@ public class Ivanov implements Runnable{
                 e.printStackTrace();
             }
         }
+        storage.makeEmpty();
+        System.out.println("Ivanov has done his job. Storage is empty.");
     }
 }

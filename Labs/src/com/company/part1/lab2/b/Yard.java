@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Yard {
     private final ArrayList<Box> boxes;
-
+    private boolean _empty = false;
     public Yard() {
         this.boxes = new ArrayList<>();
     }
@@ -17,8 +17,12 @@ public class Yard {
     {
         boxes.add(box);
     }
-    public boolean empty()
+    public synchronized void makeEmpty()
     {
-        return boxes.size() == 0;
+        _empty = true;
+    }
+    public synchronized boolean empty()
+    {
+        return _empty;
     }
 }
