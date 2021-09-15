@@ -6,8 +6,8 @@ import java.awt.*;
 public class WinnieProgram {
     private static Forest forest;
     private static Hive hive;
-    private static final int rows = 200;
-    private static final int columns = 400;
+    private static final int rows = 30;
+    private static final int columns = 30;
     private static JLabel infoLabel;
     private static int beeNumber = 4;
     private static long duration = 10;
