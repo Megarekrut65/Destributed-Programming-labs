@@ -2,33 +2,47 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"sync"
+	"time"
 )
 
 type Monk struct {
-	power int
+	index int
+	power uint
 }
 func findStronger(monks []Monk) Monk {
-	len:= len(monks)
-	if len == 1 {return monks[0]}
+	size := len(monks)
+	if size == 0 {return Monk{}}
+	if size == 1 {return monks[0]}
 	var wg sync.WaitGroup
 	wg.Add(2)
 	var monk1, monk2 Monk
 	go func() {
 		defer wg.Done()
-		monk1 = findStronger(monks[len/2:])
+		monk1 = findStronger(monks[size/2:])
 	}()
 	go func() {
 		defer wg.Done()
-		monk2 = findStronger(monks[:len/2])
+		monk2 = findStronger(monks[:size/2])
 	}()
 	wg.Wait()
 	if monk1.power > monk2.power{
 		return monk1
 	} else {return monk2}
 }
+func monksGenerator(size, max int) []Monk{
+	var monks []Monk
+	for i := 0; i < size; i++{
+		monks = append(monks, Monk{i + 1,uint(rand.Intn(max))})
+	}
+	return monks
+}
 func main() {
-	fmt.Println("Hello world!")
-	monks := []Monk{{1},{2},{6},{44},{2},{3},{23}}
-	fmt.Println(findStronger(monks))
+	rand.Seed(int64(time.Now().Second()))
+	monks := monksGenerator(1000000,10000000)
+	fmt.Println("All monks: ", monks)
+	powerfulMonk := findStronger(monks)
+	fmt.Printf("The %d-th monk is the strongest. Its Qi power is %d\n",
+		powerfulMonk.index, powerfulMonk.power)
 }
