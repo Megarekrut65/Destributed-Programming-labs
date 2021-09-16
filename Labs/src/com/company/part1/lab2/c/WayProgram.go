@@ -20,11 +20,11 @@ func findStronger(monks []Monk) Monk {
 	var monk1, monk2 Monk
 	go func() {
 		defer wg.Done()
-		monk1 = findStronger(monks[size/2:])
+		monk1 = findStronger(monks[:size/2])
 	}()
 	go func() {
 		defer wg.Done()
-		monk2 = findStronger(monks[:size/2])
+		monk2 = findStronger(monks[size/2:])
 	}()
 	wg.Wait()
 	if monk1.power > monk2.power{
@@ -40,7 +40,7 @@ func monksGenerator(size, max int) []Monk{
 }
 func main() {
 	rand.Seed(int64(time.Now().Second()))
-	monks := monksGenerator(1000000,10000000)
+	monks := monksGenerator(20,10000)
 	fmt.Println("All monks: ", monks)
 	powerfulMonk := findStronger(monks)
 	fmt.Printf("The %d-th monk is the strongest. Its Qi power is %d\n",
