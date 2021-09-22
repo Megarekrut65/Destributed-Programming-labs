@@ -3,8 +3,8 @@ package com.company.part1.lab3.a;
 import java.util.concurrent.Semaphore;
 
 public class WinnieProgram {
-    private static int beesNumber = 5;
-    private static int honeySize = 500;
+    private static int beesNumber = 3;
+    private static int honeySize = 50;
     private static Semaphore semaphore;
     private static HoneyPot honeyPot;
     private static Winnie winnie;
