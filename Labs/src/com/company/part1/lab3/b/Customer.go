@@ -1,21 +1,25 @@
 package main
 
+import "sync"
+
 type Customer struct {
-	hair *Hairdresser
+	ch chan Customer
 	hairLength int
-	done bool
 	name string
+	wg *sync.WaitGroup
+	done chan bool
 }
 
-func (customer *Customer)Cut() {
+func (customer *Customer) Cut() {
 	customer.hairLength--
 }
 func (customer Customer) Done() {
-	customer.done = true
+	customer.done <- true
 }
 func (customer *Customer) Run() {
-	customer.hair.Add(*customer)
-	for customer.done == false{
-	}
+	println("Customer goes to queue")
+	customer.ch <- *customer
+	<- customer.done
 	println("The customer " + customer.name + " go home!")
+	customer.wg.Done()
 }
