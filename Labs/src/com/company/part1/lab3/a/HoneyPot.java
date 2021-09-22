@@ -11,14 +11,15 @@ public class HoneyPot {
     {
         System.out.println("The pot is " + (current*100)/max + "% full");
     }
-    public boolean addHoney()
+    public synchronized boolean addHoney(int beeId)
     {
+        System.out.println("Bee-" + beeId + " puts honey to pot!");
         current++;
         print();
         return current >= max;
     }
-    public void eatHoney()
-    {
+    public synchronized void eatHoney() throws InterruptedException {
+        System.out.println("Winnie eats all honey!");
         current = 0;
         print();
     }

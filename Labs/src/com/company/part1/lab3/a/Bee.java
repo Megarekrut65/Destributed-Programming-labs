@@ -5,14 +5,12 @@ import java.util.concurrent.Semaphore;
 public class Bee implements Runnable{
     private Winnie winnie;
     private HoneyPot honeyPot;
-    private Semaphore semaphore;
     private Thread thread;
     private static int currentId = 0;
     private int id;
-    public Bee(Winnie winnie, HoneyPot honeyPot, Semaphore semaphore) {
+    public Bee(Winnie winnie, HoneyPot honeyPot) {
         this.winnie = winnie;
         this.honeyPot = honeyPot;
-        this.semaphore = semaphore;
         thread = new Thread(this);
         thread.start();
         currentId++;
@@ -24,15 +22,11 @@ public class Bee implements Runnable{
         while (!Thread.interrupted())
         {
             try {
-                Thread.sleep(1000);
-                semaphore.acquire();
-                System.out.println("Bee " + id + " puts honey to pot!");
-                if(honeyPot.addHoney())
+                Thread.sleep(id* 1000L);
+                if(honeyPot.addHoney(id))
                 {
-                    System.out.println("Bee " + id + " wakes up Winnie!");
-                    winnie.wakeUp();
+                    winnie.wakeUp(id);
                 }
-                semaphore.release();
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 break;

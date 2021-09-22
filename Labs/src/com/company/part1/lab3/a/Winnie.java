@@ -4,19 +4,18 @@ import java.util.concurrent.Semaphore;
 
 public class Winnie implements Runnable{
     private final HoneyPot honeyPot;
-    private Semaphore semaphore;
     private Thread thread;
 
-    public Winnie(HoneyPot honeyPot, Semaphore semaphore) {
+    public Winnie(HoneyPot honeyPot) {
         this.honeyPot = honeyPot;
-        this.semaphore = semaphore;
         thread = new Thread(this);
         thread.start();
     }
 
-    public void wakeUp()
+    public void wakeUp(int beeID)
     {
         synchronized (honeyPot){
+            System.out.println("Bee-" + beeID + " wakes up Winnie!");
             honeyPot.notify();
         }
     }
@@ -29,10 +28,7 @@ public class Winnie implements Runnable{
                 synchronized (honeyPot){
                     honeyPot.wait();
                 }
-                semaphore.acquire();
-                System.out.println("Winnie eats all honey!");
                 honeyPot.eatHoney();
-                semaphore.release();
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 break;
