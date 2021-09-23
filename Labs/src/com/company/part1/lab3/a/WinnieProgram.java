@@ -1,6 +1,5 @@
 package com.company.part1.lab3.a;
 
-import java.util.concurrent.Semaphore;
 
 public class WinnieProgram {
     private static int beesNumber = 3;

@@ -1,15 +1,12 @@
 package com.company.part1.lab3.a;
 
-import java.util.concurrent.Semaphore;
 
 public class Winnie implements Runnable{
     private final HoneyPot honeyPot;
-    private Thread thread;
 
     public Winnie(HoneyPot honeyPot) {
         this.honeyPot = honeyPot;
-        thread = new Thread(this);
-        thread.start();
+        new Thread(this).start();
     }
 
     public void wakeUp(int beeID)

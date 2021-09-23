@@ -5,16 +5,14 @@ import java.util.concurrent.Semaphore;
 public class Bee implements Runnable{
     private Winnie winnie;
     private HoneyPot honeyPot;
-    private Thread thread;
     private static int currentId = 0;
     private int id;
     public Bee(Winnie winnie, HoneyPot honeyPot) {
         this.winnie = winnie;
         this.honeyPot = honeyPot;
-        thread = new Thread(this);
-        thread.start();
         currentId++;
         id = currentId;
+        new Thread(this).start();
     }
 
     @Override
