@@ -10,24 +10,45 @@ public class FileManager {
         this.path = path;
     }
 
-    public WriterInfo findMobile(String surname) throws IOException, ClassNotFoundException {
+    public WriterInfo findBuSurname(String surname) throws ClassNotFoundException {
         WriterInfo res = null;
-        FileInputStream fileInputStream = new FileInputStream(path);
-        while (true)
-        {
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            WriterInfo writerInfo = (WriterInfo) objectInputStream.readObject();
-            if(writerInfo != null && writerInfo.getSurname().equals(surname)){
-                res = writerInfo;
-                objectInputStream.close();
-                break;
+        try(FileInputStream fileInputStream = new FileInputStream(path)) {
+            while (true)
+            {
+                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+                WriterInfo writerInfo = (WriterInfo) objectInputStream.readObject();
+                if(writerInfo != null &&
+                        writerInfo.getSurname().equals(surname)){
+                    res = writerInfo;
+                    objectInputStream.close();
+                    break;
+                }
             }
+        }catch (IOException e){
+            e.printStackTrace();
+            System.err.println("Object("+surname+") is not found in file!");
         }
-        fileInputStream.close();
         return res;
     }
-    public WriterInfo findPerson(String mobile){
-        return new WriterInfo("","","");
+    public WriterInfo findByMobile(String mobile) throws ClassNotFoundException {
+        WriterInfo res = null;
+        try(FileInputStream fileInputStream = new FileInputStream(path)) {
+            while (true)
+            {
+                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+                WriterInfo writerInfo = (WriterInfo) objectInputStream.readObject();
+                if(writerInfo != null &&
+                        writerInfo.getMobile().equals(mobile)){
+                    res = writerInfo;
+                    objectInputStream.close();
+                    break;
+                }
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+            System.err.println("Object("+mobile+") is not found in file!");
+        }
+        return res;
     }
 
     public void appendWriter(WriterInfo writerInfo){
