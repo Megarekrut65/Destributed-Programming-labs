@@ -2,12 +2,12 @@ package com.company.part1.lab4.a;
 
 import java.io.Serializable;
 
-public class WriterInfo implements Serializable {
+public class AuthorInfo implements Serializable {
     private final String name;
     private final String surname;
     private final String mobile;
 
-    public WriterInfo(String name, String surname, String mobile) {
+    public AuthorInfo(String name, String surname, String mobile) {
         this.name = name;
         this.surname = surname;
         this.mobile = mobile;
@@ -27,7 +27,7 @@ public class WriterInfo implements Serializable {
 
     @Override
     public String toString() {
-        return "WriterInfo{" +
+        return "AuthorInfo{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", mobile='" + mobile + '\'' +
@@ -36,7 +36,7 @@ public class WriterInfo implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        WriterInfo other = (WriterInfo) obj;
+        AuthorInfo other = (AuthorInfo) obj;
         return name.equals(other.name) && surname.equals(other.surname) && mobile.equals(other.mobile);
     }
 }
