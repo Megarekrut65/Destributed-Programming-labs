@@ -2,7 +2,7 @@ package com.company.part1.lab4.c.graph;
 
 import java.util.*;
 
-class Vertex {
+class Vertex implements Comparable{
     String label;
     Integer price;
     Vertex(String label, Integer price) {
@@ -27,6 +27,11 @@ class Vertex {
     public String toString() {
         if(price == null) return label;
         return "($"+price+")->"+label;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return 0;
     }
 }
 public class Graph {
@@ -73,5 +78,38 @@ public class Graph {
     public String toString() {
         return "Price list: " + adjVertices +
                 '.';
+    }
+    public Integer dijkstra(String from, String to)
+    {
+        Map<String, Integer> dist = new HashMap<>();
+        adjVertices.forEach((vertex,list)->{
+            dist.putIfAbsent(vertex.label, Integer.MAX_VALUE);
+        });
+        Queue<Vertex> pq = new PriorityQueue<>();
+        pq.add(new Vertex(from, 0));
+        dist.put(from,0);
+        Set<Vertex> settled = new HashSet<>();
+        while (settled.size() != adjVertices.size()) {
+            if(pq.isEmpty()) break;
+            Vertex u = pq.remove();
+            settled.add(u);
+            neighbours(u, settled, dist,pq);
+        }
+        return dist.get(to);
+    }
+    private void neighbours(Vertex u, Set<Vertex> settled, Map<String, Integer> dist,Queue<Vertex> pq)
+    {
+        int edgeDistance = -1;
+        int newDistance = -1;
+        for (int i = 0; i < adjVertices.get(u).size(); i++) {
+            Vertex v = adjVertices.get(u).get(i);
+            if (!settled.contains(v)) {
+                edgeDistance = v.price;
+                newDistance = dist.get(u.label) + edgeDistance;
+                if (newDistance < dist.get(v.label))
+                    dist.put(v.label, newDistance);
+                pq.add(new Vertex(v.label, dist.get(v.label)));
+            }
+        }
     }
 }
