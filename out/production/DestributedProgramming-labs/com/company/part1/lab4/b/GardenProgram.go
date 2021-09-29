@@ -1,7 +1,8 @@
 package main
 
-import "sync"
-
+import (
+	"sync"
+)
 func main() {
 	garden := getGarden(10)
 	var locker sync.RWMutex

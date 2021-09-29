@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1db854a-9118-4d05-8b72-c2cc94ef14bc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/c/BusProgram.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/c/graph/Graph.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Files/authors.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/WriterReaderProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/WriterReaderProgram.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/b/ConsoleWriter.go" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/b/ConsoleWriter.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/b/FileWriter.go" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/b/FileWriter.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/b/Florist.go" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/b/Florist.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/b/Nature.go" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/b/Nature.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +35,20 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="configurable.group.language" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.BusProgram">
+    <configuration name="BusProgram" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.part1.lab4.c.BusProgram" />
+      <module name="DestributedProgramming-labs" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.company.part1.lab4.c.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="WriterReaderProgram" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.company.part1.lab4.a.WriterReaderProgram" />
       <module name="DestributedProgramming-labs" />
@@ -55,6 +64,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.BusProgram" />
         <item itemvalue="Application.WriterReaderProgram" />
       </list>
     </recent_temporary>
