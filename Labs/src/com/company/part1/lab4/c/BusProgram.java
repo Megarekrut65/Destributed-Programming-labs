@@ -14,5 +14,7 @@ public class BusProgram {
         graph.addEdge("Kiev","Lviv", 800);
         graph.addEdge("Dnipro","Odesa", 700);
         System.out.println(graph);
+        graph.editEdge("Kiev","Odesa",100);
+        System.out.println(graph);
     }
 }

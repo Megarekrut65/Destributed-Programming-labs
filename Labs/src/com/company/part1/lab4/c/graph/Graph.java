@@ -30,7 +30,7 @@ class Vertex {
     }
 }
 public class Graph {
-    private final Map<Vertex, List<Vertex>> adjVertices;
+    private final Map<Vertex, ArrayList<Vertex>> adjVertices;
 
     public Graph() {
         adjVertices = new HashMap<>();
@@ -61,7 +61,14 @@ public class Graph {
         if (eV2 != null)
             eV2.remove(v1);
     }
-
+    public void editEdge(String label1, String label2, Integer newPrice) {
+        Vertex v1 = new Vertex(label1, null);
+        Vertex v2 = new Vertex(label2, null);
+        int index1 = adjVertices.get(v1).indexOf(v2);
+        adjVertices.get(v1).get(index1).price = newPrice;
+        int index2 = adjVertices.get(v2).indexOf(v1);
+        adjVertices.get(v2).get(index2).price = newPrice;
+    }
     @Override
     public String toString() {
         return "Price list: " + adjVertices +
