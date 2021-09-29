@@ -1,32 +1,20 @@
 package main
 
-import (
-	"fmt"
-	"math/rand"
-)
+import "sync"
 
-func randState() bool{
-	value := rand.Intn(2)
-	if value == 0 {
-		return true
-	}
-	return false
-}
-func getLine(size int) []bool {
-	var line []bool
-	for i := 0; i < size; i++ {
-		line = append(line, randState())
-	}
-	return line
-}
-func getGarden(size int)[][]bool  {
-	var garden [][]bool
-	for i := 0; i < size; i++ {
-		garden = append(garden, getLine(size))
-	}
-	return garden
-}
 func main() {
 	garden := getGarden(10)
-	fmt.Println(garden)
+	var locker sync.RWMutex
+	florist := Florist{garden: garden, locker: &locker}
+	nature := Nature{garden: garden, locker: &locker}
+	fileWriter := FileWriter{garden: garden, locker: &locker}
+	consoleWriter := ConsoleWriter{garden: garden, locker: &locker}
+
+	go florist.Run()
+	go nature.Run()
+	go fileWriter.Run()
+	go consoleWriter.Run()
+	var wg sync.WaitGroup
+	wg.Add(1)
+	wg.Wait()
 }
