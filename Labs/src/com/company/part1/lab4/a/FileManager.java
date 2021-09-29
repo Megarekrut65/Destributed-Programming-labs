@@ -10,26 +10,20 @@ public class FileManager {
         this.path = path;
     }
 
-    public WriterInfo findMobile(String surname){
+    public WriterInfo findMobile(String surname) throws IOException, ClassNotFoundException {
         WriterInfo res = null;
-        try(ObjectInputStream inputStream = new ObjectInputStream(
-                new FileInputStream(path))) {
-            try {
-                WriterInfo writerInfo;
-                while ((writerInfo = (WriterInfo)inputStream.readObject()) != null){
-                    System.out.println(writerInfo);
-                    if(Objects.equals(writerInfo.getSurname(), surname)){
-                        res = writerInfo;
-                        break;
-                    }
-                }
-            }catch (StreamCorruptedException e){
-                e.printStackTrace();
-                System.out.println("IDN");
+        FileInputStream fileInputStream = new FileInputStream(path);
+        while (true)
+        {
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            WriterInfo writerInfo = (WriterInfo) objectInputStream.readObject();
+            if(writerInfo != null && writerInfo.getSurname().equals(surname)){
+                res = writerInfo;
+                objectInputStream.close();
+                break;
             }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
         }
+        fileInputStream.close();
         return res;
     }
     public WriterInfo findPerson(String mobile){

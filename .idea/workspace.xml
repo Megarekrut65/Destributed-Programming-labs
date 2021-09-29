@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1db854a-9118-4d05-8b72-c2cc94ef14bc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/FileManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/WriterInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/WriterReaderProgram.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DestributedProgramming-labs.iml" beforeDir="false" afterPath="$PROJECT_DIR$/DestributedProgramming-labs.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/FileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/WriterReaderProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/WriterReaderProgram.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
