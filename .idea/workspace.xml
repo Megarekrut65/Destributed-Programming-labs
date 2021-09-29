@@ -2,8 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1db854a-9118-4d05-8b72-c2cc94ef14bc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/WriteReadLocker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/AdderRemover.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/AuthorsGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/BaseClass.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/MobileFinder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/SurnameNameFinder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Files/test.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/AuthorInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/AuthorInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/AuthorManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/AuthorManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/WriterReaderProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/WriterReaderProgram.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +40,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.language" />
   </component>
   <component name="RunManager">
     <configuration name="WriterReaderProgram" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -83,5 +92,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

@@ -10,7 +10,7 @@ public class AuthorManager {
         this.path = path;
     }
 
-    public AuthorInfo findBuSurname(String surname) {
+    public AuthorInfo findBySurname(String surname) {
         AuthorInfo res = null;
         try(FileInputStream fileInputStream = new FileInputStream(path)) {
             while (true)
@@ -48,7 +48,11 @@ public class AuthorManager {
         }
         return res;
     }
-
+    public void append(ArrayList<AuthorInfo> authorsInfo){
+        for(var author:authorsInfo){
+            append(author);
+        }
+    }
     public void append(AuthorInfo authorInfo){
         try (ObjectOutputStream outputStream = new ObjectOutputStream(
                 new FileOutputStream(path, true))) {
@@ -57,7 +61,7 @@ public class AuthorManager {
             e.printStackTrace();
         }
     }
-    private void clearData(){
+    public void clearData(){
         try {
             new FileOutputStream(path).close();
         } catch (IOException e) {
