@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class WriterReaderProgram {
 
     public static void main(String[] args){
-        AuthorManager authorManager = new AuthorManager("Files/authors.bin");
+        AuthorManager authorManager = new AuthorManager("Labs/Files/authors.bin");
         AuthorsGenerator generator = new AuthorsGenerator(500);
         authorManager.clearData();
         authorManager.append(generator.getAuthors());

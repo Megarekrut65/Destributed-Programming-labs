@@ -13,7 +13,7 @@ type FileWriter struct {
 	locker *sync.RWMutex
 }
 func (writer *FileWriter) Write(){
-	file, err := os.OpenFile("Files/garden.bin", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	file, err := os.Create("Files/garden.bin")
 	if err != nil{
 		fmt.Println("Unable to create file:", err)
 		os.Exit(1)
