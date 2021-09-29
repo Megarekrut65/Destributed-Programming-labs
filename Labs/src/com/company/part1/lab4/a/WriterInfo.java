@@ -33,4 +33,10 @@ public class WriterInfo implements Serializable {
                 ", mobile='" + mobile + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        WriterInfo other = (WriterInfo) obj;
+        return name.equals(other.name) && surname.equals(other.surname) && mobile.equals(other.mobile);
+    }
 }
