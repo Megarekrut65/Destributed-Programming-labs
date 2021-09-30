@@ -33,7 +33,7 @@ public class AuthorInfo implements Serializable {
                 ", mobile='" + mobile + '\'' +
                 '}';
     }
-    private static String randString(){
+    public static String randString(){
         Random random = new Random();
         char[] word = new char[random.nextInt(8)+3];
         char[] first = new char[1];

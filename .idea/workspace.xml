@@ -2,12 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1db854a-9118-4d05-8b72-c2cc94ef14bc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/c/BaseClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/c/CityEditor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/c/PriceEditor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/c/TripEditor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/c/WayFinder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/c/CityGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/AuthorInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/a/AuthorInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/c/BusProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/c/BusProgram.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/c/CityEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/c/CityEditor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/c/PriceEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/c/PriceEditor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/c/TripEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/c/TripEditor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/c/WayFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/c/WayFinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/c/graph/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab4/c/graph/Graph.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

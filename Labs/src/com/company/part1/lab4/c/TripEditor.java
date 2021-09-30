@@ -15,18 +15,23 @@ public class TripEditor extends BaseClass{
         System.out.println("Trip editor removed trip between " + cityA + " and "+ cityB);
     }
     private void addTrip(String cityA, String cityB){
-        graph.addEdge(cityA,cityB,(int)(Math.random() * 1500));
+        graph.addEdge(cityA,cityB,CityGenerator.randPrice());
         System.out.println("Trip editor added trip between " + cityA + " and "+ cityB);
     }
     @Override
     public void run() {
         while (!Thread.interrupted()){
-            Lock lock = locker.writeLock();
-            String cityA = getRandomCity();
-            String cityB = getRandomCity(cityA);
-            if(toRemove()) removeTrip(cityA,cityB);
-            else addTrip(cityA,cityB);
-            lock.unlock();
+            try {
+                Thread.sleep(2000);
+                locker.writeLock().lock();
+                String cityA = getRandomCity();
+                String cityB = getRandomCity(cityA);
+                if(toRemove()) removeTrip(cityA,cityB);
+                else addTrip(cityA,cityB);
+                locker.writeLock().unlock();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

@@ -29,10 +29,15 @@ public class CityEditor extends BaseClass{
     @Override
     public void run() {
         while (!Thread.interrupted()){
-            Lock lock = locker.writeLock();
-            if(toRemove()) removeCity();
-            else addCity();
-            lock.unlock();
+            try {
+                Thread.sleep(3000);
+                locker.writeLock().lock();
+                if(toRemove()) removeCity();
+                else addCity();
+                locker.writeLock().unlock();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

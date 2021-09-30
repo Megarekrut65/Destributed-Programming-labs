@@ -14,12 +14,17 @@ public class PriceEditor extends BaseClass{
     @Override
     public void run() {
         while (!Thread.interrupted()){
-            Lock lock = locker.writeLock();
-            String cityA = getRandomCity();
-            String cityB = getRandomCity(cityA);
-            graph.editEdge(cityA,cityB, (int)(Math.random() * 1000));
-            System.out.println("Price editor changed ticket price between " + cityA + " and "+ cityB);
-            lock.unlock();
+            try {
+                Thread.sleep(1000);
+                locker.writeLock().lock();
+                String cityA = getRandomCity();
+                String cityB = getRandomCity(cityA);
+                graph.editEdge(cityA,cityB, CityGenerator.randPrice());
+                System.out.println("Price editor changed ticket price between " + cityA + " and "+ cityB);
+                locker.writeLock().unlock();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

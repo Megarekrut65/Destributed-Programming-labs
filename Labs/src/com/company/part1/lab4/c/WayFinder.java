@@ -14,12 +14,17 @@ public class WayFinder extends BaseClass{
     @Override
     public void run() {
         while (!Thread.interrupted()){
-            Lock lock = locker.readLock();
-            String cityA = getRandomCity();
-            String cityB = getRandomCity(cityA);
-            Integer dist = graph.dijkstra(cityA,cityB);
-            System.out.println("Way Finder found way between "+cityA + " and " + cityB + " = " + dist);
-            lock.unlock();
+            try {
+                Thread.sleep(1500);
+                locker.readLock().lock();
+                String cityA = getRandomCity();
+                String cityB = getRandomCity(cityA);
+                Integer dist = graph.dijkstra(cityA,cityB);
+                System.out.println("Way Finder found way between "+cityA + " and " + cityB + " = " + dist);
+                locker.readLock().unlock();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
