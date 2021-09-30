@@ -20,7 +20,7 @@ public class WayFinder extends BaseClass{
                 String cityA = getRandomCity();
                 String cityB = getRandomCity(cityA);
                 Integer dist = graph.dijkstra(cityA,cityB);
-                System.out.println("Way Finder found way between "+cityA + " and " + cityB + " = " + dist);
+                System.out.println("Way Finder found trip between "+cityA + " and " + cityB + " = $" + dist);
                 locker.readLock().unlock();
             } catch (InterruptedException e) {
                 e.printStackTrace();
