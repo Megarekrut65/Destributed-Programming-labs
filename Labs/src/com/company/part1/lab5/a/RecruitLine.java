@@ -49,8 +49,9 @@ public class RecruitLine{
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("[");
-        for (int i = 0; i < container.size(); i++){
-            builder.append("{").append(i).append(", ").append(container.get(i)).append("} ");
+        for (Command command : container) {
+            if (command == Command.LEFT) builder.append("<");
+            else builder.append(">");
         }
         builder.append("]");
         return builder.toString();

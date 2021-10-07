@@ -27,7 +27,10 @@ public class Recruit {
                     boolean needLock = (j == start && j != 0 || j == end - 1 && j != size -1);
                     if(needLock) lock.lock();
                     if(line.checkNear(j) && line.check()) break;
-                    if(needLock) lock.unlock();
+                    if(needLock){
+                        System.out.println(line);
+                        lock.unlock();
+                    }
                 }
                 System.out.println(line);
                 System.out.println("Close thread " + Thread.currentThread().getName());
