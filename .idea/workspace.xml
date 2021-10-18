@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1db854a-9118-4d05-8b72-c2cc94ef14bc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab6/ConsecutiveMatrixMultiplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab6/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab6/TapeScheme.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DestributedProgramming-labs.iml" beforeDir="false" afterPath="$PROJECT_DIR$/DestributedProgramming-labs.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab6/ConsecutiveMatrixMultiplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab6/ConsecutiveMatrixMultiplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab6/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab6/TapeScheme.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab6/TapeScheme.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,8 +49,8 @@
     <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
   </component>
   <component name="RunManager" selected="Application.TapeScheme">
-    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.company.part1.lab6.Main" />
+    <configuration name="ConsecutiveMatrixMultiplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.part1.lab6.ConsecutiveMatrixMultiplication" />
       <module name="DestributedProgramming-labs" />
       <extension name="coverage">
         <pattern>
@@ -63,12 +62,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.company.Main" />
+    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.part1.lab6.Main" />
       <module name="DestributedProgramming-labs" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.company.*" />
+          <option name="PATTERN" value="com.company.part1.lab6.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -108,7 +107,7 @@
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.company.part1.lab6.TapeScheme" />
       <module name="DestributedProgramming-labs" />
-      <option name="VM_PARAMETERS" value="-jar ${MPJ_HOME}/lib/starter.jar -np 4" />
+      <option name="VM_PARAMETERS" value="-jar ${MPJ_HOME}/lib/starter.jar -np 3" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.company.part1.lab6.*" />
@@ -120,19 +119,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Main" />
       <item itemvalue="Application.Main (1)" />
       <item itemvalue="Application.RecruitProgram" />
       <item itemvalue="Application.SumProgram" />
       <item itemvalue="Application.TapeScheme" />
+      <item itemvalue="Application.ConsecutiveMatrixMultiplication" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.TapeScheme" />
+        <item itemvalue="Application.ConsecutiveMatrixMultiplication" />
         <item itemvalue="Application.Main (1)" />
         <item itemvalue="Application.RecruitProgram" />
         <item itemvalue="Application.SumProgram" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>

@@ -1,9 +1,22 @@
 package com.company.part1.lab6;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ConsecutiveMatrixMultiplication {
-    public static double[][] multiply(double[][] matrix1, double[][] matrix2){
+    public static void main(String[] args) {
+        double[][]
+                matrix1 = {
+                {1,2,3},
+                {1,2,3},
+                {1,2,3}},
+                matrix2={
+                        {5,6,7},
+                        {5,6,7},
+                        {5,6,7}};
+        System.out.println(Arrays.deepToString(ConsecutiveMatrixMultiplication.multiply(matrix1, matrix2)));
+    }
+    private static double[][] multiply(double[][] matrix1, double[][] matrix2){
         if(matrix1.length == 0 || matrix2.length == 0 || matrix1[0].length != matrix2.length){
             throw new IllegalArgumentException("Matrices have incorrect sizes!");
         }
