@@ -149,12 +149,21 @@ public class FoxAlgorithm {
                                           int BlockSize) {
         var pResultRow = new double [Size*BlockSize];
         for (int i=0; i<BlockSize; i++) {
-            RowComm.Gather(pCblock, i*BlockSize, BlockSize, MPI.DOUBLE,
-                    pResultRow, i*Size, BlockSize, MPI.DOUBLE, 0);
-            System.out.println(ProcRank + "-cBlock " +
-                    arrMatrixToStr(pCblock) + "\n Revc " +
-                    arrMatrixToStr(pResultRow));
+            var tempRecv = new double[Size];
+            var tempSend = new double[BlockSize];
+            System.arraycopy(pCblock, i*BlockSize, tempSend , 0, BlockSize);
+            RowComm.Gather(tempSend, 0, BlockSize, MPI.DOUBLE,
+                    tempRecv, 0, BlockSize, MPI.DOUBLE, 0);
+            System.arraycopy(tempRecv, 0, pResultRow , i*Size, Size);
+            if(ProcRank == 1 || ProcRank == 3){
+                System.out.println(ProcRank+"- send: " +
+                        arrMatrixToStr(tempSend)+"\n revc: "+
+                        arrMatrixToStr(tempRecv));
+            }
         }
+        System.out.println(ProcRank + "-cBlock " +
+                arrMatrixToStr(pCblock) + "\n Revc " +
+                arrMatrixToStr(pResultRow));
         if (GridCoords[1] == 0) {
             ColComm.Gather(pResultRow, 0,BlockSize*Size, MPI.DOUBLE,
                     pCMatrix, 0,BlockSize*Size, MPI.DOUBLE, 0);
