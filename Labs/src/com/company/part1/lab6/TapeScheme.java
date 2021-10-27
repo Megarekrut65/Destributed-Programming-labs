@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class TapeScheme {
     public static void main(String[] args) {
-        int size = 3000;
+        int size = 10;
         double[][]
                 matrix1 = MatrixGenerator.generateMatrix(size,size),
                 matrix2=MatrixGenerator.generateMatrix(size,size);

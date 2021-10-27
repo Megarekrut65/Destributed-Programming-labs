@@ -12,212 +12,161 @@ class Data{
     public double[] pBblock;
     public double[] pCblock;
     public double[] pMatrixAblock;
-    public int[] Size = new int[1];
-    public int BlockSize;
+    public int[] size = new int[1];
+    public int blockSize;
 }
 public class FoxAlgorithm {
-    private static int ProcNum = 0;
-    private static int ProcRank = 0;
-    private static int GridSize;
-    private static int[] GridCoords = new int[2];
-    private static Cartcomm ColComm;
-    private static Cartcomm RowComm;
-    private static Cartcomm GridComm;
-    private static int sizePart = 3;
+    private static int procRank = 0;
+    private static int gridSize;
+    private static int[] gridCoords = new int[2];
+    private static Cartcomm colComm;
+    private static Cartcomm rowComm;
+    private static final int sizePart = 3;
     public static void main(String[] args) {
         start(args);
     }
-    private static String arrMatrixToStr(double[] arr) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("\n");
-        int size = (int) Math.sqrt(arr.length);
-        if( size*size == arr.length){
-            for (int i = 0; i < size; i++){
-                for (int j = 0; j < size; j++) {
-                    builder.append(arr[i * size + j]).append(" ");
+    private static void serialResultCalculation(double[] pAMatrix, double[] pBMatrix,
+                                                double[] pCMatrix, int size) {
+        for (int i=0; i<size; i++) {
+            for (int j=0; j<size; j++)
+            {
+                for (int k=0; k<size; k++){
+                    pCMatrix[i*size+j] += pAMatrix[i*size+k]*pBMatrix[k*size+j];
                 }
-                builder.append('\n');
             }
         }
-        else return Arrays.toString(arr);
-
-        return builder.toString();
     }
-    private static void DummyDataInitialization (Data data){//double* pAMatrix, double* pBMatrix,int Size){
-        for (int i=0; i<data.Size[0]; i++)
-            for (int j=0; j<data.Size[0]; j++) {
-                data.pAMatrix[i*data.Size[0]+j] = i*10 + j;
-                data.pBMatrix[i*data.Size[0]+j] = j*10 + i;
-            }
+    private static void blockMultiplication(double[] pAblock, double[] pBblock,
+                                            double[] pCblock, int size) {
+        serialResultCalculation(pAblock,pBblock,pCblock, size);
     }
-    private static void SerialResultCalculation(double[] pAMatrix, double[] pBMatrix,
-                                                double[] pCMatrix, int Size) {
-        int i, j, k; // Loop variables
-        for (i=0; i<Size; i++) {
-            for (j=0; j<Size; j++)
-                for (k=0; k<Size; k++)
-                    pCMatrix[i*Size+j] += pAMatrix[i*Size+k]*pBMatrix[k*Size+j];
-        }
-    }
-    private static void BlockMultiplication(double[] pAblock, double[] pBblock,
-                                            double[] pCblock, int Size) {
-        SerialResultCalculation(pAblock,pBblock,pCblock, Size);
-    }
-    private static void CreateGridCommunicators() {
+    private static void createGridCommunicators() {
         var DimSize = new int[2];
         var Periodic = new boolean[2];
         var Subdims = new boolean[2];
-
-        DimSize[0] = GridSize;
-        DimSize[1] = GridSize;
-        Periodic[0] = false;
-        Periodic[1] = false;
-        GridComm = MPI.COMM_WORLD.Create_cart(DimSize,Periodic, true);
-        GridCoords = GridComm.Coords(ProcRank);
-        Subdims[0] = false; // Dimensionality fixing
-        Subdims[1] = true; // The presence of the given dimension in the subgrid
-        RowComm = GridComm.Sub(Subdims);
+        DimSize[0] = gridSize;
+        DimSize[1] = gridSize;
+        Cartcomm gridComm = MPI.COMM_WORLD.Create_cart(DimSize, Periodic, true);
+        gridCoords = gridComm.Coords(procRank);
+        Subdims[1] = true;
+        rowComm = gridComm.Sub(Subdims);
         Subdims[0] = true;
         Subdims[1] = false;
-        ColComm = GridComm.Sub(Subdims);
+        colComm = gridComm.Sub(Subdims);
     }
-    private static void ProcessInitialization (Data data){//double* &pAMatrix, double* &pBMatrix,
-                                               //double* &pCMatrix, double* &pAblock, double* &pBblock, double* &pCblock,
-                                               //double* &pTemporaryAblock, int &Size, int &BlockSize ) {
-        if (ProcRank == 0) {
-            data.Size[0] = GridSize*sizePart;
-            if(data.Size[0] % GridSize != 0)
-                System.out.println("Err 90");
+    private static void processInitialization(Data data){
+        if (procRank == 0) {
+            data.size[0] = gridSize *sizePart;
+            if(data.size[0] % gridSize != 0)
+                System.out.println("Size must be proportional to grid size!");
         }
-        MPI.COMM_WORLD.Bcast(data.Size,0,1,MPI.INT, 0);
-        data.BlockSize = data.Size[0]/GridSize;
-        data.pAblock = new double [data.BlockSize*data.BlockSize];
-        data.pBblock = new double [data.BlockSize*data.BlockSize];
-        data.pCblock = new double [data.BlockSize*data.BlockSize];
-        data.pMatrixAblock = new double [data.BlockSize*data.BlockSize];
-        for (int i=0; i<data.BlockSize*data.BlockSize; i++) {
+        MPI.COMM_WORLD.Bcast(data.size,0,1,MPI.INT, 0);
+        data.blockSize = data.size[0]/ gridSize;
+        data.pAblock = new double [data.blockSize *data.blockSize];
+        data.pBblock = new double [data.blockSize *data.blockSize];
+        data.pCblock = new double [data.blockSize *data.blockSize];
+        data.pMatrixAblock = new double [data.blockSize *data.blockSize];
+        for (int i = 0; i<data.blockSize *data.blockSize; i++) {
             data.pCblock[i] = 0;
         }
-        data.pAMatrix = new double [data.Size[0]*data.Size[0]];
-        data.pBMatrix = new double [data.Size[0]*data.Size[0]];
-        data.pCMatrix = new double [data.Size[0]*data.Size[0]];
-        if(ProcRank == 0){
-            DummyDataInitialization(data);
+        data.pAMatrix = new double [data.size[0]*data.size[0]];
+        data.pBMatrix = new double [data.size[0]*data.size[0]];
+        data.pCMatrix = new double [data.size[0]*data.size[0]];
+        if(procRank == 0){
+            data.pAMatrix = MatrixGenerator.matrixToArray(
+                    MatrixGenerator.generateDummy(data.size[0], data.size[0], false));
+            data.pBMatrix = MatrixGenerator.matrixToArray(
+                    MatrixGenerator.generateDummy(data.size[0], data.size[0], true));
         }
     }
-    private static String print(double[] arr, int offset, int count){
-        StringBuilder builder = new StringBuilder();
-        for(int i = offset; i < offset + count; i++){
-            builder.append(arr[i]).append(" ");
-        }
-        return builder.toString();
-    }
-    private static String printBlocks(double[] send,
-                                      int sendOff,
-                                      int sendCount,
-                                      double[] recv,
-                                      int recvOff,
-                                      int recvCount){
-        return "From" + '\n' +
-                print(send, sendOff, sendCount) +
-                "To" + '\n' +
-                print(recv, recvOff, recvCount);
-    }
-    private static void CheckerboardMatrixScatter(double[] pMatrix, double[] pMatrixBlock,
-                                                  int Size, int BlockSize) {
-        var MatrixRow = new double [BlockSize*Size];
-        if (GridCoords[1] == 0) {
-            ColComm.Scatter(pMatrix, 0, BlockSize*Size, MPI.DOUBLE, MatrixRow,
-                    0, BlockSize*Size, MPI.DOUBLE, 0);
+    private static void checkerboardMatrixScatter(double[] pMatrix, double[] pMatrixBlock,
+                                                  int size, int blockSize) {
+        var MatrixRow = new double [blockSize*size];
+        if (gridCoords[1] == 0) {
+            colComm.Scatter(pMatrix, 0, blockSize*size, MPI.DOUBLE, MatrixRow,
+                    0, blockSize*size, MPI.DOUBLE, 0);
        }
-        for (int i=0; i<BlockSize; i++) {
-            var tempSend = new double[Size];
-            var tempRecv = new double[BlockSize];
-            System.arraycopy(MatrixRow, i*Size, tempSend , 0, Size);
-            RowComm.Scatter(tempSend, 0, BlockSize, MPI.DOUBLE,
-                    tempRecv, 0, BlockSize, MPI.DOUBLE, 0);
-            System.arraycopy(tempRecv, 0, pMatrixBlock , i*BlockSize, BlockSize);
+        for (int i=0; i<blockSize; i++) {
+            var tempSend = new double[size];
+            var tempRecv = new double[blockSize];
+            System.arraycopy(MatrixRow, i*size, tempSend , 0, size);
+            rowComm.Scatter(tempSend, 0, blockSize, MPI.DOUBLE,
+                    tempRecv, 0, blockSize, MPI.DOUBLE, 0);
+            System.arraycopy(tempRecv, 0, pMatrixBlock , i*blockSize, blockSize);
         }
     }
-    private static void DataDistribution(double[] pAMatrix, double[] pBMatrix, double[]
-            pMatrixAblock, double[] pBblock, int Size, int BlockSize) {
-        if (ProcRank == 0) System.out.println("A: " + arrMatrixToStr(pAMatrix));
-        CheckerboardMatrixScatter(pAMatrix, pMatrixAblock, Size, BlockSize);
-        CheckerboardMatrixScatter(pBMatrix, pBblock, Size, BlockSize);
+    private static void dataDistribution(double[] pAMatrix, double[] pBMatrix, double[]
+            pMatrixAblock, double[] pBblock, int size, int blockSize) {
+        checkerboardMatrixScatter(pAMatrix, pMatrixAblock, size, blockSize);
+        checkerboardMatrixScatter(pBMatrix, pBblock, size, blockSize);
     }
-    private static void ResultCollection (double[] pCMatrix, double[] pCblock, int Size,
-                                          int BlockSize) {
-        var pResultRow = new double [Size*BlockSize];
-        for (int i=0; i<BlockSize; i++) {
-            var tempRecv = new double[Size];
-            var tempSend = new double[BlockSize];
-            System.arraycopy(pCblock, i*BlockSize, tempSend , 0, BlockSize);
-            RowComm.Gather(tempSend, 0, BlockSize, MPI.DOUBLE,
-                    tempRecv, 0, BlockSize, MPI.DOUBLE, 0);
-            System.arraycopy(tempRecv, 0, pResultRow , i*Size, Size);
-            if(ProcRank == 1 || ProcRank == 3){
-                System.out.println(ProcRank+"- send: " +
-                        arrMatrixToStr(tempSend)+"\n revc: "+
-                        arrMatrixToStr(tempRecv));
-            }
+    private static void resultCollection(double[] pCMatrix, double[] pCblock, int size,
+                                         int blockSize) {
+        var pResultRow = new double [size*blockSize];
+        for (int i=0; i<blockSize; i++) {
+            var tempRecv = new double[size];
+            var tempSend = new double[blockSize];
+            System.arraycopy(pCblock, i*blockSize, tempSend , 0, blockSize);
+            rowComm.Gather(tempSend, 0, blockSize, MPI.DOUBLE,
+                    tempRecv, 0, blockSize, MPI.DOUBLE, 0);
+            System.arraycopy(tempRecv, 0, pResultRow , i*size, size);
         }
-        System.out.println(ProcRank + "-cBlock " +
-                arrMatrixToStr(pCblock) + "\n Revc " +
-                arrMatrixToStr(pResultRow));
-        if (GridCoords[1] == 0) {
-            ColComm.Gather(pResultRow, 0,BlockSize*Size, MPI.DOUBLE,
-                    pCMatrix, 0,BlockSize*Size, MPI.DOUBLE, 0);
+        if (gridCoords[1] == 0) {
+            colComm.Gather(pResultRow, 0,blockSize*size, MPI.DOUBLE,
+                    pCMatrix, 0,blockSize*size, MPI.DOUBLE, 0);
         }
     }
-    private static void ABlockCommunication (int iter, double[] pAblock, double[] pMatrixAblock,
-                                             int BlockSize) {
-        int Pivot = (GridCoords[0] + iter) % GridSize;
-        if (GridCoords[1] == Pivot) {
-            for (int i=0; i<BlockSize*BlockSize; i++)
-                pAblock[i] = pMatrixAblock[i];
+    private static void aBlockCommunication(int iter, double[] pAblock, double[] pMatrixAblock,
+                                            int blockSize) {
+        int Pivot = (gridCoords[0] + iter) % gridSize;
+        if (gridCoords[1] == Pivot) {
+            if (blockSize * blockSize >= 0)
+                System.arraycopy(pMatrixAblock, 0, pAblock, 0, blockSize * blockSize);
         }
-        RowComm.Bcast(pAblock, 0, BlockSize*BlockSize, MPI.DOUBLE, Pivot);
+        rowComm.Bcast(pAblock, 0, blockSize*blockSize, MPI.DOUBLE, Pivot);
     }
-    private static void BblockCommunication (double[] pBblock, int BlockSize) {
-        int NextProc = GridCoords[0] + 1;
-        if ( GridCoords[0] == GridSize-1 ) NextProc = 0;
-        int PrevProc = GridCoords[0] - 1;
-        if ( GridCoords[0] == 0 ) PrevProc = GridSize-1;
-        var status = ColComm.Sendrecv_replace(pBblock, 0,BlockSize*BlockSize, MPI.DOUBLE,
+    private static void bBlockCommunication(double[] pBblock, int blockSize) {
+        int NextProc = gridCoords[0] + 1;
+        if ( gridCoords[0] == gridSize -1 ) NextProc = 0;
+        int PrevProc = gridCoords[0] - 1;
+        if ( gridCoords[0] == 0 ) PrevProc = gridSize -1;
+        var status = colComm.Sendrecv_replace(pBblock, 0,blockSize*blockSize, MPI.DOUBLE,
                 NextProc, 0,PrevProc, 0);
     }
-    private static void ParallelResultCalculation(double[] pAblock, double[] pMatrixAblock,
-                                   double[] pBblock, double[] pCblock, int BlockSize) {
-        for (int iter = 0; iter < GridSize; iter ++) {
-            ABlockCommunication (iter, pAblock, pMatrixAblock, BlockSize);
-            BlockMultiplication(pAblock, pBblock, pCblock, BlockSize);
-            BblockCommunication(pBblock, BlockSize);
+    private static void parallelResultCalculation(double[] pAblock, double[] pMatrixAblock,
+                                                  double[] pBblock, double[] pCblock, int blockSize) {
+        for (int iter = 0; iter < gridSize; iter ++) {
+            aBlockCommunication(iter, pAblock, pMatrixAblock, blockSize);
+            blockMultiplication(pAblock, pBblock, pCblock, blockSize);
+            bBlockCommunication(pBblock, blockSize);
         }
     }
     private static void start(String[] args){
         Data data = new Data();
+        double startTime = 0,endTime = 0;
         MPI.Init(args);
-        ProcRank = MPI.COMM_WORLD.Rank();
-        ProcNum = MPI.COMM_WORLD.Size();
-        GridSize = (int) Math.sqrt(ProcNum);
-        if (ProcNum != GridSize*GridSize) {
-            if (ProcRank == 0) {
+        procRank = MPI.COMM_WORLD.Rank();
+        int procNum = MPI.COMM_WORLD.Size();
+        gridSize = (int) Math.sqrt(procNum);
+        if (procNum != gridSize * gridSize) {
+            if (procRank == 0) {
                 System.out.println("Number of processes must be a perfect square!");
             }
         }
         else {
-            if (ProcRank == 0)
-                System.out.println("Parallel matrix multiplication program!");
-            CreateGridCommunicators();
-            ProcessInitialization (data);
-            DataDistribution(data.pAMatrix, data.pBMatrix, data.pMatrixAblock, data.pBblock, data.Size[0],
-                    data.BlockSize);
-            ParallelResultCalculation(data.pAblock, data.pMatrixAblock, data.pBblock,
-                    data.pCblock, data.BlockSize);
-            ResultCollection(data.pCMatrix, data.pCblock, data.Size[0], data.BlockSize);
+            if (procRank == 0) startTime = MPI.Wtime();
+            createGridCommunicators();
+            processInitialization(data);
+            dataDistribution(data.pAMatrix, data.pBMatrix, data.pMatrixAblock, data.pBblock, data.size[0],
+                    data.blockSize);
+            parallelResultCalculation(data.pAblock, data.pMatrixAblock, data.pBblock,
+                    data.pCblock, data.blockSize);
+            resultCollection(data.pCMatrix, data.pCblock, data.size[0], data.blockSize);
         }
-        if(ProcRank == 0) System.out.println(arrMatrixToStr(data.pCMatrix));
+        if(procRank == 0){
+            endTime = MPI.Wtime();
+            System.out.println("Time: " +(endTime - startTime)+"s");
+        }
         MPI.Finalize();
     }
-
 }
