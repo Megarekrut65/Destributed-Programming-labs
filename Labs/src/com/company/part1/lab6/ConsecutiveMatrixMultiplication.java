@@ -11,7 +11,7 @@ public class ConsecutiveMatrixMultiplication {
                 matrix2=MatrixGenerator.generateDummy(size,size, true);
         System.out.println(Arrays.deepToString(multiply(matrix1, matrix2)));
     }
-    private static double[][] multiply(double[][] matrix1, double[][] matrix2){
+    public static double[][] multiply(double[][] matrix1, double[][] matrix2){
         if(matrix1.length == 0 || matrix2.length == 0 || matrix1[0].length != matrix2.length){
             throw new IllegalArgumentException("Matrices have incorrect sizes!");
         }

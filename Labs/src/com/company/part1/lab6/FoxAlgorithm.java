@@ -21,7 +21,7 @@ public class FoxAlgorithm {
     private static int[] gridCoords = new int[2];
     private static Cartcomm colComm;
     private static Cartcomm rowComm;
-    private static final int sizePart = 3;
+    private static final int sizePart = 1000;
     public static void main(String[] args) {
         start(args);
     }
@@ -56,7 +56,7 @@ public class FoxAlgorithm {
     }
     private static void processInitialization(Data data){
         if (procRank == 0) {
-            data.size[0] = gridSize *sizePart;
+            data.size[0] = gridSize*sizePart;
             if(data.size[0] % gridSize != 0)
                 System.out.println("Size must be proportional to grid size!");
         }

@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d1db854a-9118-4d05-8b72-c2cc94ef14bc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab6/ConsecutiveMatrixMultiplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab6/ConsecutiveMatrixMultiplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab6/FoxAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab6/FoxAlgorithm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab6/TapeScheme.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab6/TapeScheme.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +67,7 @@
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.company.part1.lab6.FoxAlgorithm" />
       <module name="DestributedProgramming-labs" />
-      <option name="VM_PARAMETERS" value="-jar ${MPJ_HOME}/lib/starter.jar -np 4" />
+      <option name="VM_PARAMETERS" value="-jar ${MPJ_HOME}/lib/starter.jar -np 9" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.company.part1.lab6.*" />
