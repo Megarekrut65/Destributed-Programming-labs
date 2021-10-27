@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="d1db854a-9118-4d05-8b72-c2cc94ef14bc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab6/ConsecutiveMatrixMultiplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab6/ConsecutiveMatrixMultiplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab6/FoxAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab6/FoxAlgorithm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part1/lab6/MatrixGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part1/lab6/MatrixGenerator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,8 +145,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.TapeScheme" />
         <item itemvalue="Application.ConsecutiveMatrixMultiplication" />
+        <item itemvalue="Application.TapeScheme" />
         <item itemvalue="Application.Main (1)" />
         <item itemvalue="Application.RecruitProgram" />
         <item itemvalue="Application.SumProgram" />

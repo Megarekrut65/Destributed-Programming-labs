@@ -1,16 +1,15 @@
 package com.company.part1.lab6;
 
-import java.util.ArrayList;
+
 import java.util.Arrays;
 
 public class ConsecutiveMatrixMultiplication {
     public static void main(String[] args) {
-        int size = 3000;
+        int size = 6;
         double[][]
-                matrix1 = MatrixGenerator.generateMatrix(size,size),
-                matrix2=MatrixGenerator.generateMatrix(size,size);
-        multiply(matrix1, matrix2);
-        //System.out.println(Arrays.deepToString(ConsecutiveMatrixMultiplication.multiply(matrix1, matrix2)));
+                matrix1 = MatrixGenerator.generateDummy(size,size, false),
+                matrix2=MatrixGenerator.generateDummy(size,size, true);
+        System.out.println(Arrays.deepToString(multiply(matrix1, matrix2)));
     }
     private static double[][] multiply(double[][] matrix1, double[][] matrix2){
         if(matrix1.length == 0 || matrix2.length == 0 || matrix1[0].length != matrix2.length){

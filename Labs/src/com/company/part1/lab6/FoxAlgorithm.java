@@ -2,7 +2,6 @@ package com.company.part1.lab6;
 
 import mpi.Cartcomm;
 import mpi.MPI;
-import mpi.Status;
 
 import java.util.Arrays;
 class Data{
@@ -24,6 +23,7 @@ public class FoxAlgorithm {
     private static Cartcomm ColComm;
     private static Cartcomm RowComm;
     private static Cartcomm GridComm;
+    private static int sizePart = 3;
     public static void main(String[] args) {
         start(args);
     }
@@ -85,7 +85,7 @@ public class FoxAlgorithm {
                                                //double* &pCMatrix, double* &pAblock, double* &pBblock, double* &pCblock,
                                                //double* &pTemporaryAblock, int &Size, int &BlockSize ) {
         if (ProcRank == 0) {
-            data.Size[0] = GridSize*3;
+            data.Size[0] = GridSize*sizePart;
             if(data.Size[0] % GridSize != 0)
                 System.out.println("Err 90");
         }
@@ -112,14 +112,16 @@ public class FoxAlgorithm {
         }
         return builder.toString();
     }
-    private static String printBlocks(double[] send, int sendOff, int sendCount,
-                                      double[] recv, int recvOff, int recvCount){
-        StringBuilder builder = new StringBuilder();
-        builder.append("From").append('\n');
-        builder.append(print(send,sendOff, sendCount));
-        builder.append("To").append('\n');
-        builder.append(print(recv, recvOff, recvCount));
-        return builder.toString();
+    private static String printBlocks(double[] send,
+                                      int sendOff,
+                                      int sendCount,
+                                      double[] recv,
+                                      int recvOff,
+                                      int recvCount){
+        return "From" + '\n' +
+                print(send, sendOff, sendCount) +
+                "To" + '\n' +
+                print(recv, recvOff, recvCount);
     }
     private static void CheckerboardMatrixScatter(double[] pMatrix, double[] pMatrixBlock,
                                                   int Size, int BlockSize) {
@@ -142,8 +144,6 @@ public class FoxAlgorithm {
         if (ProcRank == 0) System.out.println("A: " + arrMatrixToStr(pAMatrix));
         CheckerboardMatrixScatter(pAMatrix, pMatrixAblock, Size, BlockSize);
         CheckerboardMatrixScatter(pBMatrix, pBblock, Size, BlockSize);
-        System.out.println(ProcRank + " block A" + arrMatrixToStr(pMatrixAblock));
-        System.out.println(ProcRank + " block B" + arrMatrixToStr(pBblock));
     }
     private static void ResultCollection (double[] pCMatrix, double[] pCblock, int Size,
                                           int BlockSize) {
@@ -151,6 +151,9 @@ public class FoxAlgorithm {
         for (int i=0; i<BlockSize; i++) {
             RowComm.Gather(pCblock, i*BlockSize, BlockSize, MPI.DOUBLE,
                     pResultRow, i*Size, BlockSize, MPI.DOUBLE, 0);
+            System.out.println(ProcRank + "-cBlock " +
+                    arrMatrixToStr(pCblock) + "\n Revc " +
+                    arrMatrixToStr(pResultRow));
         }
         if (GridCoords[1] == 0) {
             ColComm.Gather(pResultRow, 0,BlockSize*Size, MPI.DOUBLE,
