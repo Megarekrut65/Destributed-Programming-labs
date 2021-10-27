@@ -27,12 +27,27 @@ public class FoxAlgorithm {
     public static void main(String[] args) {
         start(args);
     }
+    private static String arrMatrixToStr(double[] arr) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n");
+        int size = (int) Math.sqrt(arr.length);
+        if( size*size == arr.length){
+            for (int i = 0; i < size; i++){
+                for (int j = 0; j < size; j++) {
+                    builder.append(arr[i * size + j]).append(" ");
+                }
+                builder.append('\n');
+            }
+        }
+        else return Arrays.toString(arr);
+
+        return builder.toString();
+    }
     private static void DummyDataInitialization (Data data){//double* pAMatrix, double* pBMatrix,int Size){
-        int i, j;
-        for (i=0; i<data.Size[0]; i++)
-            for (j=0; j<data.Size[0]; j++) {
-                data.pAMatrix[i*data.Size[0]+j] = 2;
-                data.pBMatrix[i*data.Size[0]+j] = 2;
+        for (int i=0; i<data.Size[0]; i++)
+            for (int j=0; j<data.Size[0]; j++) {
+                data.pAMatrix[i*data.Size[0]+j] = i*10 + j;
+                data.pBMatrix[i*data.Size[0]+j] = j*10 + i;
             }
     }
     private static void SerialResultCalculation(double[] pAMatrix, double[] pBMatrix,
@@ -70,9 +85,9 @@ public class FoxAlgorithm {
                                                //double* &pCMatrix, double* &pAblock, double* &pBblock, double* &pCblock,
                                                //double* &pTemporaryAblock, int &Size, int &BlockSize ) {
         if (ProcRank == 0) {
-            data.Size[0] = 4;
+            data.Size[0] = GridSize*3;
             if(data.Size[0] % GridSize != 0)
-                System.out.println("Err 79");
+                System.out.println("Err 90");
         }
         MPI.COMM_WORLD.Bcast(data.Size,0,1,MPI.INT, 0);
         data.BlockSize = data.Size[0]/GridSize;
@@ -83,12 +98,28 @@ public class FoxAlgorithm {
         for (int i=0; i<data.BlockSize*data.BlockSize; i++) {
             data.pCblock[i] = 0;
         }
+        data.pAMatrix = new double [data.Size[0]*data.Size[0]];
+        data.pBMatrix = new double [data.Size[0]*data.Size[0]];
+        data.pCMatrix = new double [data.Size[0]*data.Size[0]];
         if(ProcRank == 0){
-            data.pAMatrix = new double [data.Size[0]*data.Size[0]];
-            data.pBMatrix = new double [data.Size[0]*data.Size[0]];
-            data.pCMatrix = new double [data.Size[0]*data.Size[0]];
             DummyDataInitialization(data);
         }
+    }
+    private static String print(double[] arr, int offset, int count){
+        StringBuilder builder = new StringBuilder();
+        for(int i = offset; i < offset + count; i++){
+            builder.append(arr[i]).append(" ");
+        }
+        return builder.toString();
+    }
+    private static String printBlocks(double[] send, int sendOff, int sendCount,
+                                      double[] recv, int recvOff, int recvCount){
+        StringBuilder builder = new StringBuilder();
+        builder.append("From").append('\n');
+        builder.append(print(send,sendOff, sendCount));
+        builder.append("To").append('\n');
+        builder.append(print(recv, recvOff, recvCount));
+        return builder.toString();
     }
     private static void CheckerboardMatrixScatter(double[] pMatrix, double[] pMatrixBlock,
                                                   int Size, int BlockSize) {
@@ -96,16 +127,23 @@ public class FoxAlgorithm {
         if (GridCoords[1] == 0) {
             ColComm.Scatter(pMatrix, 0, BlockSize*Size, MPI.DOUBLE, MatrixRow,
                     0, BlockSize*Size, MPI.DOUBLE, 0);
-        }
+       }
         for (int i=0; i<BlockSize; i++) {
-            RowComm.Scatter(MatrixRow, i*Size, BlockSize, MPI.DOUBLE,
-                    pMatrixBlock, i*BlockSize, BlockSize, MPI.DOUBLE, 0);
+            var tempSend = new double[Size];
+            var tempRecv = new double[BlockSize];
+            System.arraycopy(MatrixRow, i*Size, tempSend , 0, Size);
+            RowComm.Scatter(tempSend, 0, BlockSize, MPI.DOUBLE,
+                    tempRecv, 0, BlockSize, MPI.DOUBLE, 0);
+            System.arraycopy(tempRecv, 0, pMatrixBlock , i*BlockSize, BlockSize);
         }
     }
     private static void DataDistribution(double[] pAMatrix, double[] pBMatrix, double[]
             pMatrixAblock, double[] pBblock, int Size, int BlockSize) {
+        if (ProcRank == 0) System.out.println("A: " + arrMatrixToStr(pAMatrix));
         CheckerboardMatrixScatter(pAMatrix, pMatrixAblock, Size, BlockSize);
         CheckerboardMatrixScatter(pBMatrix, pBblock, Size, BlockSize);
+        System.out.println(ProcRank + " block A" + arrMatrixToStr(pMatrixAblock));
+        System.out.println(ProcRank + " block B" + arrMatrixToStr(pBblock));
     }
     private static void ResultCollection (double[] pCMatrix, double[] pCblock, int Size,
                                           int BlockSize) {
@@ -149,7 +187,7 @@ public class FoxAlgorithm {
         MPI.Init(args);
         ProcRank = MPI.COMM_WORLD.Rank();
         ProcNum = MPI.COMM_WORLD.Size();
-        GridSize = (int) Math.sqrt((double)ProcNum);
+        GridSize = (int) Math.sqrt(ProcNum);
         if (ProcNum != GridSize*GridSize) {
             if (ProcRank == 0) {
                 System.out.println("Number of processes must be a perfect square!");
@@ -166,7 +204,7 @@ public class FoxAlgorithm {
                     data.pCblock, data.BlockSize);
             ResultCollection(data.pCMatrix, data.pCblock, data.Size[0], data.BlockSize);
         }
-        if(ProcRank == 0) System.out.println(Arrays.toString(data.pCMatrix));
+        if(ProcRank == 0) System.out.println(arrMatrixToStr(data.pCMatrix));
         MPI.Finalize();
     }
 
