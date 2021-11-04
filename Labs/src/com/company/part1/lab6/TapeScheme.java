@@ -7,10 +7,10 @@ public class TapeScheme {
     public static void main(String[] args) {
         int size = 10;
         double[][]
-                matrix1 = MatrixGenerator.generateMatrix(size,size),
-                matrix2=MatrixGenerator.generateMatrix(size,size);
+                matrix1 = new double[size][size],
+                matrix2 = new double[size][size];
+
         multiply(args,matrix1, matrix2);
-        //System.out.println(Arrays.deepToString(multiply(args, matrix1, matrix2)));
     }
     private static double[][] multiply(String[] args, double[][] matrix1, double[][] matrix2){
         if(matrix1.length == 0 || matrix2.length == 0 || matrix1[0].length != matrix2.length){
@@ -22,6 +22,13 @@ public class TapeScheme {
         MPI.Init(args);
         int rank = MPI.COMM_WORLD.Rank();
         int size = MPI.COMM_WORLD.Size();
+        if(rank == 0){
+            matrix1 = MatrixGenerator.generateMatrix(matrix1.length,matrix1.length);
+            matrix2 = MatrixGenerator.generateMatrix(matrix2.length,matrix2.length);
+        }
+        for(int i = 0; i < matrix1.length; i++){
+            MPI.COMM_WORLD.Bcast(matrix1[i], 0, matrix1.length, MPI.DOUBLE, 0);
+        }
         if(rank == 0) startTime = MPI.Wtime();
         for(int i = rank; i < myRes.length; i+=size){
             for(int j = 0; j < myRes[i].length; j++){

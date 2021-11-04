@@ -56,7 +56,7 @@ public class FoxAlgorithm {
     }
     private static void processInitialization(Data data){
         if (procRank == 0) {
-            data.size[0] = gridSize*sizePart;
+            data.size[0] = 6;
             if(data.size[0] % gridSize != 0)
                 System.out.println("Size must be proportional to grid size!");
         }
@@ -165,6 +165,7 @@ public class FoxAlgorithm {
         }
         if(procRank == 0){
             endTime = MPI.Wtime();
+            System.out.println(Arrays.toString(data.pCMatrix));
             System.out.println("Time: " +(endTime - startTime)+"s");
         }
         MPI.Finalize();
