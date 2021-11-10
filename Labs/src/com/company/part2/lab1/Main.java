@@ -8,13 +8,42 @@ import java.util.ArrayList;
  * Variant 4
  */
 public class Main {
+    private static final String file = "src/com/company/part2/lab1/data/training_department.xml";
+    private static final String schema="src/com/company/part2/lab1/data/training_department.xsd";
+    private static DOMDepartmentParser parser;
+    private static TrainingDepartment department = new TrainingDepartment();
     public static void main(String[] args) {
-        DOMDepartmentParser parser = new DOMDepartmentParser(
-                "src/com/company/part2/lab1/data/training_department.xsd");
-        var dep = parser.readGemFromXmlFile(
-                "src/com/company/part2/lab1/data/training_department.xml");
-        System.out.println(dep);
-        parser.writeGemToXmlFile(dep, "src/com/company/part2/lab1/data/none.xml");
-        System.err.println(parser.getErrors());
+        parser = new DOMDepartmentParser(schema);
+        readDepartment();
+        addGroups();
+        writeDepartment();
+    }
+    private static void readDepartment(){
+        department = parser.readGemFromXmlFile(file);
+        if(department != null){
+            System.out.println("Department was read successfully!");
+            System.out.println(department);
+        } else {
+            System.err.println("Department was read unsuccessfully!");
+            System.err.println(parser.getErrors());
+        }
+    }
+    private static void addGroups(){
+        if(department != null){
+            TrainingDepartment trainingDepartment = Generator.randDepartment();
+            for(var group: trainingDepartment.getGroups()){
+                department.add(group);
+            }
+        }
+    }
+    private static void writeDepartment(){
+        if(department != null){
+            if(parser.writeGemToXmlFile(department, file)){
+                System.out.println("Department was written successfully!");
+            } else {
+                System.err.println("Department was written unsuccessfully!");
+                System.err.println(parser.getErrors());
+            }
+        }
     }
 }
