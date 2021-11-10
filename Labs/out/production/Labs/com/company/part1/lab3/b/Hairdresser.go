@@ -5,12 +5,12 @@ import (
 )
 
 type Hairdresser struct {
-	ch chan Customer
+	queue chan Customer
 }
 func (hd *Hairdresser) Run(){
 	for{
 		println("Hairdresser sleeps")
-		customer:= <-hd.ch
+		customer:= <-hd.queue
 		println("Hairdresser gets next customer")
 		time.Sleep(1*time.Second)
 		println("Hairdresser is cutting "+customer.name)

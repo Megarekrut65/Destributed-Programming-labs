@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1db854a-9118-4d05-8b72-c2cc94ef14bc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab1/parser/DepartmentXmlTags.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/out/production/Labs/com/company/part1/lab3/b/Customer.go" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/out/production/Labs/com/company/part1/lab3/b/Customer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/out/production/Labs/com/company/part1/lab3/b/Hairdresser.go" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/out/production/Labs/com/company/part1/lab3/b/Hairdresser.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/out/production/Labs/com/company/part1/lab3/b/HairdresserProgram.go" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/out/production/Labs/com/company/part1/lab3/b/HairdresserProgram.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab1/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab1/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab1/TrainingDepartment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab1/TrainingDepartment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab1/parser/DOMDepartmentParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab1/parser/DOMDepartmentParser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,7 +44,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Labs/src/com/company/part2/lab1/parser" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Labs" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />

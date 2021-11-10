@@ -3,7 +3,7 @@ package main
 import "sync"
 
 type Customer struct {
-	ch chan Customer
+	queue chan Customer
 	hairLength int
 	name string
 	wg *sync.WaitGroup
@@ -18,7 +18,7 @@ func (customer Customer) Done() {
 }
 func (customer *Customer) Run() {
 	println("Customer goes to queue")
-	customer.ch <- *customer
+	customer.queue <- *customer
 	<- customer.done
 	println("The customer " + customer.name + " go home!")
 	customer.wg.Done()

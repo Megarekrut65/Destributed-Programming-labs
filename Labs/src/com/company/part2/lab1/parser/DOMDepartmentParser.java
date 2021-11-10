@@ -13,6 +13,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -36,9 +37,65 @@ public class DOMDepartmentParser {
         return gemsHandler.getErrors();
     }
     public boolean writeGemToXmlFile(TrainingDepartment department, String filePath){
-        return false;
+        if(department == null) return false;
+        Document document = docBuilder.newDocument();
+        Element rootElement = document.createElement(DepartmentXmlTags.TRAINING_DEPARTMENT.val());
+        document.appendChild(rootElement);
+        var groups = department.getGroups();
+        for(var group:groups){
+            rootElement.appendChild(createGroupElement(group,document));
+        }
+        transformFile(filePath, new DOMSource(document));
+        try {
+            validator.validate(filePath);
+        } catch (IOException | SAXException e) {
+            e.printStackTrace();
+        }
+        return gemsHandler.getErrors().size() == 0;
     }
+    private Element createGroupElement(Group group, Document document){
+        var groupElement = document.createElement(DepartmentXmlTags.GROUP.val());
+        //attributes
+        groupElement.setAttribute(DepartmentXmlTags.NAME.val(), group.getName());
+        groupElement.setAttribute(DepartmentXmlTags.COURSE.val(), Integer.toString(group.getCourse()));
+        //study form
+        groupElement.appendChild(createSimpleElement(
+                DepartmentXmlTags.STUDY_FORM.val(), group.getStudyForm(), document));
+        //students
+        groupElement.appendChild(createStudentsElement(group.getStudents(), document));
 
+        return groupElement;
+    }
+    private Element createStudentsElement(List<Student> students, Document document){
+        var studentsElement = document.createElement(DepartmentXmlTags.STUDENTS.val());
+        for(var student:students){
+            studentsElement.appendChild(createStudentElement(student, document));
+        }
+        return studentsElement;
+    }
+    private Element createStudentElement(Student student, Document document){
+        var studentElement = document.createElement(DepartmentXmlTags.STUDENT.val());
+        //attributes
+        studentElement.setAttribute(DepartmentXmlTags.ID.val(), student.getId());
+        //name
+        studentElement.appendChild(createSimpleElement(
+                DepartmentXmlTags.NAME.val(), student.getName(), document));
+        //surname
+        studentElement.appendChild(createSimpleElement(
+                DepartmentXmlTags.SURNAME.val(), student.getSurname(), document));
+        //age
+        studentElement.appendChild(createSimpleElement(
+                DepartmentXmlTags.AGE.val(), Integer.toString(student.getAge()), document));
+        //gpa
+        studentElement.appendChild(createSimpleElement(
+                DepartmentXmlTags.GPA.val(), Integer.toString(student.getGpa()), document));
+        return studentElement;
+    }
+    private Element createSimpleElement(String name, String content, Document document){
+        var element = document.createElement(name);
+        element.appendChild(document.createTextNode(content));
+        return element;
+    }
     public TrainingDepartment readGemFromXmlFile(String filePath){
         try {
             validator.validate(filePath);
