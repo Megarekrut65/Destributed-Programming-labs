@@ -20,11 +20,13 @@ public class TrainingDepartment {
     public void setGroups(List<Group> groups) {
         this.groups = groups;
     }
-
+    public boolean add(Group group){
+        return groups.add(group);
+    }
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("TrainingDepartment{groups=");
+        builder.append("TrainingDepartment{groups=").append('\n');
         for(var group:groups){
             builder.append(group).append('\n');
         }
