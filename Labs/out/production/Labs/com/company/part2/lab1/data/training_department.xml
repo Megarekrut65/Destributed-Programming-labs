@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <training_department>
-    <group name="K-19" course="3">
+    <group course="3" name="K-19">
         <study_form>full-time</study_form>
         <students>
             <student id="student1">
@@ -17,7 +17,7 @@
             </student>
         </students>
     </group>
-    <group name="SSP-31" course="2">
+    <group course="2" name="SSP-31">
         <study_form>external</study_form>
         <students>
             <student id="student3">

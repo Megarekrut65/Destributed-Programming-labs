@@ -74,4 +74,11 @@ public class Group {
     public int hashCode() {
         return Objects.hash(name, course, studyForm, students);
     }
+
+    public boolean add(Student student){
+        return students.add(student);
+    }
+    public boolean remove(String id){
+        return students.removeIf(student-> student.getId().equals(id));
+    }
 }

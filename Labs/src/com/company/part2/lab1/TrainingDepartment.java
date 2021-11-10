@@ -2,6 +2,7 @@ package com.company.part2.lab1;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class TrainingDepartment {
     private List<Group> groups = new ArrayList<>();
@@ -22,6 +23,15 @@ public class TrainingDepartment {
     }
     public boolean add(Group group){
         return groups.add(group);
+    }
+    public boolean remove(String name){
+        return groups.removeIf(group -> Objects.equals(group.getName(), name));
+    }
+    public Group find(String name){
+        for(var group:groups){
+            if(group.getName().equals(name)) return group;
+        }
+        return null;
     }
     @Override
     public String toString() {
