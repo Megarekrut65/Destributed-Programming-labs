@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<training_department>
+    <group name="K-19" course="3">
+        <study_form>full-time</study_form>
+        <students>
+            <student id="student1">
+                <name>Alex</name>
+                <surname>Blood</surname>
+                <age>10</age>
+                <gpa>80</gpa>
+            </student>
+            <student id="student2">
+                <name>Mark</name>
+                <surname>Kot</surname>
+                <age>18</age>
+                <gpa>89</gpa>
+            </student>
+        </students>
+    </group>
+    <group name="SSP-31" course="2">
+        <study_form>external</study_form>
+        <students>
+            <student id="student3">
+                <name>Garik</name>
+                <surname>Obamov</surname>
+                <age>16</age>
+                <gpa>100</gpa>
+            </student>
+            <student id="student4">
+                <name>Vova</name>
+                <surname>Vovenko</surname>
+                <age>17</age>
+                <gpa>69</gpa>
+            </student>
+        </students>
+    </group>
+</training_department>
