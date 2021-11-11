@@ -7,7 +7,7 @@
                 <name>Alex</name>
                 <surname>Blood</surname>
                 <age>10</age>
-                <gpa>80</gpa>
+                <gpa>100</gpa>
             </student>
             <student id="student2">
                 <name>Mark</name>
@@ -31,6 +31,1095 @@
                 <surname>Vovenko</surname>
                 <age>17</age>
                 <gpa>69</gpa>
+            </student>
+        </students>
+    </group>
+    <group course="4" name="group-El8135">
+        <study_form>external</study_form>
+        <students>
+            <student id="studentKbuej80914">
+                <name>Tr</name>
+                <surname>Jqevdhuy</surname>
+                <age>19</age>
+                <gpa>19</gpa>
+            </student>
+            <student id="studentRhijd39132">
+                <name>Jmd</name>
+                <surname>Ppmedlej</surname>
+                <age>14</age>
+                <gpa>68</gpa>
+            </student>
+            <student id="studentTejfc65726">
+                <name>W</name>
+                <surname>Xmyh</surname>
+                <age>23</age>
+                <gpa>52</gpa>
+            </student>
+            <student id="studentWiade73166">
+                <name>Qbeaqoad</name>
+                <surname>B</surname>
+                <age>18</age>
+                <gpa>77</gpa>
+            </student>
+            <student id="studentCxlyu8835">
+                <name>Er</name>
+                <surname>Tcxs</surname>
+                <age>12</age>
+                <gpa>4</gpa>
+            </student>
+            <student id="studentLhgbt40403">
+                <name>Dqrehtkat</name>
+                <surname>Lkac</surname>
+                <age>15</age>
+                <gpa>19</gpa>
+            </student>
+            <student id="studentYkmkm35261">
+                <name>Ibyrp</name>
+                <surname>U</surname>
+                <age>11</age>
+                <gpa>26</gpa>
+            </student>
+            <student id="studentAsitd5030">
+                <name>Awqdemz</name>
+                <surname>Zqgril</surname>
+                <age>22</age>
+                <gpa>98</gpa>
+            </student>
+            <student id="studentRvmkq47147">
+                <name>Kgvbnfdf</name>
+                <surname>Uazokvci</surname>
+                <age>16</age>
+                <gpa>69</gpa>
+            </student>
+            <student id="studentToglp56132">
+                <name>Bhvtpjtng</name>
+                <surname>Kgrpcc</surname>
+                <age>16</age>
+                <gpa>19</gpa>
+            </student>
+            <student id="studentXmrhk59645">
+                <name>Orgyhmnss</name>
+                <surname>Lvrwrvoaps</surname>
+                <age>17</age>
+                <gpa>12</gpa>
+            </student>
+            <student id="studentAuoci57042">
+                <name>Hgxxiyde</name>
+                <surname>Mvnkicu</surname>
+                <age>17</age>
+                <gpa>24</gpa>
+            </student>
+            <student id="studentNljsq57789">
+                <name>Tzavra</name>
+                <surname>Qvwyafhrs</surname>
+                <age>24</age>
+                <gpa>9</gpa>
+            </student>
+            <student id="studentHphia79562">
+                <name>Smghamcwc</name>
+                <surname>Xzsux</surname>
+                <age>11</age>
+                <gpa>75</gpa>
+            </student>
+            <student id="studentGybzt29322">
+                <name>Hzkitbd</name>
+                <surname>Ibfp</surname>
+                <age>12</age>
+                <gpa>54</gpa>
+            </student>
+            <student id="studentIrnje41961">
+                <name>Hzohm</name>
+                <surname>Rhzdvxc</surname>
+                <age>14</age>
+                <gpa>94</gpa>
+            </student>
+            <student id="studentMubdk82990">
+                <name>Jvkaonymu</name>
+                <surname>Bjofekz</surname>
+                <age>21</age>
+                <gpa>47</gpa>
+            </student>
+            <student id="studentImwar67515">
+                <name>Tjg</name>
+                <surname>Vodlr</surname>
+                <age>11</age>
+                <gpa>40</gpa>
+            </student>
+            <student id="studentMyjiu48806">
+                <name>Ffuoodmhtc</name>
+                <surname>Irvfksgq</surname>
+                <age>15</age>
+                <gpa>71</gpa>
+            </student>
+        </students>
+    </group>
+    <group course="3" name="group-Tw212">
+        <study_form>external</study_form>
+        <students>
+            <student id="studentPecix65107">
+                <name>Jwcqm</name>
+                <surname>Nmapk</surname>
+                <age>12</age>
+                <gpa>58</gpa>
+            </student>
+            <student id="studentDzzks82188">
+                <name>Buvmyonznt</name>
+                <surname>Qnhvvm</surname>
+                <age>24</age>
+                <gpa>43</gpa>
+            </student>
+            <student id="studentCnfeh76880">
+                <name>Mzsnzetucv</name>
+                <surname>Awetglxpz</surname>
+                <age>13</age>
+                <gpa>65</gpa>
+            </student>
+            <student id="studentDyeou64671">
+                <name>J</name>
+                <surname>Pjutr</surname>
+                <age>24</age>
+                <gpa>46</gpa>
+            </student>
+            <student id="studentWqhyj78068">
+                <name>I</name>
+                <surname>Ockbalrxd</surname>
+                <age>17</age>
+                <gpa>98</gpa>
+            </student>
+            <student id="studentVtxjy11413">
+                <name>W</name>
+                <surname>Fgpmtjsu</surname>
+                <age>12</age>
+                <gpa>24</gpa>
+            </student>
+            <student id="studentPvqsi6884">
+                <name>Ypl</name>
+                <surname>Zklmzl</surname>
+                <age>21</age>
+                <gpa>11</gpa>
+            </student>
+            <student id="studentZmysh34298">
+                <name>Sz</name>
+                <surname>Nhb</surname>
+                <age>20</age>
+                <gpa>85</gpa>
+            </student>
+            <student id="studentEddqy11623">
+                <name>Peqoounkz</name>
+                <surname>Qjdhadwc</surname>
+                <age>17</age>
+                <gpa>63</gpa>
+            </student>
+            <student id="studentEodgb63884">
+                <name>Of</name>
+                <surname>Oahqaljbjg</surname>
+                <age>18</age>
+                <gpa>43</gpa>
+            </student>
+            <student id="studentGhoty53774">
+                <name>Biirye</name>
+                <surname>Dfka</surname>
+                <age>12</age>
+                <gpa>38</gpa>
+            </student>
+            <student id="studentBbyit86996">
+                <name>Rqimzke</name>
+                <surname>Ndjzi</surname>
+                <age>11</age>
+                <gpa>98</gpa>
+            </student>
+            <student id="studentUcuyt64845">
+                <name>Hkrwczzqiu</name>
+                <surname>Tny</surname>
+                <age>14</age>
+                <gpa>10</gpa>
+            </student>
+            <student id="studentMhisi49584">
+                <name>Cxlg</name>
+                <surname>Vkoib</surname>
+                <age>23</age>
+                <gpa>28</gpa>
+            </student>
+            <student id="studentAvkln3925">
+                <name>Tjrut</name>
+                <surname>Dxgebshlr</surname>
+                <age>17</age>
+                <gpa>88</gpa>
+            </student>
+            <student id="studentNhkme78546">
+                <name>Mdccudavym</name>
+                <surname>Kcztfagoj</surname>
+                <age>16</age>
+                <gpa>45</gpa>
+            </student>
+            <student id="studentNqtxq29780">
+                <name>Nvutyymzj</name>
+                <surname>Gqrrvwbid</surname>
+                <age>10</age>
+                <gpa>7</gpa>
+            </student>
+            <student id="studentJtrdj65523">
+                <name>Kq</name>
+                <surname>Khmx</surname>
+                <age>24</age>
+                <gpa>61</gpa>
+            </student>
+            <student id="studentKfdeq99163">
+                <name>Z</name>
+                <surname>Vfzsa</surname>
+                <age>19</age>
+                <gpa>39</gpa>
+            </student>
+            <student id="studentPwacq74199">
+                <name>Cmpngaid</name>
+                <surname>Eisu</surname>
+                <age>10</age>
+                <gpa>62</gpa>
+            </student>
+            <student id="studentCzpcn26769">
+                <name>Myjpfe</name>
+                <surname>Grocabbc</surname>
+                <age>21</age>
+                <gpa>5</gpa>
+            </student>
+            <student id="studentAgvyi88664">
+                <name>Tbltamumj</name>
+                <surname>Snuej</surname>
+                <age>17</age>
+                <gpa>87</gpa>
+            </student>
+        </students>
+    </group>
+    <group course="1" name="group-Ge5589">
+        <study_form>external</study_form>
+        <students>
+            <student id="studentZxhys87655">
+                <name>Jfrggqjk</name>
+                <surname>Uzahaztwrn</surname>
+                <age>12</age>
+                <gpa>56</gpa>
+            </student>
+            <student id="studentGkxjj32412">
+                <name>Xdpcfmwktv</name>
+                <surname>R</surname>
+                <age>18</age>
+                <gpa>30</gpa>
+            </student>
+            <student id="studentNusjh54797">
+                <name>Zphnthvg</name>
+                <surname>Gnw</surname>
+                <age>13</age>
+                <gpa>54</gpa>
+            </student>
+            <student id="studentFqheo28244">
+                <name>Ilmltilf</name>
+                <surname>A</surname>
+                <age>15</age>
+                <gpa>81</gpa>
+            </student>
+            <student id="studentUtlue35879">
+                <name>Cmxftkbwzq</name>
+                <surname>Lxovhz</surname>
+                <age>15</age>
+                <gpa>64</gpa>
+            </student>
+            <student id="studentIbmix21180">
+                <name>Czodon</name>
+                <surname>Ydzqahz</surname>
+                <age>24</age>
+                <gpa>49</gpa>
+            </student>
+            <student id="studentYufik18989">
+                <name>Thaozckeks</name>
+                <surname>F</surname>
+                <age>12</age>
+                <gpa>94</gpa>
+            </student>
+            <student id="studentVazmh96787">
+                <name>Iswzzdjtic</name>
+                <surname>Pvuynw</surname>
+                <age>14</age>
+                <gpa>9</gpa>
+            </student>
+            <student id="studentQxasu40147">
+                <name>Jzxwq</name>
+                <surname>Xtut</surname>
+                <age>10</age>
+                <gpa>60</gpa>
+            </student>
+            <student id="studentYaqrl29904">
+                <name>Qjzu</name>
+                <surname>Pjgwm</surname>
+                <age>19</age>
+                <gpa>33</gpa>
+            </student>
+            <student id="studentOzhit1786">
+                <name>Dunqyz</name>
+                <surname>Ajorm</surname>
+                <age>20</age>
+                <gpa>58</gpa>
+            </student>
+            <student id="studentSyxuh72273">
+                <name>Tizd</name>
+                <surname>Se</surname>
+                <age>19</age>
+                <gpa>16</gpa>
+            </student>
+        </students>
+    </group>
+    <group course="2" name="group-Hy4492">
+        <study_form>external</study_form>
+        <students>
+            <student id="studentGpzbg25096">
+                <name>Iftdwassww</name>
+                <surname>Xopulyc</surname>
+                <age>10</age>
+                <gpa>78</gpa>
+            </student>
+            <student id="studentRwhvk77623">
+                <name>Wmi</name>
+                <surname>Qwgpj</surname>
+                <age>24</age>
+                <gpa>94</gpa>
+            </student>
+            <student id="studentRdknc24366">
+                <name>Dckoinaah</name>
+                <surname>Bleuvmp</surname>
+                <age>13</age>
+                <gpa>63</gpa>
+            </student>
+            <student id="studentLsyyp81445">
+                <name>Xtdjizo</name>
+                <surname>Zdiroajupa</surname>
+                <age>13</age>
+                <gpa>14</gpa>
+            </student>
+            <student id="studentTlbuo78909">
+                <name>G</name>
+                <surname>Ov</surname>
+                <age>12</age>
+                <gpa>37</gpa>
+            </student>
+            <student id="studentJvnuy68801">
+                <name>Vgkwwoa</name>
+                <surname>C</surname>
+                <age>24</age>
+                <gpa>84</gpa>
+            </student>
+            <student id="studentTejsc2276">
+                <name>Oy</name>
+                <surname>Juyvrdqy</surname>
+                <age>16</age>
+                <gpa>69</gpa>
+            </student>
+            <student id="studentCnlcb63954">
+                <name>Hez</name>
+                <surname>K</surname>
+                <age>22</age>
+                <gpa>35</gpa>
+            </student>
+            <student id="studentDjsut63932">
+                <name>Uai</name>
+                <surname>Bjmdo</surname>
+                <age>22</age>
+                <gpa>2</gpa>
+            </student>
+            <student id="studentJbzbw51698">
+                <name>Inxiq</name>
+                <surname>Nwm</surname>
+                <age>13</age>
+                <gpa>27</gpa>
+            </student>
+            <student id="studentVvcda3000">
+                <name>Awayogjaaw</name>
+                <surname>Njx</surname>
+                <age>15</age>
+                <gpa>40</gpa>
+            </student>
+            <student id="studentRhajm2778">
+                <name>Xjmc</name>
+                <surname>Eszn</surname>
+                <age>24</age>
+                <gpa>94</gpa>
+            </student>
+            <student id="studentXxbjk7559">
+                <name>Btr</name>
+                <surname>Jtynsxp</surname>
+                <age>17</age>
+                <gpa>63</gpa>
+            </student>
+            <student id="studentWnzvq69517">
+                <name>B</name>
+                <surname>Pnlakfmylb</surname>
+                <age>17</age>
+                <gpa>91</gpa>
+            </student>
+            <student id="studentFcpky23245">
+                <name>Jnnxnuztc</name>
+                <surname>Hohasypa</surname>
+                <age>22</age>
+                <gpa>48</gpa>
+            </student>
+            <student id="studentZaooc11921">
+                <name>Xazemq</name>
+                <surname>Upqgl</surname>
+                <age>14</age>
+                <gpa>97</gpa>
+            </student>
+            <student id="studentZhlcc64707">
+                <name>Oh</name>
+                <surname>Jxcvlhwg</surname>
+                <age>19</age>
+                <gpa>11</gpa>
+            </student>
+            <student id="studentDxerq81056">
+                <name>Fnndj</name>
+                <surname>Znf</surname>
+                <age>15</age>
+                <gpa>47</gpa>
+            </student>
+            <student id="studentAolhf88665">
+                <name>D</name>
+                <surname>Dtzibchinh</surname>
+                <age>23</age>
+                <gpa>24</gpa>
+            </student>
+        </students>
+    </group>
+    <group course="2" name="group-Ni2246">
+        <study_form>external</study_form>
+        <students>
+            <student id="studentYwbte17445">
+                <name>P</name>
+                <surname>Ozddfpaij</surname>
+                <age>18</age>
+                <gpa>86</gpa>
+            </student>
+            <student id="studentTbtkd7073">
+                <name>Vxksr</name>
+                <surname>Kaiqrtqopw</surname>
+                <age>11</age>
+                <gpa>50</gpa>
+            </student>
+            <student id="studentFdeln21873">
+                <name>Gi</name>
+                <surname>Mwckhkftv</surname>
+                <age>12</age>
+                <gpa>31</gpa>
+            </student>
+            <student id="studentJoogj58465">
+                <name>Uuz</name>
+                <surname>Cscptqrn</surname>
+                <age>19</age>
+                <gpa>11</gpa>
+            </student>
+            <student id="studentEgxir238">
+                <name>Tqsyfevg</name>
+                <surname>Uyqprdyjrj</surname>
+                <age>21</age>
+                <gpa>47</gpa>
+            </student>
+            <student id="studentToeos63974">
+                <name>I</name>
+                <surname>Xeuijvpvk</surname>
+                <age>15</age>
+                <gpa>54</gpa>
+            </student>
+            <student id="studentYpeps45671">
+                <name>Ckvoeygruo</name>
+                <surname>Ocycraxqz</surname>
+                <age>13</age>
+                <gpa>10</gpa>
+            </student>
+            <student id="studentLgdtc47138">
+                <name>Z</name>
+                <surname>Muw</surname>
+                <age>13</age>
+                <gpa>25</gpa>
+            </student>
+            <student id="studentMtkcu14223">
+                <name>Wxltexz</name>
+                <surname>Dqrajxd</surname>
+                <age>17</age>
+                <gpa>90</gpa>
+            </student>
+            <student id="studentUvjqy75408">
+                <name>Rgtnhndo</name>
+                <surname>Maweyem</surname>
+                <age>16</age>
+                <gpa>67</gpa>
+            </student>
+            <student id="studentGxsjj58776">
+                <name>Hp</name>
+                <surname>Le</surname>
+                <age>23</age>
+                <gpa>22</gpa>
+            </student>
+            <student id="studentDdege72239">
+                <name>Rchlphhd</name>
+                <surname>Cqbrm</surname>
+                <age>14</age>
+                <gpa>95</gpa>
+            </student>
+            <student id="studentMcwtb45867">
+                <name>Zmhh</name>
+                <surname>Bflujdgmk</surname>
+                <age>18</age>
+                <gpa>28</gpa>
+            </student>
+            <student id="studentTcbyq56924">
+                <name>Qhdqmjec</name>
+                <surname>Eranc</surname>
+                <age>23</age>
+                <gpa>75</gpa>
+            </student>
+            <student id="studentVggsh45155">
+                <name>Dhl</name>
+                <surname>Skww</surname>
+                <age>13</age>
+                <gpa>26</gpa>
+            </student>
+            <student id="studentZmafw29165">
+                <name>P</name>
+                <surname>Mpku</surname>
+                <age>22</age>
+                <gpa>67</gpa>
+            </student>
+            <student id="studentSuhir39126">
+                <name>Al</name>
+                <surname>Ndi</surname>
+                <age>11</age>
+                <gpa>65</gpa>
+            </student>
+        </students>
+    </group>
+    <group course="1" name="group-Qs1471">
+        <study_form>external</study_form>
+        <students>
+            <student id="studentNiccl63696">
+                <name>Nojjcc</name>
+                <surname>Eeszo</surname>
+                <age>11</age>
+                <gpa>5</gpa>
+            </student>
+            <student id="studentHqdqy98111">
+                <name>Dptymot</name>
+                <surname>Kaobss</surname>
+                <age>12</age>
+                <gpa>6</gpa>
+            </student>
+            <student id="studentTwjez14402">
+                <name>Zfrpxtga</name>
+                <surname>Rkylugptk</surname>
+                <age>15</age>
+                <gpa>56</gpa>
+            </student>
+            <student id="studentGefkr58480">
+                <name>Qcltguux</name>
+                <surname>Hoevuxq</surname>
+                <age>11</age>
+                <gpa>70</gpa>
+            </student>
+            <student id="studentHkmvh97984">
+                <name>Gkltd</name>
+                <surname>Edbcszna</surname>
+                <age>12</age>
+                <gpa>80</gpa>
+            </student>
+            <student id="studentCdvww43402">
+                <name>Lygviszax</name>
+                <surname>Tini</surname>
+                <age>18</age>
+                <gpa>49</gpa>
+            </student>
+            <student id="studentEfmym46394">
+                <name>Gmjsddgyn</name>
+                <surname>Ttx</surname>
+                <age>22</age>
+                <gpa>18</gpa>
+            </student>
+            <student id="studentKuhhq93506">
+                <name>Yo</name>
+                <surname>Uqoaijxtx</surname>
+                <age>15</age>
+                <gpa>80</gpa>
+            </student>
+            <student id="studentVvmwh22956">
+                <name>Rcaznjih</name>
+                <surname>Welafpl</surname>
+                <age>15</age>
+                <gpa>47</gpa>
+            </student>
+            <student id="studentSzeqc58437">
+                <name>Yomn</name>
+                <surname>Emrkoesgpf</surname>
+                <age>14</age>
+                <gpa>66</gpa>
+            </student>
+            <student id="studentVtdox76531">
+                <name>Lodj</name>
+                <surname>Rvvocz</surname>
+                <age>22</age>
+                <gpa>12</gpa>
+            </student>
+            <student id="studentAllha3136">
+                <name>Ekocv</name>
+                <surname>Qraiq</surname>
+                <age>24</age>
+                <gpa>39</gpa>
+            </student>
+            <student id="studentVdkqd77091">
+                <name>Iecnq</name>
+                <surname>Wdx</surname>
+                <age>19</age>
+                <gpa>76</gpa>
+            </student>
+            <student id="studentUgvzw38152">
+                <name>Ptis</name>
+                <surname>Kvfuy</surname>
+                <age>20</age>
+                <gpa>64</gpa>
+            </student>
+            <student id="studentIdbnd39321">
+                <name>Dlvfx</name>
+                <surname>Wfiydqq</surname>
+                <age>16</age>
+                <gpa>86</gpa>
+            </student>
+            <student id="studentGyvvp17312">
+                <name>Ccjiqzfg</name>
+                <surname>Cdoue</surname>
+                <age>23</age>
+                <gpa>3</gpa>
+            </student>
+            <student id="studentShnru15830">
+                <name>Lf</name>
+                <surname>Tcxbpuz</surname>
+                <age>18</age>
+                <gpa>64</gpa>
+            </student>
+            <student id="studentXtcgf21541">
+                <name>Ieanepyzc</name>
+                <surname>Kmyqhv</surname>
+                <age>21</age>
+                <gpa>36</gpa>
+            </student>
+            <student id="studentYmnul19082">
+                <name>Zpinrh</name>
+                <surname>Zxaiaojc</surname>
+                <age>17</age>
+                <gpa>66</gpa>
+            </student>
+            <student id="studentBmfog21622">
+                <name>Nafidjn</name>
+                <surname>Dktgloza</surname>
+                <age>19</age>
+                <gpa>85</gpa>
+            </student>
+            <student id="studentLopxd16014">
+                <name>Lmlmmirpv</name>
+                <surname>Wcqzlqvy</surname>
+                <age>13</age>
+                <gpa>47</gpa>
+            </student>
+            <student id="studentArsuz45680">
+                <name>Py</name>
+                <surname>Dsmhf</surname>
+                <age>12</age>
+                <gpa>62</gpa>
+            </student>
+            <student id="studentLabpt33985">
+                <name>Nrhbfybsh</name>
+                <surname>Dgve</surname>
+                <age>15</age>
+                <gpa>70</gpa>
+            </student>
+            <student id="studentYfiek35129">
+                <name>Z</name>
+                <surname>Mtdqnhidke</surname>
+                <age>15</age>
+                <gpa>49</gpa>
+            </student>
+        </students>
+    </group>
+    <group course="4" name="group-Re6879">
+        <study_form>external</study_form>
+        <students>
+            <student id="studentRyceb46980">
+                <name>Lbroobiir</name>
+                <surname>N</surname>
+                <age>12</age>
+                <gpa>31</gpa>
+            </student>
+            <student id="studentLgshc2098">
+                <name>R</name>
+                <surname>Xomfm</surname>
+                <age>24</age>
+                <gpa>78</gpa>
+            </student>
+            <student id="studentIoqsn77766">
+                <name>Euaca</name>
+                <surname>E</surname>
+                <age>17</age>
+                <gpa>60</gpa>
+            </student>
+            <student id="studentMlbxu88731">
+                <name>Riguqqvauc</name>
+                <surname>Tls</surname>
+                <age>20</age>
+                <gpa>23</gpa>
+            </student>
+            <student id="studentOewnz92110">
+                <name>Nxk</name>
+                <surname>Pofvgo</surname>
+                <age>16</age>
+                <gpa>2</gpa>
+            </student>
+            <student id="studentWucsg9591">
+                <name>Ryopk</name>
+                <surname>Ujteiiv</surname>
+                <age>13</age>
+                <gpa>57</gpa>
+            </student>
+            <student id="studentDpmli32630">
+                <name>Tnplfasa</name>
+                <surname>Vxsp</surname>
+                <age>11</age>
+                <gpa>88</gpa>
+            </student>
+            <student id="studentSodwa73459">
+                <name>Tubw</name>
+                <surname>Dkpppot</surname>
+                <age>13</age>
+                <gpa>93</gpa>
+            </student>
+            <student id="studentZrpgp20503">
+                <name>Qpkl</name>
+                <surname>Hpi</surname>
+                <age>15</age>
+                <gpa>0</gpa>
+            </student>
+            <student id="studentDeaxa98647">
+                <name>Qrfzaolgdu</name>
+                <surname>Gdguvgdk</surname>
+                <age>24</age>
+                <gpa>17</gpa>
+            </student>
+            <student id="studentHuglr85622">
+                <name>Rfulflu</name>
+                <surname>C</surname>
+                <age>19</age>
+                <gpa>17</gpa>
+            </student>
+            <student id="studentLyruq29869">
+                <name>Zo</name>
+                <surname>Mpewqtfi</surname>
+                <age>11</age>
+                <gpa>64</gpa>
+            </student>
+            <student id="studentGhfce16714">
+                <name>Izj</name>
+                <surname>Svvhrwfpt</surname>
+                <age>17</age>
+                <gpa>17</gpa>
+            </student>
+            <student id="studentVecto85065">
+                <name>Tbihnal</name>
+                <surname>Y</surname>
+                <age>14</age>
+                <gpa>2</gpa>
+            </student>
+            <student id="studentQtcfv81558">
+                <name>Rgcpej</name>
+                <surname>Pvzbko</surname>
+                <age>14</age>
+                <gpa>84</gpa>
+            </student>
+            <student id="studentIrtoz58042">
+                <name>Pmrhnwqq</name>
+                <surname>Jl</surname>
+                <age>19</age>
+                <gpa>52</gpa>
+            </student>
+            <student id="studentTafyw88818">
+                <name>Elahdwmayf</name>
+                <surname>Hkce</surname>
+                <age>23</age>
+                <gpa>45</gpa>
+            </student>
+            <student id="studentTubpz19948">
+                <name>Zzomiblzkm</name>
+                <surname>Rjezi</surname>
+                <age>21</age>
+                <gpa>33</gpa>
+            </student>
+            <student id="studentKlcjm45403">
+                <name>Uj</name>
+                <surname>Wgq</surname>
+                <age>12</age>
+                <gpa>57</gpa>
+            </student>
+            <student id="studentQahco25330">
+                <name>Nl</name>
+                <surname>Oxnlm</surname>
+                <age>18</age>
+                <gpa>72</gpa>
+            </student>
+            <student id="studentKktos50447">
+                <name>Em</name>
+                <surname>Tpxwftpmw</surname>
+                <age>23</age>
+                <gpa>69</gpa>
+            </student>
+            <student id="studentLgrsi9594">
+                <name>Zsmxcxabhf</name>
+                <surname>F</surname>
+                <age>15</age>
+                <gpa>66</gpa>
+            </student>
+            <student id="studentEyopx41037">
+                <name>Ioqww</name>
+                <surname>Snxoeo</surname>
+                <age>12</age>
+                <gpa>10</gpa>
+            </student>
+        </students>
+    </group>
+    <group course="3" name="group-Ju6339">
+        <study_form>external</study_form>
+        <students>
+            <student id="studentIbydt65685">
+                <name>Wqylekj</name>
+                <surname>Raubm</surname>
+                <age>22</age>
+                <gpa>88</gpa>
+            </student>
+            <student id="studentTrqye9730">
+                <name>Pcwgfnkbvi</name>
+                <surname>Vris</surname>
+                <age>15</age>
+                <gpa>43</gpa>
+            </student>
+            <student id="studentFevxf19309">
+                <name>Cdx</name>
+                <surname>Rsirvudzt</surname>
+                <age>12</age>
+                <gpa>13</gpa>
+            </student>
+            <student id="studentNlsxm69123">
+                <name>Lblp</name>
+                <surname>Kmgzclscrf</surname>
+                <age>14</age>
+                <gpa>24</gpa>
+            </student>
+            <student id="studentWnano15420">
+                <name>Ljnegfra</name>
+                <surname>Zteii</surname>
+                <age>23</age>
+                <gpa>89</gpa>
+            </student>
+            <student id="studentSajsa4444">
+                <name>Opslrcct</name>
+                <surname>Vuimwirzxr</surname>
+                <age>11</age>
+                <gpa>28</gpa>
+            </student>
+            <student id="studentKchmx80180">
+                <name>Zobhnioc</name>
+                <surname>Phyr</surname>
+                <age>19</age>
+                <gpa>92</gpa>
+            </student>
+            <student id="studentMqohb99731">
+                <name>Prqcbl</name>
+                <surname>Lz</surname>
+                <age>18</age>
+                <gpa>98</gpa>
+            </student>
+            <student id="studentMizrv55915">
+                <name>Ejkjqer</name>
+                <surname>Edovqg</surname>
+                <age>12</age>
+                <gpa>73</gpa>
+            </student>
+            <student id="studentPzxfj28768">
+                <name>Mdarroh</name>
+                <surname>Oh</surname>
+                <age>23</age>
+                <gpa>71</gpa>
+            </student>
+            <student id="studentUawgz59444">
+                <name>Gqmw</name>
+                <surname>Rdkfjpy</surname>
+                <age>16</age>
+                <gpa>16</gpa>
+            </student>
+            <student id="studentFsqkg37240">
+                <name>Tttumrga</name>
+                <surname>Nvhiw</surname>
+                <age>20</age>
+                <gpa>87</gpa>
+            </student>
+            <student id="studentIayvj69492">
+                <name>Tbgzmsgsl</name>
+                <surname>Zr</surname>
+                <age>21</age>
+                <gpa>52</gpa>
+            </student>
+            <student id="studentUksla11392">
+                <name>Ufcbidgb</name>
+                <surname>Ob</surname>
+                <age>21</age>
+                <gpa>42</gpa>
+            </student>
+            <student id="studentNdltd82870">
+                <name>Uvwbj</name>
+                <surname>Iksykkf</surname>
+                <age>18</age>
+                <gpa>59</gpa>
+            </student>
+            <student id="studentLbdpx24038">
+                <name>Mfrpamscxm</name>
+                <surname>Irv</surname>
+                <age>22</age>
+                <gpa>44</gpa>
+            </student>
+            <student id="studentEqfcb91727">
+                <name>Blefszexlk</name>
+                <surname>Duckpw</surname>
+                <age>16</age>
+                <gpa>17</gpa>
+            </student>
+            <student id="studentZoovd80084">
+                <name>C</name>
+                <surname>Xhecyr</surname>
+                <age>17</age>
+                <gpa>73</gpa>
+            </student>
+            <student id="studentGceoe84168">
+                <name>Chp</name>
+                <surname>Sgnbhjpxj</surname>
+                <age>23</age>
+                <gpa>53</gpa>
+            </student>
+        </students>
+    </group>
+    <group course="3" name="group-Yi2510">
+        <study_form>external</study_form>
+        <students>
+            <student id="studentPfkec21407">
+                <name>Gb</name>
+                <surname>Spdnk</surname>
+                <age>13</age>
+                <gpa>45</gpa>
+            </student>
+            <student id="studentTdcof14205">
+                <name>Zzfugijq</name>
+                <surname>Molyqpahux</surname>
+                <age>13</age>
+                <gpa>88</gpa>
+            </student>
+            <student id="studentYpkgh99571">
+                <name>Ymkwanorud</name>
+                <surname>Demacazu</surname>
+                <age>11</age>
+                <gpa>60</gpa>
+            </student>
+            <student id="studentIlatf10634">
+                <name>W</name>
+                <surname>Kymbwfoamu</surname>
+                <age>17</age>
+                <gpa>9</gpa>
+            </student>
+            <student id="studentEzqid85585">
+                <name>Pqhacpsn</name>
+                <surname>Plitvwvskf</surname>
+                <age>10</age>
+                <gpa>71</gpa>
+            </student>
+            <student id="studentWglkk83719">
+                <name>Sf</name>
+                <surname>Fpxsaoho</surname>
+                <age>15</age>
+                <gpa>97</gpa>
+            </student>
+            <student id="studentEjmtp90999">
+                <name>Nm</name>
+                <surname>Jvmou</surname>
+                <age>12</age>
+                <gpa>17</gpa>
+            </student>
+            <student id="studentIilcb2909">
+                <name>Vfbwubtds</name>
+                <surname>Fw</surname>
+                <age>15</age>
+                <gpa>64</gpa>
+            </student>
+            <student id="studentKfmpq11977">
+                <name>Cciihvfww</name>
+                <surname>H</surname>
+                <age>22</age>
+                <gpa>98</gpa>
+            </student>
+            <student id="studentAclvf58157">
+                <name>Rbjyobzexz</name>
+                <surname>Ke</surname>
+                <age>11</age>
+                <gpa>59</gpa>
+            </student>
+            <student id="studentTfilz46615">
+                <name>Qwmcfvcs</name>
+                <surname>Zqekqxkku</surname>
+                <age>20</age>
+                <gpa>12</gpa>
+            </student>
+            <student id="studentEeprv40017">
+                <name>Ohszekg</name>
+                <surname>Xzqkucvv</surname>
+                <age>13</age>
+                <gpa>61</gpa>
+            </student>
+            <student id="studentDxyzs652">
+                <name>Snju</name>
+                <surname>W</surname>
+                <age>14</age>
+                <gpa>81</gpa>
+            </student>
+            <student id="studentPatda44723">
+                <name>Qyop</name>
+                <surname>Tvwyln</surname>
+                <age>21</age>
+                <gpa>33</gpa>
+            </student>
+            <student id="studentWcjeq54896">
+                <name>Twn</name>
+                <surname>Eovcse</surname>
+                <age>16</age>
+                <gpa>15</gpa>
+            </student>
+            <student id="studentGcerd6931">
+                <name>Lz</name>
+                <surname>Ilmtdrd</surname>
+                <age>17</age>
+                <gpa>15</gpa>
+            </student>
+            <student id="studentHiojr31193">
+                <name>No</name>
+                <surname>Bfidxarl</surname>
+                <age>18</age>
+                <gpa>16</gpa>
+            </student>
+            <student id="studentZvcfa33719">
+                <name>Jygnrw</name>
+                <surname>Cwdkjhbfd</surname>
+                <age>11</age>
+                <gpa>16</gpa>
+            </student>
+            <student id="studentLvwrp18664">
+                <name>Krh</name>
+                <surname>Mhhkgy</surname>
+                <age>24</age>
+                <gpa>36</gpa>
             </student>
         </students>
     </group>
