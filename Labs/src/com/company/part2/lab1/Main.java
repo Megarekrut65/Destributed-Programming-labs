@@ -1,8 +1,8 @@
 package com.company.part2.lab1;
 
 import com.company.part2.lab1.parser.DOMDepartmentParser;
-
-import java.util.ArrayList;
+import com.company.part2.subjectarea.Generator;
+import com.company.part2.subjectarea.TrainingDepartment;
 
 /**
  * Variant 4
@@ -19,7 +19,7 @@ public class Main {
         writeDepartment();
     }
     private static void readDepartment(){
-        department = parser.readGemFromXmlFile(file);
+        department = parser.readDepartmentFromXmlFile(file);
         if(department != null){
             System.out.println("Department was read successfully!");
             System.out.println(department);
@@ -38,7 +38,7 @@ public class Main {
     }
     private static void writeDepartment(){
         if(department != null){
-            if(parser.writeGemToXmlFile(department, file)){
+            if(parser.writeDepartmentToXmlFile(department, file)){
                 System.out.println("Department was written successfully!");
             } else {
                 System.err.println("Department was written unsuccessfully!");

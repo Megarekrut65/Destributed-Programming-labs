@@ -1,10 +1,11 @@
-package com.company.part2.lab1;
+package com.company.part2.subjectarea;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Group {
+    private int id = 0;
     private String name = "group0";
     private int course = 1;
     private String studyForm = "full-time";
@@ -13,13 +14,26 @@ public class Group {
     public Group() {
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Group(String name, int course, String studyForm, List<Student> students) {
         this.name = name;
         this.course = course;
         this.studyForm = studyForm;
         this.students = students;
     }
-
+    public Group(int id, String name, int course, String studyForm) {
+        this.id = id;
+        this.name = name;
+        this.course = course;
+        this.studyForm = studyForm;
+    }
     public String getName() {
         return name;
     }
@@ -54,12 +68,7 @@ public class Group {
 
     @Override
     public String toString() {
-        return "Group{" +
-                "name='" + name + '\'' +
-                ", course=" + course +
-                ", studyForm='" + studyForm + '\'' +
-                ", students=" + students +
-                '}';
+        return id + ") " + name + ", course: " + course + ", study form: " + studyForm;
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.company.part2.lab1.parser;
 
-import com.company.part2.lab1.Group;
-import com.company.part2.lab1.Student;
-import com.company.part2.lab1.TrainingDepartment;
+import com.company.part2.subjectarea.Group;
+import com.company.part2.subjectarea.Student;
+import com.company.part2.subjectarea.TrainingDepartment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -36,7 +36,7 @@ public class DOMDepartmentParser {
     public List<String> getErrors(){
         return gemsHandler.getErrors();
     }
-    public boolean writeGemToXmlFile(TrainingDepartment department, String filePath){
+    public boolean writeDepartmentToXmlFile(TrainingDepartment department, String filePath){
         if(department == null) return false;
         Document document = docBuilder.newDocument();
         Element rootElement = document.createElement(DepartmentXmlTags.TRAINING_DEPARTMENT.val());
@@ -96,7 +96,7 @@ public class DOMDepartmentParser {
         element.appendChild(document.createTextNode(content));
         return element;
     }
-    public TrainingDepartment readGemFromXmlFile(String filePath){
+    public TrainingDepartment readDepartmentFromXmlFile(String filePath){
         try {
             validator.validate(filePath);
             if(gemsHandler.getErrors().size() == 0){

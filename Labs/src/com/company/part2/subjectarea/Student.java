@@ -1,9 +1,10 @@
-package com.company.part2.lab1;
+package com.company.part2.subjectarea;
 
 import java.util.Objects;
 
 public class Student {
     private String id = "student0";
+    private int groupId = 0;
     private String name = "Name";
     private String surname = "surname";
     private int age = 18;
@@ -12,6 +13,21 @@ public class Student {
     public Student() {
     }
 
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
+    }
+    public Student(int id,int groupId, String name, String surname, int age, int gpa) {
+        this.groupId = groupId;
+        this.id = Integer.toString(id);
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+        this.gpa = gpa;
+    }
     public Student(String id, String name, String surname, int age, int gpa) {
         this.id = id;
         this.name = name;
@@ -75,12 +91,6 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", age=" + age +
-                ", gpa=" + gpa +
-                '}';
+        return id + ") " + name + " " + surname + ", age: " + age + ", gpa: " + gpa + ", group: " + groupId;
     }
 }

@@ -1,4 +1,8 @@
-package com.company.part2.lab1;
+package com.company.part2.subjectarea;
+
+import com.company.part2.subjectarea.Group;
+import com.company.part2.subjectarea.Student;
+import com.company.part2.subjectarea.TrainingDepartment;
 
 import java.util.Random;
 

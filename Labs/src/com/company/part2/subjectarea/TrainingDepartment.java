@@ -1,4 +1,4 @@
-package com.company.part2.lab1;
+package com.company.part2.subjectarea;
 
 import java.util.ArrayList;
 import java.util.List;
