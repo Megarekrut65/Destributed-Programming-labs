@@ -42,7 +42,7 @@ public class DepartmentSqlManager {
     }
     public void showGroups(){
         var list = getGroups();
-        System.out.println("Groups:");
+        System.out.println("\nGroups:");
         for(var group:list){
             System.out.println(group);
         }
@@ -75,9 +75,35 @@ public class DepartmentSqlManager {
         }
         return false;
     }
+    public Group findGroup(int id){
+        String sql = "SELECT ID_GR, name, course, study_form FROM theGroups WHERE ID_GR =" + id;
+        try {
+            ResultSet rs = statement.executeQuery(sql);
+            if (rs.next()) {
+                return new Group(
+                        rs.getInt("ID_GR"),
+                        rs.getString("name"),
+                        rs.getInt("course"),
+                        rs.getString("study_form"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     public List<Student> getStudents(){
         List<Student> students = new ArrayList<>();
         String sql = "SELECT ID_ST, ID_GR, name, surname, age, gpa FROM students";
+        return getStudents(students, sql);
+    }
+    public List<Student> getStudents(int groupId){
+        List<Student> students = new ArrayList<>();
+        String sql = "SELECT ID_ST, ID_GR, name, surname, age, gpa FROM students WHERE ID_GR ="+groupId;
+        return getStudents(students, sql);
+    }
+
+    private List<Student> getStudents(List<Student> students, String sql) {
         try {
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
@@ -96,9 +122,17 @@ public class DepartmentSqlManager {
         }
         return students;
     }
+
     public void showStudents(){
         var list = getStudents();
-        System.out.println("Students:");
+        System.out.println("\nStudents:");
+        for(var student:list){
+            System.out.println(student);
+        }
+    }
+    public void showStudents(int groupId){
+        var list = getStudents(groupId);
+        System.out.println("\nStudents:");
         for(var student:list){
             System.out.println(student);
         }
@@ -132,6 +166,26 @@ public class DepartmentSqlManager {
             e.printStackTrace();
         }
         return false;
+    }
+    public Student findStudent(int id, int groupId){
+        String sql = "SELECT ID_ST, ID_GR, name, surname, age, gpa FROM students WHERE ID_ST ="
+                + id + " AND ID_GR =" + groupId;
+        try {
+            ResultSet rs = statement.executeQuery(sql);
+            if (rs.next()) {
+                return new Student(
+                        rs.getInt("ID_ST"),
+                        rs.getInt("ID_GR"),
+                        rs.getString("name"),
+                        rs.getString("surname"),
+                        rs.getInt("age"),
+                        rs.getInt("gpa"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     public void stop() throws SQLException {
         statement.close();
