@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1db854a-9118-4d05-8b72-c2cc94ef14bc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/out/production/Labs/com/company/part1/lab3/b/Customer.go" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/out/production/Labs/com/company/part1/lab3/b/Customer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/out/production/Labs/com/company/part1/lab3/b/Hairdresser.go" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/out/production/Labs/com/company/part1/lab3/b/Hairdresser.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/out/production/Labs/com/company/part1/lab3/b/HairdresserProgram.go" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/out/production/Labs/com/company/part1/lab3/b/HairdresserProgram.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab1/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab1/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab1/parser/DOMDepartmentParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab1/parser/DOMDepartmentParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DestributedProgramming-labs.iml" beforeDir="false" afterPath="$PROJECT_DIR$/DestributedProgramming-labs.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab2/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab2/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DestributedProgramming-labs/com/company/part2/lab1/data/training_department.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DestributedProgramming-labs/com/company/part2/lab1/data/training_department.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,22 +40,23 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Labs" />
+    <property name="last_opened_file_path" value="E:/Java-projects/mpj-v0_44/lib/mpj.jar" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
+    <property name="settings.editor.selected.configurable" value="jpb.dbDrivers" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\User81\source\repos\Megarekrut65\DestributedProgramming-labs\Labs\src\com\company\part2\lab1\parser" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.Main (2)">
     <configuration name="ConsecutiveMatrixMultiplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.company.part1.lab6.ConsecutiveMatrixMultiplication" />
       <module name="DestributedProgramming-labs" />
@@ -86,12 +87,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.company.part1.lab6.Main" />
+    <configuration name="Main (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.part2.lab2.Main" />
       <module name="DestributedProgramming-labs" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.company.part1.lab6.*" />
+          <option name="PATTERN" value="com.company.part2.lab2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -144,19 +145,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.FoxAlgorithm" />
-      <item itemvalue="Application.Main (1)" />
       <item itemvalue="Application.TapeScheme" />
       <item itemvalue="Application.ConsecutiveMatrixMultiplication" />
       <item itemvalue="Application.task7Java" />
       <item itemvalue="Application.Main" />
+      <item itemvalue="Application.Main (2)" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main (2)" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.task7Java" />
         <item itemvalue="Application.TapeScheme" />
         <item itemvalue="Application.ConsecutiveMatrixMultiplication" />
-        <item itemvalue="Application.Main (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -170,6 +171,7 @@
       <updated>1630681096974</updated>
       <workItem from="1630681099222" duration="129000" />
       <workItem from="1630948292767" duration="80000" />
+      <workItem from="1637167253844" duration="1778000" />
     </task>
     <servers />
   </component>
