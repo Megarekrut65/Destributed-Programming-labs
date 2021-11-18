@@ -54,6 +54,17 @@ public class DepartmentClient {
         }
         return null;
     }
+    public Group findGroup(int id) throws IOException, ClassNotFoundException {
+        out.writeObject(Commands.FIND_GROUP.code());
+        String answer = (String) in.readObject();
+        if(answer.equals(ServerResults.SUCCESSFUL.code())) {
+            out.writeObject(id);
+            answer = (String) in.readObject();
+            if(answer.equals(ServerResults.SUCCESSFUL.code()))
+                return (Group) in.readObject();
+        }
+        return null;
+    }
     public Student findStudent(int id, int groupId) throws IOException, ClassNotFoundException {
         out.writeObject(Commands.FIND_STUDENT.code());
         String answer = (String) in.readObject();
@@ -72,6 +83,8 @@ public class DepartmentClient {
             System.out.println(getStudentsInGroup(67));
             System.out.println(getGroups());
             System.out.println(findStudent(55,1));
+            System.out.println(findGroup(1));
+            System.out.println(findGroup(55));
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

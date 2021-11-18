@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="d1db854a-9118-4d05-8b72-c2cc94ef14bc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/Commands.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/Commands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/ServerResults.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/ServerResults.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/client/DepartmentClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/client/DepartmentClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/ClientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/ClientManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/DepartmentServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/DepartmentServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,7 +175,7 @@
       <workItem from="1637167253844" duration="5979000" />
       <workItem from="1637174563581" duration="527000" />
       <workItem from="1637221896296" duration="2249000" />
-      <workItem from="1637230203270" duration="6703000" />
+      <workItem from="1637230203270" duration="6936000" />
     </task>
     <servers />
   </component>

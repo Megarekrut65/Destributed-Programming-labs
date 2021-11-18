@@ -25,7 +25,6 @@ public class DepartmentServer{
         while (true){
             try {
                 var client = serverSocket.accept();
-                System.out.println(client);
                 executor.execute(new ClientManager(client, database));
             } catch (IOException e) {
                 e.printStackTrace();

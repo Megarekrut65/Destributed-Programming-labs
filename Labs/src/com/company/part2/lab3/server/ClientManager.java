@@ -42,7 +42,7 @@ public class ClientManager implements Runnable{
     }
     private boolean work() throws IOException, ClassNotFoundException {
         String code = (String)in.readObject();
-        System.out.println(code);
+        System.out.println("Command: "+code);
         var fun = functionMap.get(code);
         if(fun != null){
             out.writeObject(ServerResults.SUCCESSFUL.code());
@@ -88,7 +88,23 @@ public class ClientManager implements Runnable{
         return false;
     }
     private boolean findGroup(){
-
+        try {
+            int id = (int)in.readObject();
+            var group = database.findGroup(id);
+            System.out.print("Id: " + id);
+            if(group != null) {
+                out.writeObject(ServerResults.SUCCESSFUL.code());
+                System.out.println(", found group: " + group.getName());
+                out.writeObject(group);
+            }
+            else{
+                out.writeObject(ServerResults.NOT_FOUND.code());
+                System.out.println(", not found");
+            }
+            return true;
+        }catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return false;
     }
     private boolean getStudents() {
