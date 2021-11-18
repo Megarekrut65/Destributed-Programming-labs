@@ -2,16 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1db854a-9118-4d05-8b72-c2cc94ef14bc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/Commands.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/ServerResults.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/client/DepartmentClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/ClientManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/DepartmentServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/Group.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/Group.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/TrainingDepartment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/TrainingDepartment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/Commands.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/Commands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/client/DepartmentClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/client/DepartmentClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/ClientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/ClientManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/DepartmentServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/DepartmentServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,13 +63,13 @@
       <recent name="com.company.part2" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main (2)">
-    <configuration name="ConsecutiveMatrixMultiplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.company.part1.lab6.ConsecutiveMatrixMultiplication" />
+  <component name="RunManager" selected="Application.DepartmentClient">
+    <configuration name="DepartmentClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.part2.lab3.client.DepartmentClient" />
       <module name="DestributedProgramming-labs" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.company.part1.lab6.*" />
+          <option name="PATTERN" value="com.company.part2.lab3.client.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -91,6 +87,19 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.company.part1.lab6.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.part2.lab3.Main" />
+      <module name="DestributedProgramming-labs" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.company.part2.lab3.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -124,23 +133,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TapeScheme" type="Application" factoryName="Application" temporary="true">
-      <envs>
-        <env name="MPJ_HOME" value="E:\Java-projects\mpj-v0_44" />
-      </envs>
-      <option name="MAIN_CLASS_NAME" value="com.company.part1.lab6.TapeScheme" />
-      <module name="DestributedProgramming-labs" />
-      <option name="VM_PARAMETERS" value="-jar ${MPJ_HOME}/lib/starter.jar -np 4" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.company.part1.lab6.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="task7Java" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.company.module1.task7Java" />
       <module name="DestributedProgramming-labs" />
@@ -156,19 +148,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.FoxAlgorithm" />
-      <item itemvalue="Application.TapeScheme" />
-      <item itemvalue="Application.ConsecutiveMatrixMultiplication" />
       <item itemvalue="Application.task7Java" />
       <item itemvalue="Application.Main" />
       <item itemvalue="Application.Main (2)" />
+      <item itemvalue="Application.Main (1)" />
+      <item itemvalue="Application.DepartmentClient" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DepartmentClient" />
+        <item itemvalue="Application.Main (1)" />
         <item itemvalue="Application.Main (2)" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.task7Java" />
-        <item itemvalue="Application.TapeScheme" />
-        <item itemvalue="Application.ConsecutiveMatrixMultiplication" />
       </list>
     </recent_temporary>
   </component>
@@ -185,7 +177,7 @@
       <workItem from="1637167253844" duration="5979000" />
       <workItem from="1637174563581" duration="527000" />
       <workItem from="1637221896296" duration="2249000" />
-      <workItem from="1637230203270" duration="527000" />
+      <workItem from="1637230203270" duration="4466000" />
     </task>
     <servers />
   </component>

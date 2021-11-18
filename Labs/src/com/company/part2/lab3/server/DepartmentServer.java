@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class DepartmentServer implements Runnable{
+public class DepartmentServer{
     private ServerSocket serverSocket;
     private final Executor executor;
     private final DepartmentSqlManager database;
@@ -17,16 +17,15 @@ public class DepartmentServer implements Runnable{
         database = new DepartmentSqlManager("localhost", 3306, "department");
         try {
             serverSocket = new ServerSocket(port, 1);
-            new Thread(this).start();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    @Override
     public void run() {
-        while (!Thread.interrupted()){
+        while (true){
             try {
                 var client = serverSocket.accept();
+                System.out.println(client);
                 executor.execute(new ClientManager(client, database));
             } catch (IOException e) {
                 e.printStackTrace();
