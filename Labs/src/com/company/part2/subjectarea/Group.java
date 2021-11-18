@@ -1,10 +1,11 @@
 package com.company.part2.subjectarea;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Group {
+public class Group implements Serializable {
     private int id = 0;
     private String name = "group0";
     private int course = 1;

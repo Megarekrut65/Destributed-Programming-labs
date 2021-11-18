@@ -2,9 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1db854a-9118-4d05-8b72-c2cc94ef14bc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/Commands.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/ServerResults.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/client/DepartmentClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/ClientManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/DepartmentServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab2/DepartmentSqlManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab2/DepartmentSqlManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab2/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab2/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/Group.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/Group.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/TrainingDepartment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/TrainingDepartment.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +50,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="E:/Java-projects/mpj-v0_44/lib/mpj.jar" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../OOP-labs-java/Labs" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -54,6 +61,8 @@
       <recent name="C:\Users\User81\source\repos\Megarekrut65\DestributedProgramming-labs\Labs\src\com\company\part2\lab1\parser" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.company.part2.lab3.server" />
+      <recent name="com.company.part2.lab3.client" />
       <recent name="com.company.part2.subjectarea" />
       <recent name="com.company.part2" />
     </key>
@@ -173,7 +182,10 @@
       <updated>1630681096974</updated>
       <workItem from="1630681099222" duration="129000" />
       <workItem from="1630948292767" duration="80000" />
-      <workItem from="1637167253844" duration="5900000" />
+      <workItem from="1637167253844" duration="5979000" />
+      <workItem from="1637174563581" duration="527000" />
+      <workItem from="1637221896296" duration="2249000" />
+      <workItem from="1637230203270" duration="527000" />
     </task>
     <servers />
   </component>

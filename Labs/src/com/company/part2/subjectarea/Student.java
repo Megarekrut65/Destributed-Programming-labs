@@ -1,8 +1,9 @@
 package com.company.part2.subjectarea;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Student {
+public class Student implements Serializable {
     private String id = "student0";
     private int groupId = 0;
     private String name = "Name";
