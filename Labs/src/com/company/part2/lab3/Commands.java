@@ -2,9 +2,7 @@ package com.company.part2.lab3;
 
 public enum Commands {
     GET_GROUPS("get-groups"),
-    GET_GROUP("get-group"),
     GET_STUDENTS("get-students"),
-    GET_STUDENT("get-student"),
     GET_STUDENTS_IN_GROUP("get-students-group"),
     ADD_GROUP("add-group"),
     ADD_STUDENT("add-student"),

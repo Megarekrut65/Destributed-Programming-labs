@@ -6,6 +6,7 @@ import com.company.part2.lab3.ServerResults;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,17 +29,15 @@ public class ClientManager implements Runnable{
     }
     private Map<String,Function> createMap(){
         var map = new HashMap<String,Function>();
-        map.put(Commands.ADD_GROUP.code(), this::add_group);
-        map.put(Commands.ADD_STUDENT.code(), this::add_student);
-        map.put(Commands.DELETE_GROUP.code(), this::delete_group);
-        map.put(Commands.DELETE_STUDENT.code(), this::delete_student);
-        map.put(Commands.FIND_GROUP.code(), this::find_group);
-        map.put(Commands.FIND_STUDENT.code(), this::find_student);
-        map.put(Commands.GET_GROUP.code(), this::get_group);
-        map.put(Commands.GET_STUDENT.code(), this::get_student);
-        map.put(Commands.GET_GROUPS.code(), this::get_groups);
-        map.put(Commands.GET_STUDENTS.code(), this::get_students);
-        map.put(Commands.GET_STUDENTS_IN_GROUP.code(), this::get_students_in_group);
+        map.put(Commands.ADD_GROUP.code(), this::addGroup);
+        map.put(Commands.ADD_STUDENT.code(), this::addStudent);
+        map.put(Commands.DELETE_GROUP.code(), this::deleteGroup);
+        map.put(Commands.DELETE_STUDENT.code(), this::deleteStudent);
+        map.put(Commands.FIND_GROUP.code(), this::findGroup);
+        map.put(Commands.FIND_STUDENT.code(), this::findStudent);
+        map.put(Commands.GET_GROUPS.code(), this::getGroups);
+        map.put(Commands.GET_STUDENTS.code(), this::getStudents);
+        map.put(Commands.GET_STUDENTS_IN_GROUP.code(), this::getStudentsInGroup);
         return map;
     }
     private boolean work() throws IOException, ClassNotFoundException {
@@ -52,32 +51,51 @@ public class ClientManager implements Runnable{
         out.writeObject(ServerResults.UNKNOWN_COMMAND.code());
         return false;
     }
-    private boolean add_group(){
+    private boolean addGroup(){
         return false;
     }
-    private boolean add_student(){
+    private boolean addStudent(){
 
         return false;
     }
-    private boolean delete_student(){
+    private boolean deleteStudent(){
 
         return false;
     }
-    private boolean delete_group(){
+    private boolean deleteGroup(){
 
         return false;
     }
-    private boolean find_student(){
+    private boolean findStudent(){
+        try {
+            int id = (int)in.readObject();
+            int groupId = (int)in.readObject();
+            var student = database.findStudent(id,groupId);
+            System.out.print("Id: " + id + ", group id: " + groupId);
+            if(student != null) {
+                out.writeObject(ServerResults.SUCCESSFUL.code());
+                System.out.println(", found student: " + student.getName());
+                out.writeObject(student);
+            }
+            else{
+                out.writeObject(ServerResults.NOT_FOUND.code());
+                System.out.println(", not found");
+            }
+            return true;
+        }catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    private boolean findGroup(){
 
         return false;
     }
-    private boolean find_group(){
-
-        return false;
-    }
-    private boolean get_students() {
+    private boolean getStudents() {
         try {
             var students = database.getStudents();
+            if(students == null) students = new ArrayList<>();
+            System.out.println("Found " + students.size() + " students");
             out.writeObject(students);
             return true;
         }catch (IOException e) {
@@ -85,20 +103,37 @@ public class ClientManager implements Runnable{
         }
         return false;
     }
-    private boolean get_students_in_group(){
+    private boolean getStudentsInGroup(){
+        try {
+            int groupId = (int)in.readObject();
+            var students = database.getStudents(groupId);
+            System.out.print("Group id: " + groupId);
+            if(students != null){
+                out.writeObject(ServerResults.SUCCESSFUL.code());
+                System.out.println(", found " + students.size() + " students");
+                out.writeObject(students);
+            }
+            else {
+                out.writeObject(ServerResults.NOT_FOUND.code());
+                System.out.println(", not found");
+            }
 
+            return true;
+        }catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return false;
     }
-    private boolean get_student(){
-
-        return false;
-    }
-    private boolean get_groups(){
-
-        return false;
-    }
-    private boolean get_group(){
-
+    private boolean getGroups(){
+        try {
+            var groups = database.getGroups();
+            if(groups == null) groups = new ArrayList<>();
+            System.out.println("Found " + groups.size() + " groups");
+            out.writeObject(groups);
+            return true;
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
         return false;
     }
     @Override
