@@ -1,5 +1,6 @@
 package com.company.part2.lab2;
 
+import com.company.part2.subjectarea.DepartmentManager;
 import com.company.part2.subjectarea.Group;
 import com.company.part2.subjectarea.Student;
 
@@ -7,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DepartmentSqlManager {
+public class DepartmentSqlManager implements DepartmentManager {
     private Connection connection;
     private Statement statement;
 
@@ -21,6 +22,7 @@ public class DepartmentSqlManager {
             e.printStackTrace();
         }
     }
+    @Override
     public List<Group> getGroups(){
         List<Group> groups = new ArrayList<>();
         String sql = "SELECT ID_GR, name, course, study_form FROM theGroups";
@@ -47,6 +49,7 @@ public class DepartmentSqlManager {
             System.out.println(group);
         }
     }
+    @Override
     public boolean addGroup(Group group){
         try {
             var st = connection.prepareStatement(
@@ -64,6 +67,7 @@ public class DepartmentSqlManager {
         }
         return false;
     }
+    @Override
     public boolean deleteGroup(int id) {
         String sql = "DELETE FROM theGroups WHERE ID_GR =" + id;
         try {
@@ -75,6 +79,7 @@ public class DepartmentSqlManager {
         }
         return false;
     }
+    @Override
     public Group findGroup(int id){
         String sql = "SELECT ID_GR, name, course, study_form FROM theGroups WHERE ID_GR =" + id;
         try {
@@ -92,18 +97,20 @@ public class DepartmentSqlManager {
         }
         return null;
     }
+    @Override
     public List<Student> getStudents(){
         List<Student> students = new ArrayList<>();
         String sql = "SELECT ID_ST, ID_GR, name, surname, age, gpa FROM students";
-        return getStudents(students, sql);
+        return getStudentsInGroup(students, sql);
     }
-    public List<Student> getStudents(int groupId){
+    @Override
+    public List<Student> getStudentsInGroup(int groupId){
         List<Student> students = new ArrayList<>();
         String sql = "SELECT ID_ST, ID_GR, name, surname, age, gpa FROM students WHERE ID_GR ="+groupId;
-        return getStudents(students, sql);
+        return getStudentsInGroup(students, sql);
     }
 
-    private List<Student> getStudents(List<Student> students, String sql) {
+    private List<Student> getStudentsInGroup(List<Student> students, String sql) {
         try {
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
@@ -131,12 +138,13 @@ public class DepartmentSqlManager {
         }
     }
     public void showStudents(int groupId){
-        var list = getStudents(groupId);
+        var list = getStudentsInGroup(groupId);
         System.out.println("\nStudents:");
         for(var student:list){
             System.out.println(student);
         }
     }
+    @Override
     public boolean addStudent(Student student){
         try {
             var st = connection.prepareStatement(
@@ -156,6 +164,7 @@ public class DepartmentSqlManager {
         }
         return false;
     }
+    @Override
     public boolean deleteStudent(int id, int groupId) {
         String sql = "DELETE FROM students WHERE ID_ST =" + id + " AND ID_GR =" + groupId;
         try {
@@ -167,6 +176,7 @@ public class DepartmentSqlManager {
         }
         return false;
     }
+    @Override
     public Student findStudent(int id, int groupId){
         String sql = "SELECT ID_ST, ID_GR, name, surname, age, gpa FROM students WHERE ID_ST ="
                 + id + " AND ID_GR =" + groupId;

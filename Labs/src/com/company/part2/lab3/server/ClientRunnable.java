@@ -3,6 +3,8 @@ package com.company.part2.lab3.server;
 import com.company.part2.lab2.DepartmentSqlManager;
 import com.company.part2.lab3.Commands;
 import com.company.part2.lab3.ServerResults;
+import com.company.part2.subjectarea.Group;
+import com.company.part2.subjectarea.Student;
 
 import java.io.*;
 import java.net.Socket;
@@ -10,13 +12,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ClientManager implements Runnable{
+public class ClientRunnable implements Runnable{
     private final Socket client;
     private final DepartmentSqlManager database;
     private ObjectOutputStream out;
     private ObjectInputStream in;
-    private Map<String, Function> functionMap;
-    public ClientManager(Socket client,DepartmentSqlManager database) {
+    private final Map<String, Function> functionMap;
+    public ClientRunnable(Socket client, DepartmentSqlManager database) {
         this.client = client;
         this.database = database;
         functionMap = createMap();
@@ -52,18 +54,76 @@ public class ClientManager implements Runnable{
         return false;
     }
     private boolean addGroup(){
+        try {
+            Group group = (Group) in.readObject();
+            System.out.print(group);
+            if(database.addGroup(group)){
+                out.writeObject(ServerResults.SUCCESSFUL.code());
+                System.out.println(" was added");
+            }
+            else{
+                out.writeObject(ServerResults.PARAMETERS_ERROR.code());
+                System.out.println(" wasn't added");
+            }
+            return true;
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return false;
     }
     private boolean addStudent(){
-
+        try {
+            Student student = (Student) in.readObject();
+            System.out.print(student);
+            if(database.addStudent(student)){
+                out.writeObject(ServerResults.SUCCESSFUL.code());
+                System.out.println(" was added");
+            }
+            else{
+                out.writeObject(ServerResults.PARAMETERS_ERROR.code());
+                System.out.println(" wasn't added");
+            }
+            return true;
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return false;
     }
     private boolean deleteStudent(){
-
+        try {
+            int id = (int)in.readObject();
+            int groupId = (int)in.readObject();
+            System.out.print("Id: " + id + ", group id: " + groupId);
+            if(database.deleteStudent(id,groupId)) {
+                out.writeObject(ServerResults.SUCCESSFUL.code());
+                System.out.println(", student was removed");
+            }
+            else{
+                out.writeObject(ServerResults.NOT_FOUND.code());
+                System.out.println(", not found");
+            }
+            return true;
+        }catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return false;
     }
     private boolean deleteGroup(){
-
+        try {
+            int id = (int)in.readObject();
+            System.out.print("Id: " + id);
+            if(database.deleteGroup(id)) {
+                out.writeObject(ServerResults.SUCCESSFUL.code());
+                System.out.println(", group was removed");
+            }
+            else{
+                out.writeObject(ServerResults.NOT_FOUND.code());
+                System.out.println(", not found");
+            }
+            return true;
+        }catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return false;
     }
     private boolean findStudent(){
@@ -122,7 +182,7 @@ public class ClientManager implements Runnable{
     private boolean getStudentsInGroup(){
         try {
             int groupId = (int)in.readObject();
-            var students = database.getStudents(groupId);
+            var students = database.getStudentsInGroup(groupId);
             System.out.print("Group id: " + groupId);
             if(students != null){
                 out.writeObject(ServerResults.SUCCESSFUL.code());
@@ -157,7 +217,9 @@ public class ClientManager implements Runnable{
         System.out.println(client + " is connected!");
         try {
             while(!Thread.interrupted() && client.isConnected()){
-                work();
+                if(!work()){
+                    System.err.println("Error with last command!");
+                }
             }
         } catch (IOException | ClassNotFoundException e) {
             System.err.println(client + " disconnect!");

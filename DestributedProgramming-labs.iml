@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
+  <component name="Go" enabled="true" />
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
@@ -19,7 +20,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://E:/Java-projects/mpj-v0_44/lib/mpi.jar!/" />
+          <root url="jar://$MPJ_HOME$/lib/mpi.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -28,7 +29,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://E:/Java-projects/mpj-v0_44/lib/mpj.jar!/" />
+          <root url="jar://$MPJ_HOME$/lib/mpj.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
