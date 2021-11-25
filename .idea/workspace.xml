@@ -2,20 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1db854a-9118-4d05-8b72-c2cc94ef14bc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/MainClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/client/DepartmentClientManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/DepartmentManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/DepartmentManagerExamples.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab4/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab4/client/ClientMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab4/server/DepartmentManagerConnector.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab4/server/ServerMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab4/shared/DepartmentManagerRemote.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab4/shared/DepartmentManagerRemoteConnector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DestributedProgramming-labs.iml" beforeDir="false" afterPath="$PROJECT_DIR$/DestributedProgramming-labs.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/out/production/Labs/com/company/part2/lab1/data/training_department.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/out/production/Labs/com/company/part2/lab1/data/training_department.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab1/variant.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab2/DepartmentSqlManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab2/DepartmentSqlManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab2/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab2/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/MainServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/client/DepartmentClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/ClientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/ClientRunnable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/MainServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/DepartmentServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/DepartmentServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/DepartmentManagerExamples.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/DepartmentManagerExamples.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,13 +64,27 @@
       <recent name="C:\Users\User81\source\repos\Megarekrut65\DestributedProgramming-labs\Labs\src\com\company\part2\lab1\parser" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.company.part2.lab4.shared" />
       <recent name="com.company.part2.lab3.server" />
       <recent name="com.company.part2.lab3.client" />
       <recent name="com.company.part2.subjectarea" />
       <recent name="com.company.part2" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MainClient">
+  <component name="RunManager" selected="Application.ClientMain">
+    <configuration name="ClientMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.part2.lab4.client.ClientMain" />
+      <module name="DestributedProgramming-labs" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.company.part2.lab4.client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="DepartmentClientManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.company.part2.lab3.client.DepartmentClientManager" />
       <module name="DestributedProgramming-labs" />
@@ -98,32 +108,6 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.company.part1.lab6.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Main (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.company.part2.lab2.Main" />
-      <module name="DestributedProgramming-labs" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.company.part2.lab2.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.company.part2.lab1.Main" />
-      <module name="DestributedProgramming-labs" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.company.part2.subjectarea.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -157,21 +141,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ServerMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.part2.lab4.server.ServerMain" />
+      <module name="DestributedProgramming-labs" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.company.part2.lab4.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.FoxAlgorithm" />
-      <item itemvalue="Application.Main" />
-      <item itemvalue="Application.Main (2)" />
       <item itemvalue="Application.MainServer" />
       <item itemvalue="Application.DepartmentClientManager" />
       <item itemvalue="Application.MainClient" />
+      <item itemvalue="Application.ServerMain" />
+      <item itemvalue="Application.ClientMain" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.ClientMain" />
+        <item itemvalue="Application.ServerMain" />
         <item itemvalue="Application.MainClient" />
         <item itemvalue="Application.MainServer" />
         <item itemvalue="Application.DepartmentClientManager" />
-        <item itemvalue="Application.Main (2)" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -190,7 +187,9 @@
       <workItem from="1637221896296" duration="2249000" />
       <workItem from="1637230203270" duration="7012000" />
       <workItem from="1637590248880" duration="13000" />
-      <workItem from="1637758384502" duration="2033000" />
+      <workItem from="1637758384502" duration="2523000" />
+      <workItem from="1637829788257" duration="222000" />
+      <workItem from="1637830056053" duration="1584000" />
     </task>
     <servers />
   </component>

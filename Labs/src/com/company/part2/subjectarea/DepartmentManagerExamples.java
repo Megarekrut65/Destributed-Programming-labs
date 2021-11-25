@@ -11,6 +11,7 @@ public class DepartmentManagerExamples {
         System.out.println(manager.getGroups());
         addStudents();
         System.out.println(manager.getStudents());
+        System.out.println("\nStudents in group 3");
         System.out.println(manager.getStudentsInGroup(3));
         findGroup();
         findStudent();

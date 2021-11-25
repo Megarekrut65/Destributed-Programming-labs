@@ -13,7 +13,7 @@ public class DepartmentServer{
     private final DepartmentSqlManager database;
     public DepartmentServer(int port) {
         executor = Executors.newSingleThreadExecutor();
-        database = new DepartmentSqlManager("localhost", 3306, "department");
+        database = new DepartmentSqlManager("localhost", port, "department");
         try {
             serverSocket = new ServerSocket(port, 1);
         } catch (IOException e) {
