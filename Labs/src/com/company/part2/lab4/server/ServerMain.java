@@ -8,7 +8,7 @@ public class ServerMain {
     public static void main(String[] args) {
         try {
             Registry registry = LocateRegistry.createRegistry(1099);
-            registry.rebind("DepartmentManager", new DepartmentManagerConnector(3306));
+            registry.rebind("DepartmentManager", new DepartmentManagerRMIServer(3306));
         } catch (RemoteException e) {
             e.printStackTrace();
         }

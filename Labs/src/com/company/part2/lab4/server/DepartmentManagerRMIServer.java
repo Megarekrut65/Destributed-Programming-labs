@@ -9,10 +9,10 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-public class DepartmentManagerConnector extends UnicastRemoteObject implements DepartmentManagerRemote {
+public class DepartmentManagerRMIServer extends UnicastRemoteObject implements DepartmentManagerRemote {
     private final DepartmentManager database;
 
-    public DepartmentManagerConnector(int port) throws RemoteException {
+    public DepartmentManagerRMIServer(int port) throws RemoteException {
         database = new DepartmentSqlManager("localhost", port, "department");
     }
 
