@@ -12,4 +12,5 @@ public interface DepartmentManager {
     List<Student> getStudentsInGroup(int groupId);
     List<Student> getStudents();
     List<Group> getGroups();
+    void close();
 }

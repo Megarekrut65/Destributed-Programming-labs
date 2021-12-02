@@ -22,6 +22,16 @@ public class DepartmentSqlManager implements DepartmentManager {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void close() {
+        try {
+            stop();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public List<Group> getGroups(){
         List<Group> groups = new ArrayList<>();

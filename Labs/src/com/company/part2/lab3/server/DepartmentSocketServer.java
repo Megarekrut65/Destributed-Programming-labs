@@ -7,11 +7,11 @@ import java.net.ServerSocket;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class DepartmentServer{
+public class DepartmentSocketServer {
     private ServerSocket serverSocket;
     private final Executor executor;
     private final DepartmentSqlManager database;
-    public DepartmentServer(int port) {
+    public DepartmentSocketServer(int port) {
         executor = Executors.newSingleThreadExecutor();
         database = new DepartmentSqlManager("localhost", 3306, "department");
         try {

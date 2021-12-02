@@ -1,4 +1,8 @@
-package com.company.part2.lab3;
+package com.company.part2.subjectarea;
+
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 public enum Commands {
     GET_GROUPS("get-groups"),
@@ -17,5 +21,7 @@ public enum Commands {
     public String code(){
         return code;
     }
-
+    public byte[] bytes(){
+        return code.getBytes(StandardCharsets.UTF_8);
+    }
 }

@@ -2,11 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1db854a-9118-4d05-8b72-c2cc94ef14bc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab5/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab5/client/ClientMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab5/client/DepartmentManagerMOMClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab5/server/DepartmentMOMServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab5/server/ServerMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/DepartmentServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DestributedProgramming-labs.iml" beforeDir="false" afterPath="$PROJECT_DIR$/DestributedProgramming-labs.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab2/DepartmentSqlManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab2/DepartmentSqlManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/Commands.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/Commands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/MainClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/MainClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/MainServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/DepartmentServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/DepartmentServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab4/server/DepartmentManagerConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab4/server/DepartmentManagerRMIServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab4/server/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab4/server/ServerMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/client/DepartmentClientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/client/DepartmentManagerClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/ClientRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/ClientRunnable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/DepartmentServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/DepartmentSocketServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab4/shared/DepartmentManagerRemoteConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab4/shared/DepartmentManagerRemoteConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/DepartmentManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/DepartmentManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/DepartmentManagerExamples.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/DepartmentManagerExamples.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +30,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -48,7 +61,7 @@
     <property name="extract.method.default.visibility" value="private" />
     <property name="go.formatter.settings.were.checked" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="E:/Java-projects/rabbitmq/amqp-client-5.14.0.jar" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -59,14 +72,14 @@
       <recent name="C:\Users\User81\source\repos\Megarekrut65\DestributedProgramming-labs\Labs\src\com\company\part2\lab1\parser" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.company.part2.subjectarea" />
       <recent name="com.company.part2.lab4.shared" />
       <recent name="com.company.part2.lab3.server" />
       <recent name="com.company.part2.lab3.client" />
-      <recent name="com.company.part2.subjectarea" />
       <recent name="com.company.part2" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ClientMain">
+  <component name="RunManager" selected="Application.MainClient">
     <configuration name="ClientMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.company.part2.lab4.client.ClientMain" />
       <module name="DestributedProgramming-labs" />
@@ -80,8 +93,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DepartmentClientManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.company.part2.lab3.client.DepartmentClientManager" />
+    <configuration name="DepartmentManagerClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.part2.lab3.client.DepartmentManagerClient" />
       <module name="DestributedProgramming-labs" />
       <extension name="coverage">
         <pattern>
@@ -115,7 +128,7 @@
       <module name="DestributedProgramming-labs" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.company.part2.lab3.*" />
+          <option name="PATTERN" value="com.company.part2.subjectarea.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -128,7 +141,7 @@
       <module name="DestributedProgramming-labs" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.company.part2.lab3.*" />
+          <option name="PATTERN" value="com.company.part2.subjectarea.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -152,18 +165,18 @@
     <list>
       <item itemvalue="Application.FoxAlgorithm" />
       <item itemvalue="Application.MainServer" />
-      <item itemvalue="Application.DepartmentClientManager" />
       <item itemvalue="Application.MainClient" />
       <item itemvalue="Application.ServerMain" />
       <item itemvalue="Application.ClientMain" />
+      <item itemvalue="Application.DepartmentManagerClient" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ClientMain" />
-        <item itemvalue="Application.ServerMain" />
         <item itemvalue="Application.MainClient" />
         <item itemvalue="Application.MainServer" />
-        <item itemvalue="Application.DepartmentClientManager" />
+        <item itemvalue="Application.ClientMain" />
+        <item itemvalue="Application.ServerMain" />
+        <item itemvalue="Application.DepartmentManagerClient" />
       </list>
     </recent_temporary>
   </component>
@@ -185,7 +198,8 @@
       <workItem from="1637758384502" duration="2523000" />
       <workItem from="1637829788257" duration="222000" />
       <workItem from="1637830056053" duration="2202000" />
-      <workItem from="1637835135990" duration="1613000" />
+      <workItem from="1637835135990" duration="2277000" />
+      <workItem from="1638431719782" duration="6517000" />
     </task>
     <servers />
   </component>

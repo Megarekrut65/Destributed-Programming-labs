@@ -16,6 +16,11 @@ public class DepartmentManagerRemoteConnector implements DepartmentManager {
     }
 
     @Override
+    public void close() {
+        //nothing to close
+    }
+
+    @Override
     public boolean addStudent(Student student) {
         try {
             return managerRemote.addStudent(student);

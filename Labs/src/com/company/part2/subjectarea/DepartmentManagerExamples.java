@@ -19,6 +19,7 @@ public class DepartmentManagerExamples {
         System.out.println(manager.getStudents());
         deleteGroups();
         System.out.println(manager.getGroups());
+        manager.close();
     }
     private void findStudent(){
         System.out.println("\nFinding student with id 6 in group with id 3");

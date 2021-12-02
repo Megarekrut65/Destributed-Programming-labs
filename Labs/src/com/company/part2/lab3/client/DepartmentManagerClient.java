@@ -1,6 +1,6 @@
 package com.company.part2.lab3.client;
 
-import com.company.part2.lab3.Commands;
+import com.company.part2.subjectarea.Commands;
 import com.company.part2.lab3.ServerResults;
 import com.company.part2.subjectarea.DepartmentManager;
 import com.company.part2.subjectarea.Group;
@@ -8,14 +8,13 @@ import com.company.part2.subjectarea.Student;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.List;
 
-public class DepartmentClientManager implements DepartmentManager {
+public class DepartmentManagerClient implements DepartmentManager {
     private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
-    public DepartmentClientManager(String ip, int port){
+    public DepartmentManagerClient(String ip, int port){
         try {
             socket = new Socket(ip, port);
             out = new ObjectOutputStream(socket.getOutputStream());
@@ -24,6 +23,16 @@ public class DepartmentClientManager implements DepartmentManager {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void close() {
+        try {
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public List<Group> getGroups(){
         try {
