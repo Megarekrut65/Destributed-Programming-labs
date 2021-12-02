@@ -1,7 +1,7 @@
 package com.company.part2.lab3.server;
 
 import com.company.part2.lab2.DepartmentSqlManager;
-import com.company.part2.lab3.ServerResults;
+import com.company.part2.subjectarea.ServerResults;
 import com.company.part2.subjectarea.DepartmentServer;
 import com.company.part2.subjectarea.Group;
 import com.company.part2.subjectarea.Student;

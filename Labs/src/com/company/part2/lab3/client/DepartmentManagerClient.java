@@ -1,7 +1,7 @@
 package com.company.part2.lab3.client;
 
 import com.company.part2.subjectarea.Commands;
-import com.company.part2.lab3.ServerResults;
+import com.company.part2.subjectarea.ServerResults;
 import com.company.part2.subjectarea.DepartmentManager;
 import com.company.part2.subjectarea.Group;
 import com.company.part2.subjectarea.Student;

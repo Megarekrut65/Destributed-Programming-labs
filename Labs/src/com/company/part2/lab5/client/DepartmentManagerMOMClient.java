@@ -1,5 +1,6 @@
 package com.company.part2.lab5.client;
 
+import com.company.part2.lab5.Converter;
 import com.company.part2.subjectarea.Commands;
 import com.company.part2.subjectarea.DepartmentManager;
 import com.company.part2.subjectarea.Group;
@@ -44,18 +45,6 @@ public class DepartmentManagerMOMClient implements DepartmentManager {
             e.printStackTrace();
         }
     }
-    private byte[] getBytes(Object obj) throws IOException {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(bos);
-        oos.writeObject(obj);
-        oos.flush();
-        return bos.toByteArray();
-    }
-    private Object getObject(byte[] bytes) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream in = new ByteArrayInputStream(bytes);
-        ObjectInputStream is = new ObjectInputStream(in);
-        return is.readObject();
-    }
     @Override
     public List<Group> getGroups(){
         final String corrId = UUID.randomUUID().toString();
@@ -69,7 +58,7 @@ public class DepartmentManagerMOMClient implements DepartmentManager {
                 if (delivery.getProperties().getCorrelationId().equals(corrId)) {
                     var body = delivery.getBody();
                     try {
-                        response.offer((List<Group>)getObject(body));
+                        response.offer((List<Group>) Converter.getObject(body));
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                     }

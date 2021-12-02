@@ -1,4 +1,4 @@
-package com.company.part2.lab3;
+package com.company.part2.subjectarea;
 
 public enum ServerResults {
     SUCCESSFUL("0"),
