@@ -133,49 +133,55 @@ public class DepartmentMOMServer extends DepartmentServer {
     }
     @Override
     protected boolean findStudent(){
-        /*try {
-            int id = (int)in.readObject();
-            int groupId = (int)in.readObject();
+        try {
+            Integer[] ids = (Integer[]) getObject();
+            if(ids == null) ids = new Integer[]{-1,-1};
+            int id = ids[0];
+            int groupId = ids[1];
             var student = database.findStudent(id,groupId);
-            System.out.print("Id: " + id + ", group id: " + groupId);
+            log("Id: " + id + ", group id: " + groupId);
             if(student != null) {
-                out.writeObject(ServerResults.SUCCESSFUL.code());
-                System.out.println(", found student: " + student.getName());
-                out.writeObject(student);
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.SUCCESSFUL.bytes());
+                logln(", found student: " + student.getName());
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        Converter.getBytes(student));
             }
             else{
-                out.writeObject(ServerResults.NOT_FOUND.code());
-                System.out.println(", not found");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.NOT_FOUND.bytes());
+                logln(", not found");
             }
             return true;
-        }catch (IOException | ClassNotFoundException e) {
+        }catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
         return false;
     }
-    private int getId(){
-        final BlockingQueue<Integer> groupId = new ArrayBlockingQueue<>(1);
+    private Object getObject(){
+        final BlockingQueue<Object> objects = new ArrayBlockingQueue<>(1);
         DeliverCallback deliverCallback = (s, delivery) -> {
             try {
-                groupId.offer((Integer) Converter.getObject(delivery.getBody()));
+                objects.offer(Converter.getObject(delivery.getBody()));
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
         };
         try {
             String tag = parameters.basicConsume(QUEUE_NAME_PARAMETERS, true, deliverCallback, consumerTag -> { });
-            int id = groupId.take();
+            Object obj = objects.take();
             parameters.basicCancel(tag);
-            return id;
+            return obj;
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-        return -1;
+        return null;
     }
     @Override
     protected boolean findGroup(){
         try {
-            int id = getId();
+            Integer id = (Integer) getObject();
+            if(id == null) id = -1;
             var group = database.findGroup(id);
             log("Id: " + id);
             if(group != null) {
@@ -213,7 +219,8 @@ public class DepartmentMOMServer extends DepartmentServer {
     @Override
     protected boolean getStudentsInGroup(){
         try {
-            int grId = getId();
+            Integer grId = (Integer) getObject();
+            if(grId == null) grId = -1;
             var students = database.getStudentsInGroup(grId);
             log("Group id: " + grId);
             if(students != null){

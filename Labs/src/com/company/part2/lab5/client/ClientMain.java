@@ -9,6 +9,9 @@ public class ClientMain {
             System.out.println(client.getStudentsInGroup(10));
             System.out.println(client.findGroup(2));
             System.out.println(client.findGroup(22));
+            System.out.println(client.findStudent(2, 1));
+            System.out.println(client.findStudent(12, 1));
+            System.out.println(client.findStudent(1, 21));
         }catch (Exception e){
             e.printStackTrace();
             System.out.println("Client finished work");

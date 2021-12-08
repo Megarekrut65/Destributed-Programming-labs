@@ -97,21 +97,15 @@ public class DepartmentManagerMOMClient implements DepartmentManager, AutoClosea
     }
     @Override
     public Student findStudent(int id, int groupId){
-        /*try {
-            out.writeObject(Commands.FIND_STUDENT.code());
-            String answer = (String) in.readObject();
-            if(answer.equals(ServerResults.SUCCESSFUL.code())) {
-                out.writeObject(id);
-                out.writeObject(groupId);
-                answer = (String) in.readObject();
-                if(answer.equals(ServerResults.SUCCESSFUL.code()))
-                    return (Student) in.readObject();
-            }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }*/
-
+        try {
+            channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                    Commands.FIND_STUDENT.bytes());
+            Object obj = getObject(new Integer[]{id, groupId});
+            if(obj != null) return (Student) obj;
+        } catch (IOException | ClassCastException ignored) {
+        }
         return null;
+
     }
     @Override
     public boolean deleteGroup(int id){
