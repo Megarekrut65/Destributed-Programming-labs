@@ -67,22 +67,14 @@ public class DepartmentManagerMOMClient implements DepartmentManager, AutoClosea
     @Override
     public List<Group> getGroups(){
         if(sendCommand(Commands.GET_GROUPS.bytes())){
-            final String corrId = UUID.randomUUID().toString();
             try {
                 String replyQueueName = channel.queueDeclare().getQueue();
-                AMQP.BasicProperties props = new AMQP.BasicProperties
-                        .Builder()
-                        .correlationId(corrId)
-                        .replyTo(replyQueueName)
-                        .build();
                 final BlockingQueue<List<Group>> response = new ArrayBlockingQueue<>(1);
                 String ctag = channel.basicConsume(replyQueueName, true, (consumerTag, delivery) -> {
-                    if (delivery.getProperties().getCorrelationId().equals(corrId)) {
-                        try {
-                            response.offer((List<Group>) Converter.getObject(delivery.getBody()));
-                        } catch (ClassNotFoundException e) {
-                            e.printStackTrace();
-                        }
+                    try {
+                        response.offer((List<Group>) Converter.getObject(delivery.getBody()));
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
                     }
                 }, consumerTag -> {
                 });

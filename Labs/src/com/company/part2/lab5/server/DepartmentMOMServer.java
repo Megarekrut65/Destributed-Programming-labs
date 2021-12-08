@@ -225,6 +225,9 @@ public class DepartmentMOMServer extends DepartmentServer {
                         channel.basicPublish("", QUEUE_NAME, null, ServerResults.UNKNOWN_COMMAND.bytes());
                     }else {
                         channel.basicPublish("", QUEUE_NAME, null, ServerResults.SUCCESSFUL.bytes());
+                        currentProperties = delivery.getProperties();
+                        currentReplay = delivery.getProperties().getReplyTo();
+                        currentTag = delivery.getEnvelope().getDeliveryTag();
                         if(!function.call()) logln("Error with last command!");
                     }
                     synchronized (monitor) {
