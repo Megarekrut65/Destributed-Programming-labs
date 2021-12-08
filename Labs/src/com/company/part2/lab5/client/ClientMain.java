@@ -5,6 +5,8 @@ public class ClientMain {
         try(DepartmentManagerMOMClient client = new DepartmentManagerMOMClient("localhost")){
             System.out.println(client.getGroups());
             System.out.println(client.getStudents());
+            System.out.println(client.getStudentsInGroup(1));
+            System.out.println(client.getStudentsInGroup(10));
         }catch (Exception ignored){
             System.out.println("Client finished work");
         }

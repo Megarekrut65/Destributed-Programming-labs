@@ -17,9 +17,11 @@ import java.util.concurrent.atomic.AtomicReference;
 public class DepartmentManagerMOMClient implements DepartmentManager, AutoCloseable{
     private Connection connection;
     private Channel channelTo;
+    private Channel parameters;
     private Channel channelFrom;
     private final String QUEUE_NAME_TO = "DepartmentDatabaseTo";
     private final String QUEUE_NAME_FROM = "DepartmentDatabaseFrom";
+    private final String QUEUE_NAME_PARAMETERS = "DepartmentDatabaseParameters";
     public DepartmentManagerMOMClient(String host){
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost(host);
@@ -29,16 +31,11 @@ public class DepartmentManagerMOMClient implements DepartmentManager, AutoClosea
             channelTo.queueDeclare(QUEUE_NAME_TO, false, false, false, null);
             channelFrom = connection.createChannel();
             channelFrom.queueDeclare(QUEUE_NAME_FROM, false, false, false, null);
+            parameters = connection.createChannel();
+            parameters.queueDeclare(QUEUE_NAME_PARAMETERS, false, false, false, null);
         } catch (IOException | TimeoutException e) {
             e.printStackTrace();
         }
-    }
-    private AMQP.BasicProperties getProperties(String id, String replyQueueName) throws IOException {
-        return new AMQP.BasicProperties
-                .Builder()
-                .correlationId(id)
-                .replyTo(replyQueueName)
-                .build();
     }
     @Override
     public void close(){
@@ -111,18 +108,40 @@ public class DepartmentManagerMOMClient implements DepartmentManager, AutoClosea
     }
     @Override
     public List<Student> getStudentsInGroup(int groupId){
-        /*try {
-            out.writeObject(Commands.GET_STUDENTS_IN_GROUP.code());
-            String answer = (String) in.readObject();
-            if(answer.equals(ServerResults.SUCCESSFUL.code())) {
-                out.writeObject(groupId);
-                answer = (String) in.readObject();
-                if(answer.equals(ServerResults.SUCCESSFUL.code()))
-                    return (List<Student>) in.readObject();
-            }
-        } catch (IOException | ClassNotFoundException e) {
+        try {
+            channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                    Commands.GET_STUDENTS_IN_GROUP.bytes());
+            final BlockingQueue<List<Student>> students = new ArrayBlockingQueue<>(1);
+            final AtomicReference<String> answer = new AtomicReference<>(), answer2 = new AtomicReference<>();
+            DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+                if(answer.get() == null){
+                    answer.set(new String(delivery.getBody(), StandardCharsets.UTF_8));
+                    if(!answer.get().equals(ServerResults.SUCCESSFUL.code())){
+                        students.offer(new ArrayList<>());
+                    }else{
+                        parameters.basicPublish("", QUEUE_NAME_PARAMETERS,
+                                null, Converter.getBytes(groupId));
+                    }
+                }else if(answer2.get() == null){
+                    answer2.set(new String(delivery.getBody(), StandardCharsets.UTF_8));
+                    if(!answer2.get().equals(ServerResults.SUCCESSFUL.code())){
+                        students.offer(new ArrayList<>());
+                    }
+                }else {
+                    try {
+                        students.offer((List<Student>)Converter.getObject(delivery.getBody()));
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            String ctag = channelFrom.basicConsume(QUEUE_NAME_FROM, true, deliverCallback, consumerTag -> { });
+            var st = students.take();
+            channelFrom.basicCancel(ctag);
+            return st;
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-        }*/
+        }
 
         return null;
     }

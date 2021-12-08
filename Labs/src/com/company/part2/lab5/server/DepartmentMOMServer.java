@@ -9,15 +9,20 @@ import com.rabbitmq.client.*;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeoutException;
 
 public class DepartmentMOMServer extends DepartmentServer {
     private final DepartmentSqlManager database;
     private Connection connection;
     private Channel channelTo;
+    private Channel parameters;
     private Channel channelFrom;
     private final String QUEUE_NAME_TO = "DepartmentDatabaseFrom";
     private final String QUEUE_NAME_FROM = "DepartmentDatabaseTo";
+    private final String QUEUE_NAME_PARAMETERS = "DepartmentDatabaseParameters";
+    private String currentTag;
     public DepartmentMOMServer() {
         super();
         database = new DepartmentSqlManager("localhost", 3306, "department");
@@ -29,6 +34,8 @@ public class DepartmentMOMServer extends DepartmentServer {
             channelTo.queueDeclare(QUEUE_NAME_TO, false, false, false, null);
             channelFrom = connection.createChannel();
             channelFrom.queueDeclare(QUEUE_NAME_FROM, false, false, false, null);
+            parameters = connection.createChannel();
+            parameters.queueDeclare(QUEUE_NAME_PARAMETERS, false, false, false, null);
         } catch (IOException | TimeoutException e) {
             e.printStackTrace();
         }
@@ -183,30 +190,43 @@ public class DepartmentMOMServer extends DepartmentServer {
     }
     @Override
     protected boolean getStudentsInGroup(){
-        /*try {
-            int groupId = (int)in.readObject();
-            var students = database.getStudentsInGroup(groupId);
-            System.out.print("Group id: " + groupId);
+        try {
+            final BlockingQueue<Integer> groupId = new ArrayBlockingQueue<>(1);
+            DeliverCallback deliverCallback = (s, delivery) -> {
+                try {
+                    groupId.offer((Integer) Converter.getObject(delivery.getBody()));
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            };
+            String tag = parameters.basicConsume(QUEUE_NAME_PARAMETERS, true, deliverCallback, consumerTag -> { });
+            int grId = groupId.take();
+            var students = database.getStudentsInGroup(grId);
+            log("Group id: " + grId);
             if(students != null){
-                out.writeObject(ServerResults.SUCCESSFUL.code());
-                System.out.println(", found " + students.size() + " students");
-                out.writeObject(students);
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.SUCCESSFUL.bytes());
+                logln(", found " + students.size() + " students");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        Converter.getBytes(students));
             }
             else {
-                out.writeObject(ServerResults.NOT_FOUND.code());
-                System.out.println(", not found");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.NOT_FOUND.bytes());
+                logln(", not found");
             }
-
+            parameters.basicCancel(tag);
+            run();
             return true;
-        }catch (IOException | ClassNotFoundException e) {
+        }catch (IOException | InterruptedException e) {
             e.printStackTrace();
-        }*/
+        }
+        run();
         return false;
     }
 
-
-    public void run() {
-        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+    private DeliverCallback getCommandCallBack(){
+        return  (consumerTag, delivery) -> {
             String command = new String(delivery.getBody(), StandardCharsets.UTF_8);
             logln("Command: "+command);
             var fun = functionMap.get(command);
@@ -216,8 +236,11 @@ public class DepartmentMOMServer extends DepartmentServer {
             }
             else channelTo.basicPublish("",QUEUE_NAME_TO,  null, ServerResults.UNKNOWN_COMMAND.bytes());
         };
+    }
+    public void run() {
+        DeliverCallback deliverCallback = getCommandCallBack();
         try {
-            channelFrom.basicConsume(QUEUE_NAME_FROM, true, deliverCallback, consumerTag -> { });
+            currentTag = channelFrom.basicConsume(QUEUE_NAME_FROM, true, deliverCallback, consumerTag -> { });
         } catch (IOException e) {
             e.printStackTrace();
         }
