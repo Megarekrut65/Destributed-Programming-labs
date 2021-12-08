@@ -109,17 +109,13 @@ public class DepartmentManagerMOMClient implements DepartmentManager, AutoClosea
     }
     @Override
     public boolean deleteGroup(int id){
-        /*try {
-            out.writeObject(Commands.DELETE_GROUP.code());
-            String answer = (String) in.readObject();
-            if(answer.equals(ServerResults.SUCCESSFUL.code())) {
-                out.writeObject(id);
-                answer = (String) in.readObject();
-                return answer.equals(ServerResults.SUCCESSFUL.code());
-            }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }*/
+        try {
+            channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                    Commands.DELETE_GROUP.bytes());
+            Object obj = getObject(id);
+            if(obj != null) return (Boolean) obj;
+        } catch (IOException | ClassCastException ignored) {
+        }
 
         return false;
     }
@@ -142,17 +138,13 @@ public class DepartmentManagerMOMClient implements DepartmentManager, AutoClosea
     }
     @Override
     public boolean addGroup(Group group){
-        /*try {
-            out.writeObject(Commands.ADD_GROUP.code());
-            String answer = (String) in.readObject();
-            if(answer.equals(ServerResults.SUCCESSFUL.code())) {
-                out.writeObject(group);
-                answer = (String) in.readObject();
-                return answer.equals(ServerResults.SUCCESSFUL.code());
-            }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }*/
+        try {
+            channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                    Commands.ADD_GROUP.bytes());
+            Object obj = getObject(group);
+            if(obj != null) return (Boolean) obj;
+        } catch (IOException | ClassCastException ignored) {
+        }
 
         return false;
     }

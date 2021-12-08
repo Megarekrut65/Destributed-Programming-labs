@@ -56,21 +56,25 @@ public class DepartmentMOMServer extends DepartmentServer {
     }
     @Override
     protected boolean addGroup(){
-        /*try {
-            Group group = (Group) in.readObject();
-            System.out.print(group);
-            if(database.addGroup(group)){
-                out.writeObject(ServerResults.SUCCESSFUL.code());
-                System.out.println(" was added");
+        try {
+            Group group = (Group) getObject();
+            log(""+group);
+            if(group != null && database.addGroup(group)){
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.SUCCESSFUL.bytes());
+                logln(" was added");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        Converter.getBytes(true));
             }
             else{
-                out.writeObject(ServerResults.PARAMETERS_ERROR.code());
-                System.out.println(" wasn't added");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.NOT_FOUND.bytes());
+                logln(" wasn't added");
             }
             return true;
-        } catch (IOException | ClassNotFoundException e) {
+        }catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
         return false;
     }
     @Override
@@ -114,21 +118,26 @@ public class DepartmentMOMServer extends DepartmentServer {
     }
     @Override
     protected boolean deleteGroup(){
-        /*try {
-            int id = (int)in.readObject();
-            System.out.print("Id: " + id);
+        try {
+            Integer id = (Integer) getObject();
+            if(id == null) id = -1;
+            log("Id: " + id);
             if(database.deleteGroup(id)) {
-                out.writeObject(ServerResults.SUCCESSFUL.code());
-                System.out.println(", group was removed");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.SUCCESSFUL.bytes());
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        Converter.getBytes(true));
+                logln(", group was removed");
             }
             else{
-                out.writeObject(ServerResults.NOT_FOUND.code());
-                System.out.println(", not found");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.NOT_FOUND.bytes());
+                logln(", not found");
             }
             return true;
-        }catch (IOException | ClassNotFoundException e) {
+        }catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
         return false;
     }
     @Override
