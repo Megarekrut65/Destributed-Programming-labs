@@ -153,25 +153,47 @@ public class DepartmentMOMServer extends DepartmentServer {
         }*/
         return false;
     }
+    private int getId(){
+        final BlockingQueue<Integer> groupId = new ArrayBlockingQueue<>(1);
+        DeliverCallback deliverCallback = (s, delivery) -> {
+            try {
+                groupId.offer((Integer) Converter.getObject(delivery.getBody()));
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        };
+        try {
+            String tag = parameters.basicConsume(QUEUE_NAME_PARAMETERS, true, deliverCallback, consumerTag -> { });
+            int id = groupId.take();
+            parameters.basicCancel(tag);
+            return id;
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
     @Override
     protected boolean findGroup(){
-        /*try {
-            int id = (int)in.readObject();
+        try {
+            int id = getId();
             var group = database.findGroup(id);
-            System.out.print("Id: " + id);
+            log("Id: " + id);
             if(group != null) {
-                out.writeObject(ServerResults.SUCCESSFUL.code());
-                System.out.println(", found group: " + group.getName());
-                out.writeObject(group);
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.SUCCESSFUL.bytes());
+                logln(", found group: " + group.getName());
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        Converter.getBytes(group));
             }
             else{
-                out.writeObject(ServerResults.NOT_FOUND.code());
-                System.out.println(", not found");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.NOT_FOUND.bytes());
+                logln(", not found");
             }
             return true;
-        }catch (IOException | ClassNotFoundException e) {
+        }catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
         return false;
     }
     @Override
@@ -191,16 +213,7 @@ public class DepartmentMOMServer extends DepartmentServer {
     @Override
     protected boolean getStudentsInGroup(){
         try {
-            final BlockingQueue<Integer> groupId = new ArrayBlockingQueue<>(1);
-            DeliverCallback deliverCallback = (s, delivery) -> {
-                try {
-                    groupId.offer((Integer) Converter.getObject(delivery.getBody()));
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-            };
-            String tag = parameters.basicConsume(QUEUE_NAME_PARAMETERS, true, deliverCallback, consumerTag -> { });
-            int grId = groupId.take();
+            int grId = getId();
             var students = database.getStudentsInGroup(grId);
             log("Group id: " + grId);
             if(students != null){
@@ -215,13 +228,10 @@ public class DepartmentMOMServer extends DepartmentServer {
                         ServerResults.NOT_FOUND.bytes());
                 logln(", not found");
             }
-            parameters.basicCancel(tag);
-            run();
             return true;
-        }catch (IOException | InterruptedException e) {
+        }catch (IOException e) {
             e.printStackTrace();
         }
-        run();
         return false;
     }
 

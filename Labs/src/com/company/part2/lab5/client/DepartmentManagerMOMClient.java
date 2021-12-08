@@ -9,6 +9,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PrimitiveIterator;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeoutException;
@@ -50,27 +51,8 @@ public class DepartmentManagerMOMClient implements DepartmentManager, AutoClosea
         try {
             channelTo.basicPublish("", QUEUE_NAME_TO, null,
                     Commands.GET_GROUPS.bytes());
-            final BlockingQueue<List<Group>> groups = new ArrayBlockingQueue<>(1);
-            final AtomicReference<String> answer = new AtomicReference<>();
-            DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-                if(answer.get() == null){
-                    answer.set(new String(delivery.getBody(), StandardCharsets.UTF_8));
-                    if(!answer.get().equals(ServerResults.SUCCESSFUL.code())){
-                        groups.offer(new ArrayList<>());
-                    }
-                }else{
-                    try {
-                        groups.offer((List<Group>) Converter.getObject(delivery.getBody()));
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-            String ctag = channelFrom.basicConsume(QUEUE_NAME_FROM, true, deliverCallback, consumerTag -> { });
-            var gr = groups.take();
-            channelFrom.basicCancel(ctag);
-            return gr;
-        } catch (IOException | InterruptedException e) {
+            return (List<Group>) getObject();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -81,27 +63,8 @@ public class DepartmentManagerMOMClient implements DepartmentManager, AutoClosea
         try {
             channelTo.basicPublish("", QUEUE_NAME_TO, null,
                     Commands.GET_STUDENTS.bytes());
-            final BlockingQueue<List<Student>> students = new ArrayBlockingQueue<>(1);
-            final AtomicReference<String> answer = new AtomicReference<>();
-            DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-                if(answer.get() == null){
-                    answer.set(new String(delivery.getBody(), StandardCharsets.UTF_8));
-                    if(!answer.get().equals(ServerResults.SUCCESSFUL.code())){
-                        students.offer(new ArrayList<>());
-                    }
-                }else{
-                    try {
-                        students.offer((List<Student>) Converter.getObject(delivery.getBody()));
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-            String ctag = channelFrom.basicConsume(QUEUE_NAME_FROM, true, deliverCallback, consumerTag -> { });
-            var st = students.take();
-            channelFrom.basicCancel(ctag);
-            return st;
-        } catch (IOException | InterruptedException e) {
+            return (List<Student>) getObject();
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
@@ -111,40 +74,67 @@ public class DepartmentManagerMOMClient implements DepartmentManager, AutoClosea
         try {
             channelTo.basicPublish("", QUEUE_NAME_TO, null,
                     Commands.GET_STUDENTS_IN_GROUP.bytes());
-            final BlockingQueue<List<Student>> students = new ArrayBlockingQueue<>(1);
-            final AtomicReference<String> answer = new AtomicReference<>(), answer2 = new AtomicReference<>();
-            DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-                if(answer.get() == null){
-                    answer.set(new String(delivery.getBody(), StandardCharsets.UTF_8));
-                    if(!answer.get().equals(ServerResults.SUCCESSFUL.code())){
-                        students.offer(new ArrayList<>());
-                    }else{
-                        parameters.basicPublish("", QUEUE_NAME_PARAMETERS,
-                                null, Converter.getBytes(groupId));
-                    }
-                }else if(answer2.get() == null){
-                    answer2.set(new String(delivery.getBody(), StandardCharsets.UTF_8));
-                    if(!answer2.get().equals(ServerResults.SUCCESSFUL.code())){
-                        students.offer(new ArrayList<>());
-                    }
-                }else {
-                    try {
-                        students.offer((List<Student>)Converter.getObject(delivery.getBody()));
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-            String ctag = channelFrom.basicConsume(QUEUE_NAME_FROM, true, deliverCallback, consumerTag -> { });
-            var st = students.take();
-            channelFrom.basicCancel(ctag);
-            return st;
-        } catch (IOException | InterruptedException e) {
+           return (List<Student>) getObject(groupId);
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         return null;
     }
+    private Object getObject(Object param){
+        final BlockingQueue<Object> objects = new ArrayBlockingQueue<>(1);
+        final AtomicReference<String> answer = new AtomicReference<>(), answer2 = new AtomicReference<>();
+        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+            if(answer.get() == null){
+                answer.set(new String(delivery.getBody(), StandardCharsets.UTF_8));
+                if(!answer.get().equals(ServerResults.SUCCESSFUL.code())){
+                    objects.offer(new Object());
+                }else{
+                    parameters.basicPublish("", QUEUE_NAME_PARAMETERS,
+                            null, Converter.getBytes(param));
+                }
+            }else {
+                receiveObject(objects, answer2, delivery);
+            }
+        };
+        return getObject(objects, deliverCallback);
+    }
+
+    private Object getObject(BlockingQueue<Object> students, DeliverCallback deliverCallback) {
+        try {
+            String tag = channelFrom.basicConsume(QUEUE_NAME_FROM, true, deliverCallback, consumerTag -> { });
+            var obj = students.take();
+            channelFrom.basicCancel(tag);
+            return obj;
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private Object getObject(){
+        final BlockingQueue<Object> students = new ArrayBlockingQueue<>(1);
+        final AtomicReference<String> answer = new AtomicReference<>();
+        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+            receiveObject(students, answer, delivery);
+        };
+        return getObject(students, deliverCallback);
+    }
+    private void receiveObject(BlockingQueue<Object> objects, AtomicReference<String> answer, Delivery delivery) throws IOException {
+        if(answer.get() == null){
+            answer.set(new String(delivery.getBody(), StandardCharsets.UTF_8));
+            if(!answer.get().equals(ServerResults.SUCCESSFUL.code())){
+                objects.offer(new Object());
+            }
+        }else {
+            try {
+                objects.offer(Converter.getObject(delivery.getBody()));
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
     public Group findGroup(int id) {
         /*try {
