@@ -169,15 +169,16 @@ public class DepartmentMOMServer extends DepartmentServer {
     }
     @Override
     protected boolean getStudents() {
-        /*try {
+        try {
             var students = database.getStudents();
             if(students == null) students = new ArrayList<>();
-            System.out.println("Found " + students.size() + " students");
-            out.writeObject(students);
+            logln("Found " + students.size() + " students");
+            channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                    Converter.getBytes(students));
             return true;
         }catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
         return false;
     }
     @Override
