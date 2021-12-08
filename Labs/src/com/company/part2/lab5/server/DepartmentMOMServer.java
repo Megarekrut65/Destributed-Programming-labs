@@ -19,9 +19,9 @@ public class DepartmentMOMServer extends DepartmentServer {
     private Channel channelTo;
     private Channel parameters;
     private Channel channelFrom;
-    private final String QUEUE_NAME_TO = "DepartmentDatabaseFrom";
-    private final String QUEUE_NAME_FROM = "DepartmentDatabaseTo";
-    private final String QUEUE_NAME_PARAMETERS = "DepartmentDatabaseParameters";
+    private final String QUEUE_NAME_TO = "DepartmentFrom";
+    private final String QUEUE_NAME_FROM = "DepartmentTo";
+    private final String QUEUE_NAME_PARAMETERS = "DepartmentParameters";
     private String currentTag;
     public DepartmentMOMServer() {
         super();

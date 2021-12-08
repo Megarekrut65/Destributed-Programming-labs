@@ -20,9 +20,9 @@ public class DepartmentManagerMOMClient implements DepartmentManager, AutoClosea
     private Channel channelTo;
     private Channel parameters;
     private Channel channelFrom;
-    private final String QUEUE_NAME_TO = "DepartmentDatabaseTo";
-    private final String QUEUE_NAME_FROM = "DepartmentDatabaseFrom";
-    private final String QUEUE_NAME_PARAMETERS = "DepartmentDatabaseParameters";
+    private final String QUEUE_NAME_TO = "DepartmentTo";
+    private final String QUEUE_NAME_FROM = "DepartmentFrom";
+    private final String QUEUE_NAME_PARAMETERS = "DepartmentParameters";
     public DepartmentManagerMOMClient(String host){
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost(host);
@@ -51,8 +51,9 @@ public class DepartmentManagerMOMClient implements DepartmentManager, AutoClosea
         try {
             channelTo.basicPublish("", QUEUE_NAME_TO, null,
                     Commands.GET_GROUPS.bytes());
-            return (List<Group>) getObject();
-        } catch (IOException e) {
+            Object obj = getObject();
+            if(obj != null) return (List<Group>) obj;
+        } catch (IOException |ClassCastException e) {
             e.printStackTrace();
         }
 
@@ -63,7 +64,8 @@ public class DepartmentManagerMOMClient implements DepartmentManager, AutoClosea
         try {
             channelTo.basicPublish("", QUEUE_NAME_TO, null,
                     Commands.GET_STUDENTS.bytes());
-            return (List<Student>) getObject();
+            Object obj = getObject();
+            if(obj != null) return (List<Student>) obj;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -74,82 +76,23 @@ public class DepartmentManagerMOMClient implements DepartmentManager, AutoClosea
         try {
             channelTo.basicPublish("", QUEUE_NAME_TO, null,
                     Commands.GET_STUDENTS_IN_GROUP.bytes());
-           return (List<Student>) getObject(groupId);
+            Object obj = getObject(groupId);
+            if(obj != null) return (List<Student>) obj;
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return null;
     }
-    private Object getObject(Object param){
-        final BlockingQueue<Object> objects = new ArrayBlockingQueue<>(1);
-        final AtomicReference<String> answer = new AtomicReference<>(), answer2 = new AtomicReference<>();
-        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-            if(answer.get() == null){
-                answer.set(new String(delivery.getBody(), StandardCharsets.UTF_8));
-                if(!answer.get().equals(ServerResults.SUCCESSFUL.code())){
-                    objects.offer(new Object());
-                }else{
-                    parameters.basicPublish("", QUEUE_NAME_PARAMETERS,
-                            null, Converter.getBytes(param));
-                }
-            }else {
-                receiveObject(objects, answer2, delivery);
-            }
-        };
-        return getObject(objects, deliverCallback);
-    }
-
-    private Object getObject(BlockingQueue<Object> students, DeliverCallback deliverCallback) {
-        try {
-            String tag = channelFrom.basicConsume(QUEUE_NAME_FROM, true, deliverCallback, consumerTag -> { });
-            var obj = students.take();
-            channelFrom.basicCancel(tag);
-            return obj;
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private Object getObject(){
-        final BlockingQueue<Object> students = new ArrayBlockingQueue<>(1);
-        final AtomicReference<String> answer = new AtomicReference<>();
-        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-            receiveObject(students, answer, delivery);
-        };
-        return getObject(students, deliverCallback);
-    }
-    private void receiveObject(BlockingQueue<Object> objects, AtomicReference<String> answer, Delivery delivery) throws IOException {
-        if(answer.get() == null){
-            answer.set(new String(delivery.getBody(), StandardCharsets.UTF_8));
-            if(!answer.get().equals(ServerResults.SUCCESSFUL.code())){
-                objects.offer(new Object());
-            }
-        }else {
-            try {
-                objects.offer(Converter.getObject(delivery.getBody()));
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     @Override
     public Group findGroup(int id) {
-        /*try {
-            out.writeObject(Commands.FIND_GROUP.code());
-            String answer = (String) in.readObject();
-            if(answer.equals(ServerResults.SUCCESSFUL.code())) {
-                out.writeObject(id);
-                answer = (String) in.readObject();
-                if(answer.equals(ServerResults.SUCCESSFUL.code()))
-                    return (Group) in.readObject();
-            }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+        try {
+            channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                    Commands.FIND_GROUP.bytes());
+            Object obj = getObject(id);
+            if(obj != null) return (Group) obj;
+        } catch (IOException | ClassCastException ignored) {
         }
-*/
         return null;
     }
     @Override
@@ -234,5 +177,58 @@ public class DepartmentManagerMOMClient implements DepartmentManager, AutoClosea
         }*/
 
         return false;
+    }
+    private Object getObject(Object param){
+        final BlockingQueue<Object> objects = new ArrayBlockingQueue<>(1);
+        final AtomicReference<String> answer = new AtomicReference<>(), answer2 = new AtomicReference<>();
+        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+            if(answer.get() == null){
+                answer.set(new String(delivery.getBody(), StandardCharsets.UTF_8));
+                if(!answer.get().equals(ServerResults.SUCCESSFUL.code())){
+                    objects.offer(new Object());
+                }else{
+                    parameters.basicPublish("", QUEUE_NAME_PARAMETERS,
+                            null, Converter.getBytes(param));
+                }
+            }else {
+                receiveObject(objects, answer2, delivery);
+            }
+        };
+        return getObject(objects, deliverCallback);
+    }
+
+    private Object getObject(BlockingQueue<Object> objects, DeliverCallback deliverCallback) {
+        try {
+            String tag = channelFrom.basicConsume(QUEUE_NAME_FROM, true, deliverCallback, consumerTag -> { });
+            var obj = objects.take();
+            channelFrom.basicCancel(tag);
+            return obj;
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private Object getObject(){
+        final BlockingQueue<Object> students = new ArrayBlockingQueue<>(1);
+        final AtomicReference<String> answer = new AtomicReference<>();
+        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+            receiveObject(students, answer, delivery);
+        };
+        return getObject(students, deliverCallback);
+    }
+    private void receiveObject(BlockingQueue<Object> objects, AtomicReference<String> answer, Delivery delivery) throws IOException {
+        if(answer.get() == null){
+            answer.set(new String(delivery.getBody(), StandardCharsets.UTF_8));
+            if(!answer.get().equals(ServerResults.SUCCESSFUL.code())){
+                objects.offer(new Object());
+            }
+        }else {
+            try {
+                objects.offer(Converter.getObject(delivery.getBody()));
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

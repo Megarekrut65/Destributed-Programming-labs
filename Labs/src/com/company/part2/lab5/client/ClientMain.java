@@ -7,7 +7,10 @@ public class ClientMain {
             System.out.println(client.getStudents());
             System.out.println(client.getStudentsInGroup(1));
             System.out.println(client.getStudentsInGroup(10));
-        }catch (Exception ignored){
+            System.out.println(client.findGroup(2));
+            System.out.println(client.findGroup(22));
+        }catch (Exception e){
+            e.printStackTrace();
             System.out.println("Client finished work");
         }
 
