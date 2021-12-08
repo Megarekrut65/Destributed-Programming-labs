@@ -9,6 +9,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeoutException;
@@ -16,29 +17,17 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class DepartmentManagerMOMClient implements DepartmentManager, AutoCloseable{
     private Connection connection;
-    private Channel channelTo;
-    private Channel channelFrom;
-    private final String QUEUE_NAME_TO = "DepartmentDatabaseTo";
-    private final String QUEUE_NAME_FROM = "DepartmentDatabaseFrom";
+    private Channel channel;
+    private final String QUEUE_NAME = "DepartmentDatabase";
     public DepartmentManagerMOMClient(String host){
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost(host);
         try {
             connection = factory.newConnection();
-            channelTo = connection.createChannel();
-            channelTo.queueDeclare(QUEUE_NAME_TO, false, false, false, null);
-            channelFrom = connection.createChannel();
-            channelFrom.queueDeclare(QUEUE_NAME_FROM, false, false, false, null);
+            channel = connection.createChannel();
         } catch (IOException | TimeoutException e) {
             e.printStackTrace();
         }
-    }
-    private AMQP.BasicProperties getProperties(String id, String replyQueueName) throws IOException {
-        return new AMQP.BasicProperties
-                .Builder()
-                .correlationId(id)
-                .replyTo(replyQueueName)
-                .build();
     }
     @Override
     public void close(){
@@ -48,30 +37,62 @@ public class DepartmentManagerMOMClient implements DepartmentManager, AutoClosea
             e.printStackTrace();
         }
     }
-    @Override
-    public List<Group> getGroups(){
+    private boolean sendCommand(byte[] command){
+        final String corrId = UUID.randomUUID().toString();
         try {
-            channelTo.basicPublish("", QUEUE_NAME_TO, null,
-                    Commands.GET_GROUPS.bytes());
-            final BlockingQueue<List<Group>> groups = new ArrayBlockingQueue<>(1);
-            DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-               String answer = new String(delivery.getBody());
-               System.out.println(answer);
-               if(answer.equals(ServerResults.SUCCESSFUL.code())){
-                   DeliverCallback deliverCallback1 = (s, delivery1) -> {
-                       try {
-                           groups.offer((List<Group>) Converter.getObject(delivery1.getBody()));
-                       } catch (ClassNotFoundException e) {
-                           e.printStackTrace();
-                       }
-                   };
-                   channelFrom.basicConsume(QUEUE_NAME_FROM, true, deliverCallback1, consumerTag1 -> { });
-               }else groups.offer(new ArrayList<>());
-            };
-            channelFrom.basicConsume(QUEUE_NAME_FROM, true, deliverCallback, consumerTag -> { });
-            return groups.take();
+            String replyQueueName = channel.queueDeclare().getQueue();
+            AMQP.BasicProperties props = new AMQP.BasicProperties
+                    .Builder()
+                    .correlationId(corrId)
+                    .replyTo(replyQueueName)
+                    .build();
+            channel.basicPublish("", QUEUE_NAME, props, command);
+            final BlockingQueue<Boolean> response = new ArrayBlockingQueue<>(1);
+            String ctag = channel.basicConsume(replyQueueName, true, (consumerTag, delivery) -> {
+                if (delivery.getProperties().getCorrelationId().equals(corrId)) {
+                    String ans = new String(delivery.getBody(), StandardCharsets.UTF_8);
+                    response.offer(ans.equals(ServerResults.SUCCESSFUL.code()));
+                }
+            }, consumerTag -> {
+            });
+
+            Boolean result = response.take();
+            channel.basicCancel(ctag);
+            return result;
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
+        }
+        return false;
+    }
+    @Override
+    public List<Group> getGroups(){
+        if(sendCommand(Commands.GET_GROUPS.bytes())){
+            final String corrId = UUID.randomUUID().toString();
+            try {
+                String replyQueueName = channel.queueDeclare().getQueue();
+                AMQP.BasicProperties props = new AMQP.BasicProperties
+                        .Builder()
+                        .correlationId(corrId)
+                        .replyTo(replyQueueName)
+                        .build();
+                final BlockingQueue<List<Group>> response = new ArrayBlockingQueue<>(1);
+                String ctag = channel.basicConsume(replyQueueName, true, (consumerTag, delivery) -> {
+                    if (delivery.getProperties().getCorrelationId().equals(corrId)) {
+                        try {
+                            response.offer((List<Group>) Converter.getObject(delivery.getBody()));
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, consumerTag -> {
+                });
+
+                List<Group> result = response.take();
+                channel.basicCancel(ctag);
+                return result;
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         return null;
