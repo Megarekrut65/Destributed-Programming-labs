@@ -19,9 +19,9 @@ public class DepartmentMOMServer extends DepartmentServer {
     private Channel channelTo;
     private Channel parameters;
     private Channel channelFrom;
-    private final String QUEUE_NAME_TO = "DepartmentFrom";
-    private final String QUEUE_NAME_FROM = "DepartmentTo";
-    private final String QUEUE_NAME_PARAMETERS = "DepartmentParameters";
+    private final String QUEUE_NAME_TO = "DepartmentDBFrom";
+    private final String QUEUE_NAME_FROM = "DepartmentDBTo";
+    private final String QUEUE_NAME_PARAMETERS = "DepartmentDBParameters";
     private String currentTag;
     public DepartmentMOMServer() {
         super();
@@ -68,7 +68,7 @@ public class DepartmentMOMServer extends DepartmentServer {
             }
             else{
                 channelTo.basicPublish("", QUEUE_NAME_TO, null,
-                        ServerResults.NOT_FOUND.bytes());
+                        ServerResults.PARAMETERS_ERROR.bytes());
                 logln(" wasn't added");
             }
             return true;
@@ -79,41 +79,52 @@ public class DepartmentMOMServer extends DepartmentServer {
     }
     @Override
     protected boolean addStudent(){
-       /* try {
-            Student student = (Student) in.readObject();
-            System.out.print(student);
-            if(database.addStudent(student)){
-                out.writeObject(ServerResults.SUCCESSFUL.code());
-                System.out.println(" was added");
+        try {
+            Student student = (Student) getObject();
+            log(""+student);
+            if(student != null && database.addStudent(student)){
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.SUCCESSFUL.bytes());
+                logln(" was added");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        Converter.getBytes(true));
             }
             else{
-                out.writeObject(ServerResults.PARAMETERS_ERROR.code());
-                System.out.println(" wasn't added");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.PARAMETERS_ERROR.bytes());
+                logln(" wasn't added");
             }
             return true;
-        } catch (IOException | ClassNotFoundException e) {
+        }catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
         return false;
     }
     @Override
     protected boolean deleteStudent(){
-       /*try {
-            int id = (int)in.readObject();
-            int groupId = (int)in.readObject();
-            System.out.print("Id: " + id + ", group id: " + groupId);
+        try {
+            Integer[] ids = (Integer[]) getObject();
+            if(ids == null) ids = new Integer[]{-1,-1};
+            int id = ids[0];
+            int groupId = ids[1];
+            log("Id: " + id + ", group id: " + groupId);
             if(database.deleteStudent(id,groupId)) {
-                out.writeObject(ServerResults.SUCCESSFUL.code());
-                System.out.println(", student was removed");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.SUCCESSFUL.bytes());
+                logln(", student was removed");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        Converter.getBytes(true));
             }
             else{
-                out.writeObject(ServerResults.NOT_FOUND.code());
-                System.out.println(", not found");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.NOT_FOUND.bytes());
+                logln(", not found");
             }
             return true;
-        }catch (IOException | ClassNotFoundException e) {
+        }catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
+
         return false;
     }
     @Override

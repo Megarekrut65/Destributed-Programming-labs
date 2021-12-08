@@ -20,9 +20,9 @@ public class DepartmentManagerMOMClient implements DepartmentManager, AutoClosea
     private Channel channelTo;
     private Channel parameters;
     private Channel channelFrom;
-    private final String QUEUE_NAME_TO = "DepartmentTo";
-    private final String QUEUE_NAME_FROM = "DepartmentFrom";
-    private final String QUEUE_NAME_PARAMETERS = "DepartmentParameters";
+    private final String QUEUE_NAME_TO = "DepartmentDBTo";
+    private final String QUEUE_NAME_FROM = "DepartmentDBFrom";
+    private final String QUEUE_NAME_PARAMETERS = "DepartmentDBParameters";
     public DepartmentManagerMOMClient(String host){
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost(host);
@@ -121,18 +121,13 @@ public class DepartmentManagerMOMClient implements DepartmentManager, AutoClosea
     }
     @Override
     public boolean deleteStudent(int id, int groupId){
-        /*try {
-            out.writeObject(Commands.DELETE_STUDENT.code());
-            String answer = (String) in.readObject();
-            if(answer.equals(ServerResults.SUCCESSFUL.code())) {
-                out.writeObject(id);
-                out.writeObject(groupId);
-                answer = (String) in.readObject();
-                return answer.equals(ServerResults.SUCCESSFUL.code());
-            }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }*/
+        try {
+            channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                    Commands.DELETE_STUDENT.bytes());
+            Object obj = getObject(new Integer[]{id,groupId});
+            if(obj != null) return (Boolean) obj;
+        } catch (IOException | ClassCastException ignored) {
+        }
 
         return false;
     }
@@ -150,17 +145,13 @@ public class DepartmentManagerMOMClient implements DepartmentManager, AutoClosea
     }
     @Override
     public boolean addStudent(Student student){
-        /*try {
-            out.writeObject(Commands.ADD_STUDENT.code());
-            String answer = (String) in.readObject();
-            if(answer.equals(ServerResults.SUCCESSFUL.code())) {
-                out.writeObject(student);
-                answer = (String) in.readObject();
-                return answer.equals(ServerResults.SUCCESSFUL.code());
-            }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }*/
+        try {
+            channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                    Commands.ADD_STUDENT.bytes());
+            Object obj = getObject(student);
+            if(obj != null) return (Boolean) obj;
+        } catch (IOException | ClassCastException ignored) {
+        }
 
         return false;
     }
