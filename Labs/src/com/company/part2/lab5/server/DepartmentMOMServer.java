@@ -13,11 +13,11 @@ import java.util.concurrent.TimeoutException;
 
 public class DepartmentMOMServer extends DepartmentServer {
     private final DepartmentSqlManager database;
-    private final String QUEUE_NAME = "DepartmentDatabase";
     private Connection connection;
-    private Channel channel;
-    private String currentReply;
-    private AMQP.BasicProperties currentProps;
+    private Channel channelTo;
+    private Channel channelFrom;
+    private final String QUEUE_NAME_TO = "DepartmentDatabaseFrom";
+    private final String QUEUE_NAME_FROM = "DepartmentDatabaseTo";
     public DepartmentMOMServer() {
         super();
         database = new DepartmentSqlManager("localhost", 3306, "department");
@@ -25,7 +25,10 @@ public class DepartmentMOMServer extends DepartmentServer {
         factory.setHost("localhost");
         try {
             connection = factory.newConnection();
-            channel = connection.createChannel();
+            channelTo = connection.createChannel();
+            channelTo.queueDeclare(QUEUE_NAME_TO, false, false, false, null);
+            channelFrom = connection.createChannel();
+            channelFrom.queueDeclare(QUEUE_NAME_FROM, false, false, false, null);
         } catch (IOException | TimeoutException e) {
             e.printStackTrace();
         }
@@ -35,8 +38,9 @@ public class DepartmentMOMServer extends DepartmentServer {
         try {
             var groups = database.getGroups();
             if(groups == null) groups = new ArrayList<>();
-            log("Found " + groups.size() + " groups");
-            channel.basicPublish("", currentReply, currentProps, Converter.getBytes(groups));
+            logln("Found " + groups.size() + " groups");
+            channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                    Converter.getBytes(groups));
             return true;
         }catch (IOException e) {
             e.printStackTrace();
@@ -201,50 +205,21 @@ public class DepartmentMOMServer extends DepartmentServer {
 
 
     public void run() {
-        try {
-            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-            channel.queuePurge(QUEUE_NAME);
-            channel.basicQos(1);
-            Object monitor = new Object();
-            DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-                AMQP.BasicProperties replyProps = new AMQP.BasicProperties
-                        .Builder()
-                        .correlationId(delivery.getProperties().getCorrelationId())
-                        .build();
-
-                String code = "";
-                try {
-                    code =  new String(delivery.getBody(), StandardCharsets.UTF_8);
-                    logln("Command: "+code);
-                } catch (RuntimeException e) {
-                    e.printStackTrace();
-                } finally {
-                    var fun = functionMap.get(code);
-                    String answer;
-                    if(fun != null){
-                       answer = ServerResults.SUCCESSFUL.code();
-                    }else answer = ServerResults.UNKNOWN_COMMAND.code();
-                    channel.basicPublish("", delivery.getProperties().getReplyTo(), replyProps, answer.getBytes(StandardCharsets.UTF_8));
-                    currentProps = replyProps;
-                    currentReply = delivery.getProperties().getReplyTo();
-                    fun.call();
-                    synchronized (monitor) {
-                        monitor.notify();
-                    }
-                }
-            };
-            channel.basicConsume(QUEUE_NAME, false, deliverCallback, (consumerTag -> { }));
-            while (true) {
-                synchronized (monitor) {
-                    try {
-                        monitor.wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+            String command = new String(delivery.getBody(), StandardCharsets.UTF_8);
+            logln("Command: "+command);
+            var fun = functionMap.get(command);
+            if(fun != null){
+                channelTo.basicPublish("",QUEUE_NAME_TO,  null, ServerResults.SUCCESSFUL.bytes());
+                fun.call();
             }
+            else channelTo.basicPublish("",QUEUE_NAME_TO,  null, ServerResults.UNKNOWN_COMMAND.bytes());
+        };
+        try {
+            channelFrom.basicConsume(QUEUE_NAME_FROM, true, deliverCallback, consumerTag -> { });
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 }

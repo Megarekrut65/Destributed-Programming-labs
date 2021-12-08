@@ -1,5 +1,7 @@
 package com.company.part2.subjectarea;
 
+import java.nio.charset.StandardCharsets;
+
 public enum ServerResults {
     SUCCESSFUL("0"),
     UNKNOWN_COMMAND("1"),
@@ -11,5 +13,8 @@ public enum ServerResults {
     }
     public String code(){
         return code;
+    }
+    public byte[] bytes(){
+        return code.getBytes(StandardCharsets.UTF_8);
     }
 }

@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1db854a-9118-4d05-8b72-c2cc94ef14bc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab5/Converter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/ServerResults.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/subjectarea/ServerResults.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/client/DepartmentManagerClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/client/DepartmentManagerClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/ClientRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab3/server/ClientRunnable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab5/client/ClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab5/client/ClientMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab5/client/DepartmentManagerMOMClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab5/client/DepartmentManagerMOMClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab5/server/DepartmentMOMServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab5/server/DepartmentMOMServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Labs/src/com/company/part2/lab5/server/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/Labs/src/com/company/part2/lab5/server/ServerMain.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +44,7 @@
     <property name="extract.method.default.visibility" value="private" />
     <property name="go.formatter.settings.were.checked" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="E:/Java-projects/rabbitmq/amqp-client-5.14.0.jar" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Labs" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -191,6 +183,7 @@
       <workItem from="1637830056053" duration="2202000" />
       <workItem from="1637835135990" duration="2277000" />
       <workItem from="1638431719782" duration="8806000" />
+      <workItem from="1638973474288" duration="642000" />
     </task>
     <servers />
   </component>

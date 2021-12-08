@@ -1,6 +1,5 @@
-package com.company.part2.lab3;
+package com.company.part2.lab3.client;
 
-import com.company.part2.lab3.client.DepartmentManagerClient;
 import com.company.part2.subjectarea.DepartmentManagerExamples;
 
 public class MainClient {

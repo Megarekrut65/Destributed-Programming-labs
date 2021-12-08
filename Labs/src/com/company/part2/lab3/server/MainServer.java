@@ -1,6 +1,5 @@
-package com.company.part2.lab3;
+package com.company.part2.lab3.server;
 
-import com.company.part2.lab3.server.DepartmentSocketServer;
 
 public class MainServer {
     public static void main(String[] args) {

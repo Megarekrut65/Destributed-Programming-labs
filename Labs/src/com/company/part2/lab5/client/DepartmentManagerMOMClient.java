@@ -1,31 +1,34 @@
 package com.company.part2.lab5.client;
 
 import com.company.part2.lab5.Converter;
-import com.company.part2.subjectarea.Commands;
-import com.company.part2.subjectarea.DepartmentManager;
-import com.company.part2.subjectarea.Group;
-import com.company.part2.subjectarea.Student;
+import com.company.part2.subjectarea.*;
 import com.rabbitmq.client.*;
 
 import java.io.*;
 
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicReference;
 
-public class DepartmentManagerMOMClient implements DepartmentManager {
+public class DepartmentManagerMOMClient implements DepartmentManager, AutoCloseable{
     private Connection connection;
-    private Channel channel;
-    private final String QUEUE_NAME = "DepartmentDatabase";
+    private Channel channelTo;
+    private Channel channelFrom;
+    private final String QUEUE_NAME_TO = "DepartmentDatabaseTo";
+    private final String QUEUE_NAME_FROM = "DepartmentDatabaseFrom";
     public DepartmentManagerMOMClient(String host){
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost(host);
         try {
             connection = factory.newConnection();
-            channel = connection.createChannel();
-            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+            channelTo = connection.createChannel();
+            channelTo.queueDeclare(QUEUE_NAME_TO, false, false, false, null);
+            channelFrom = connection.createChannel();
+            channelFrom.queueDeclare(QUEUE_NAME_FROM, false, false, false, null);
         } catch (IOException | TimeoutException e) {
             e.printStackTrace();
         }
@@ -47,30 +50,30 @@ public class DepartmentManagerMOMClient implements DepartmentManager {
     }
     @Override
     public List<Group> getGroups(){
-        final String corrId = UUID.randomUUID().toString();
         try {
-            String replyQueueName = channel.queueDeclare().getQueue();
-            var props = getProperties(corrId, replyQueueName);
-            channel.basicPublish("", QUEUE_NAME, props,
+            channelTo.basicPublish("", QUEUE_NAME_TO, null,
                     Commands.GET_GROUPS.bytes());
-            final BlockingQueue<List<Group>> response = new ArrayBlockingQueue<>(1);
-            String ctag = channel.basicConsume(replyQueueName, true, (consumerTag, delivery) -> {
-                if (delivery.getProperties().getCorrelationId().equals(corrId)) {
-                    var body = delivery.getBody();
-                    try {
-                        response.offer((List<Group>) Converter.getObject(body));
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, consumerTag -> {
-            });
-            List<Group> result = response.take();
-            channel.basicCancel(ctag);
-            return result;
+            final BlockingQueue<List<Group>> groups = new ArrayBlockingQueue<>(1);
+            DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+               String answer = new String(delivery.getBody());
+               System.out.println(answer);
+               if(answer.equals(ServerResults.SUCCESSFUL.code())){
+                   DeliverCallback deliverCallback1 = (s, delivery1) -> {
+                       try {
+                           groups.offer((List<Group>) Converter.getObject(delivery1.getBody()));
+                       } catch (ClassNotFoundException e) {
+                           e.printStackTrace();
+                       }
+                   };
+                   channelFrom.basicConsume(QUEUE_NAME_FROM, true, deliverCallback1, consumerTag1 -> { });
+               }else groups.offer(new ArrayList<>());
+            };
+            channelFrom.basicConsume(QUEUE_NAME_FROM, true, deliverCallback, consumerTag -> { });
+            return groups.take();
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+
         return null;
     }
     @Override
