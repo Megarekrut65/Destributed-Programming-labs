@@ -9,16 +9,19 @@ import com.rabbitmq.client.*;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeoutException;
 
 public class DepartmentMOMServer extends DepartmentServer {
     private final DepartmentSqlManager database;
     private Connection connection;
-    private Channel channel;
-    private final String QUEUE_NAME = "DepartmentDatabase";
-    private AMQP.BasicProperties currentProperties;
-    private String currentReplay;
-    private long currentTag;
+    private Channel channelTo;
+    private Channel parameters;
+    private Channel channelFrom;
+    private final String QUEUE_NAME_TO = "DepartmentDBFrom";
+    private final String QUEUE_NAME_FROM = "DepartmentDBTo";
+    private final String QUEUE_NAME_PARAMETERS = "DepartmentDBParameters";
     public DepartmentMOMServer() {
         super();
         database = new DepartmentSqlManager("localhost", 3306, "department");
@@ -26,7 +29,12 @@ public class DepartmentMOMServer extends DepartmentServer {
         factory.setHost("localhost");
         try {
             connection = factory.newConnection();
-            channel = connection.createChannel();
+            channelTo = connection.createChannel();
+            channelTo.queueDeclare(QUEUE_NAME_TO, false, false, false, null);
+            channelFrom = connection.createChannel();
+            channelFrom.queueDeclare(QUEUE_NAME_FROM, false, false, false, null);
+            parameters = connection.createChannel();
+            parameters.queueDeclare(QUEUE_NAME_PARAMETERS, false, false, false, null);
         } catch (IOException | TimeoutException e) {
             e.printStackTrace();
         }
@@ -37,8 +45,8 @@ public class DepartmentMOMServer extends DepartmentServer {
             var groups = database.getGroups();
             if(groups == null) groups = new ArrayList<>();
             logln("Found " + groups.size() + " groups");
-            channel.basicPublish("", currentReplay, currentProperties, Converter.getBytes(groups));
-            channel.basicAck(currentTag, false);
+            channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                    Converter.getBytes(groups));
             return true;
         }catch (IOException e) {
             e.printStackTrace();
@@ -47,206 +55,231 @@ public class DepartmentMOMServer extends DepartmentServer {
     }
     @Override
     protected boolean addGroup(){
-        /*try {
-            Group group = (Group) in.readObject();
-            System.out.print(group);
-            if(database.addGroup(group)){
-                out.writeObject(ServerResults.SUCCESSFUL.code());
-                System.out.println(" was added");
+        try {
+            Group group = (Group) getObject();
+            log(""+group);
+            if(group != null && database.addGroup(group)){
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.SUCCESSFUL.bytes());
+                logln(" was added");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        Converter.getBytes(true));
             }
             else{
-                out.writeObject(ServerResults.PARAMETERS_ERROR.code());
-                System.out.println(" wasn't added");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.PARAMETERS_ERROR.bytes());
+                logln(" wasn't added");
             }
             return true;
-        } catch (IOException | ClassNotFoundException e) {
+        }catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
         return false;
     }
     @Override
     protected boolean addStudent(){
-       /* try {
-            Student student = (Student) in.readObject();
-            System.out.print(student);
-            if(database.addStudent(student)){
-                out.writeObject(ServerResults.SUCCESSFUL.code());
-                System.out.println(" was added");
+        try {
+            Student student = (Student) getObject();
+            log(""+student);
+            if(student != null && database.addStudent(student)){
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.SUCCESSFUL.bytes());
+                logln(" was added");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        Converter.getBytes(true));
             }
             else{
-                out.writeObject(ServerResults.PARAMETERS_ERROR.code());
-                System.out.println(" wasn't added");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.PARAMETERS_ERROR.bytes());
+                logln(" wasn't added");
             }
             return true;
-        } catch (IOException | ClassNotFoundException e) {
+        }catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
         return false;
     }
     @Override
     protected boolean deleteStudent(){
-       /*try {
-            int id = (int)in.readObject();
-            int groupId = (int)in.readObject();
-            System.out.print("Id: " + id + ", group id: " + groupId);
+        try {
+            Integer[] ids = (Integer[]) getObject();
+            if(ids == null) ids = new Integer[]{-1,-1};
+            int id = ids[0];
+            int groupId = ids[1];
+            log("Id: " + id + ", group id: " + groupId);
             if(database.deleteStudent(id,groupId)) {
-                out.writeObject(ServerResults.SUCCESSFUL.code());
-                System.out.println(", student was removed");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.SUCCESSFUL.bytes());
+                logln(", student was removed");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        Converter.getBytes(true));
             }
             else{
-                out.writeObject(ServerResults.NOT_FOUND.code());
-                System.out.println(", not found");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.NOT_FOUND.bytes());
+                logln(", not found");
             }
             return true;
-        }catch (IOException | ClassNotFoundException e) {
+        }catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
+
         return false;
     }
     @Override
     protected boolean deleteGroup(){
-        /*try {
-            int id = (int)in.readObject();
-            System.out.print("Id: " + id);
+        try {
+            Integer id = (Integer) getObject();
+            if(id == null) id = -1;
+            log("Id: " + id);
             if(database.deleteGroup(id)) {
-                out.writeObject(ServerResults.SUCCESSFUL.code());
-                System.out.println(", group was removed");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.SUCCESSFUL.bytes());
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        Converter.getBytes(true));
+                logln(", group was removed");
             }
             else{
-                out.writeObject(ServerResults.NOT_FOUND.code());
-                System.out.println(", not found");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.NOT_FOUND.bytes());
+                logln(", not found");
             }
             return true;
-        }catch (IOException | ClassNotFoundException e) {
+        }catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
         return false;
     }
     @Override
     protected boolean findStudent(){
-        /*try {
-            int id = (int)in.readObject();
-            int groupId = (int)in.readObject();
+        try {
+            Integer[] ids = (Integer[]) getObject();
+            if(ids == null) ids = new Integer[]{-1,-1};
+            int id = ids[0];
+            int groupId = ids[1];
             var student = database.findStudent(id,groupId);
-            System.out.print("Id: " + id + ", group id: " + groupId);
+            log("Id: " + id + ", group id: " + groupId);
             if(student != null) {
-                out.writeObject(ServerResults.SUCCESSFUL.code());
-                System.out.println(", found student: " + student.getName());
-                out.writeObject(student);
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.SUCCESSFUL.bytes());
+                logln(", found student: " + student.getName());
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        Converter.getBytes(student));
             }
             else{
-                out.writeObject(ServerResults.NOT_FOUND.code());
-                System.out.println(", not found");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.NOT_FOUND.bytes());
+                logln(", not found");
             }
             return true;
-        }catch (IOException | ClassNotFoundException e) {
+        }catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
         return false;
+    }
+    private Object getObject(){
+        final BlockingQueue<Object> objects = new ArrayBlockingQueue<>(1);
+        DeliverCallback deliverCallback = (s, delivery) -> {
+            try {
+                objects.offer(Converter.getObject(delivery.getBody()));
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        };
+        try {
+            String tag = parameters.basicConsume(QUEUE_NAME_PARAMETERS, true, deliverCallback, consumerTag -> { });
+            Object obj = objects.take();
+            parameters.basicCancel(tag);
+            return obj;
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     @Override
     protected boolean findGroup(){
-        /*try {
-            int id = (int)in.readObject();
+        try {
+            Integer id = (Integer) getObject();
+            if(id == null) id = -1;
             var group = database.findGroup(id);
-            System.out.print("Id: " + id);
+            log("Id: " + id);
             if(group != null) {
-                out.writeObject(ServerResults.SUCCESSFUL.code());
-                System.out.println(", found group: " + group.getName());
-                out.writeObject(group);
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.SUCCESSFUL.bytes());
+                logln(", found group: " + group.getName());
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        Converter.getBytes(group));
             }
             else{
-                out.writeObject(ServerResults.NOT_FOUND.code());
-                System.out.println(", not found");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.NOT_FOUND.bytes());
+                logln(", not found");
             }
             return true;
-        }catch (IOException | ClassNotFoundException e) {
+        }catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
         return false;
     }
     @Override
     protected boolean getStudents() {
-        /*try {
+        try {
             var students = database.getStudents();
             if(students == null) students = new ArrayList<>();
-            System.out.println("Found " + students.size() + " students");
-            out.writeObject(students);
+            logln("Found " + students.size() + " students");
+            channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                    Converter.getBytes(students));
             return true;
         }catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
         return false;
     }
     @Override
     protected boolean getStudentsInGroup(){
-        /*try {
-            int groupId = (int)in.readObject();
-            var students = database.getStudentsInGroup(groupId);
-            System.out.print("Group id: " + groupId);
+        try {
+            Integer grId = (Integer) getObject();
+            if(grId == null) grId = -1;
+            var students = database.getStudentsInGroup(grId);
+            log("Group id: " + grId);
             if(students != null){
-                out.writeObject(ServerResults.SUCCESSFUL.code());
-                System.out.println(", found " + students.size() + " students");
-                out.writeObject(students);
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.SUCCESSFUL.bytes());
+                logln(", found " + students.size() + " students");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        Converter.getBytes(students));
             }
             else {
-                out.writeObject(ServerResults.NOT_FOUND.code());
-                System.out.println(", not found");
+                channelTo.basicPublish("", QUEUE_NAME_TO, null,
+                        ServerResults.NOT_FOUND.bytes());
+                logln(", not found");
             }
-
             return true;
-        }catch (IOException | ClassNotFoundException e) {
+        }catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
         return false;
     }
 
-
-    public void run() {
-        try {
-            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-            channel.queuePurge(QUEUE_NAME);
-            channel.basicQos(1);
-            Object monitor = new Object();
-            DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-                AMQP.BasicProperties replyProps = new AMQP.BasicProperties
-                        .Builder()
-                        .correlationId(delivery.getProperties().getCorrelationId())
-                        .build();
-
-                Function function = null;
-                try {
-                    String command = new String(delivery.getBody(), StandardCharsets.UTF_8);
-                    function = functionMap.get(command);
-                } catch (RuntimeException e) {
-                    e.printStackTrace();
-                } finally {
-                    if(function == null){
-                        channel.basicPublish("", QUEUE_NAME, null, ServerResults.UNKNOWN_COMMAND.bytes());
-                    }else {
-                        channel.basicPublish("", QUEUE_NAME, null, ServerResults.SUCCESSFUL.bytes());
-                        currentProperties = delivery.getProperties();
-                        currentReplay = delivery.getProperties().getReplyTo();
-                        currentTag = delivery.getEnvelope().getDeliveryTag();
-                        if(!function.call()) logln("Error with last command!");
-                    }
-                    synchronized (monitor) {
-                        monitor.notify();
-                    }
-                }
-            };
-            channel.basicConsume(QUEUE_NAME, false, deliverCallback, (consumerTag -> { }));
-            while (true) {
-                synchronized (monitor) {
-                    try {
-                        monitor.wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+    private DeliverCallback getCommandCallBack(){
+        return  (consumerTag, delivery) -> {
+            String command = new String(delivery.getBody(), StandardCharsets.UTF_8);
+            logln("Command: "+command);
+            var fun = functionMap.get(command);
+            if(fun != null){
+                channelTo.basicPublish("",QUEUE_NAME_TO,  null, ServerResults.SUCCESSFUL.bytes());
+                fun.call();
             }
+            else channelTo.basicPublish("",QUEUE_NAME_TO,  null, ServerResults.UNKNOWN_COMMAND.bytes());
+        };
+    }
+    public void run() {
+        DeliverCallback deliverCallback = getCommandCallBack();
+        try {
+            channelFrom.basicConsume(QUEUE_NAME_FROM, true, deliverCallback, consumerTag -> { });
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 }
