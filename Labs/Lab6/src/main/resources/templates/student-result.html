@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Student</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Student</h1>
+<p th:text="'Id: ' + ${student.id}" />
+<p th:text="'Group id: ' + ${student.groupId}" />
+<p th:text="'Name: ' + ${student.name}" />
+<p th:text="'Surname: ' + ${student.surname}" />
+<p th:text="'Age: ' + ${student.age}" />
+<p th:text="'GPA: ' + ${student.gpa}" />
+<a href="/">Menu</a>
+</body>
+</html>
