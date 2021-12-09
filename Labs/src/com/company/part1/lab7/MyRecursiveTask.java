@@ -19,7 +19,7 @@ public class MyRecursiveTask extends RecursiveTask<Long> {
             System.out.println("Splitting workLoad : " + this.workLoad);
 
             List<MyRecursiveTask> subtasks =
-                    new ArrayList<MyRecursiveTask>();
+                    new ArrayList<>();
             subtasks.addAll(createSubtasks());
 
             for(MyRecursiveTask subtask : subtasks){
