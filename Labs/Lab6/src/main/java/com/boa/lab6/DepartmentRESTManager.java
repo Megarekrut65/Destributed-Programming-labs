@@ -1,7 +1,6 @@
 package com.boa.lab6;
 
 import com.boa.lab6.datebase.DepartmentSqlManager;
-import com.boa.lab6.datebase.subarea.Commands;
 import com.boa.lab6.datebase.subarea.DepartmentManager;
 import com.boa.lab6.datebase.subarea.Group;
 import com.boa.lab6.datebase.subarea.Student;

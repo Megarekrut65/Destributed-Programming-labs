@@ -20,9 +20,9 @@ public class DepartmentManagerMOMClient implements DepartmentManager, AutoClosea
     private Channel channelTo;
     private Channel parameters;
     private Channel channelFrom;
-    private final String QUEUE_NAME_TO = "DepartmentDBTo";
-    private final String QUEUE_NAME_FROM = "DepartmentDBFrom";
-    private final String QUEUE_NAME_PARAMETERS = "DepartmentDBParameters";
+    private final String QUEUE_NAME_TO = "DepartmentTo";
+    private final String QUEUE_NAME_FROM = "DepartmentFrom";
+    private final String QUEUE_NAME_PARAMETERS = "DepartmentParameters";
     public DepartmentManagerMOMClient(String host){
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost(host);

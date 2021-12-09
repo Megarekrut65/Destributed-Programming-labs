@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Student implements Serializable {
-    private String id = "";
+    private String id = "0";
     private int groupId = 0;
     private String name = "";
     private String surname = "";
