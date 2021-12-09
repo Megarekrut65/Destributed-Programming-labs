@@ -32,7 +32,7 @@ func randMatrix(size int) [][]float64 {
 	}
 	return matrix
 }
-func multiply(matrix1 [][]float64, matrix2 [][]float64) [][]float64{
+func multiplyGo(matrix1 [][]float64, matrix2 [][]float64) [][]float64{
 	res := create(len(matrix1))
 	var wg sync.WaitGroup
 	wg.Add(len(matrix1))
@@ -50,11 +50,23 @@ func multiply(matrix1 [][]float64, matrix2 [][]float64) [][]float64{
 	wg.Wait()
 	return res
 }
+func multiply(matrix1 [][]float64, matrix2 [][]float64) [][]float64{
+	res := create(len(matrix1))
+	for i:=range res{
+		for j:=range res[i]{
+			res[i][j] = 0
+			for k:= range matrix1[i]{
+				res[i][j] += matrix1[i][k] * matrix2[k][j]
+			}
+		}
+	}
+	return res
+}
 func main() {
-	size := 1000
+	size := 10
 	matrix1 := randMatrix(size)
 	matrix2 := randMatrix(size)
 	b := time.Now()
-	multiply(matrix1,matrix2)
+	multiplyGo(matrix1,matrix2)
 	fmt.Printf("%fs\n", time.Since(b).Seconds())
 }
