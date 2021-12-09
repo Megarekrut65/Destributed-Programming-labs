@@ -1,12 +1,11 @@
 package com.company.part1.lab7;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveAction;
 
-public class CustomRecursiveAction extends RecursiveAction {
+public class MatrixRecursiveAction extends RecursiveAction {
 
     private final double[][] matrixA;
     private final double[][] matrixB;
@@ -14,7 +13,7 @@ public class CustomRecursiveAction extends RecursiveAction {
     private final int startI;
     private final int endI;
 
-    public CustomRecursiveAction(double[][] matrixA, double[][] matrixB, double[][] res, int startI, int endI) {
+    public MatrixRecursiveAction(double[][] matrixA, double[][] matrixB, double[][] res, int startI, int endI) {
         this.matrixA = matrixA;
         this.matrixB = matrixB;
         this.res = res;
@@ -31,12 +30,12 @@ public class CustomRecursiveAction extends RecursiveAction {
         }
     }
 
-    private List<CustomRecursiveAction> createSubtasks() {
-        List<CustomRecursiveAction> subtasks = new ArrayList<>();
+    private List<MatrixRecursiveAction> createSubtasks() {
+        List<MatrixRecursiveAction> subtasks = new ArrayList<>();
         int center = startI + (endI - startI)/2;
 
-        subtasks.add(new CustomRecursiveAction(matrixA, matrixB, res, startI, center));
-        subtasks.add(new CustomRecursiveAction(matrixA, matrixB, res, center + 1, endI));
+        subtasks.add(new MatrixRecursiveAction(matrixA, matrixB, res, startI, center));
+        subtasks.add(new MatrixRecursiveAction(matrixA, matrixB, res, center + 1, endI));
 
         return subtasks;
     }

@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class TapeScheme {
     public static void main(String[] args) {
-        int size = 10;
+        int size = 1000;
         double[][]
                 matrix1 = new double[size][size],
                 matrix2 = new double[size][size];
